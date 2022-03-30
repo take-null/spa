@@ -1,0 +1,94 @@
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:12:51 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:14:25 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 25ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:29:12 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 26ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:31:33 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 24ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:33:29 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 23ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13898)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:34:07 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 23ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13902)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:36:16 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:38:04 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 24ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13898)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:38:31 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:40:59 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:42:21 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 30ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:43:00 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 21ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:45:43 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 21ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:46:14 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 25ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:46:30 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 23ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:47:17 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 23ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:48:22 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 28ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/api/v1/hello" for 127.0.0.1 at 2022-03-29 19:51:44 +0900
+Processing by Api::V1::HelloController#index as HTML
+Completed 200 OK in 20ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 13897)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
