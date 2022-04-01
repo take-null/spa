@@ -1,7 +1,7 @@
 require 'rails_helper'
-
+#'افتح يا سمسم' <= CIが構築出来たら'hello'と差し替える
 RSpec.describe "Hellos", type: :request do
-  let(:base_title) { 'افتح يا سمسم' }
+  let(:base_title) { 'hello' }
   describe "GET /api/v1/hello" do
     #pending "add some examples (or delete) #{__FILE__}"
     it "shourd get hello" do
