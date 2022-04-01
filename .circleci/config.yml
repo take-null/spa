@@ -1,9 +1,9 @@
-version: 2.1
+version: 2
 
 jobs:
   build:
     machine:
-      image: cimg/base:edge-22.04
+      image: circleci/classic:edge
     steps:
       - checkout
       - run:
@@ -27,7 +27,7 @@ jobs:
       - run:
         name: rails_test_rspec
         command: docker exec -it spa-back-1 rspec
-      -run:
+      - run:
         name: nuxt_test_jest
         command: docker exec -it spa-front-1 yarn test
       - run:
