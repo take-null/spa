@@ -3,36 +3,36 @@ version: 2
 jobs:
   build:
     machine:
-      image: circleci/classic:edge
+      image: ubuntu-2004:current
     steps:
       - checkout
       - run:
-        name: create .env
-        command: |
-          touch .env
-          WORKDIR=${WORKDIR} > .env
-          CONTAINER_PORT=${CONTAINER_PORT} >> .env
-          API_PORT=${API_PORT} >> .env
-          FRONT_PORT=${FRONT_PORT} >> .env
-          POSTGRES_PASSWORD=${POSTGRES_PASSWORD} >> .env
+          name: create .env
+          command: |
+            touch .env
+            WORKDIR=${WORKDIR} > .env
+            CONTAINER_PORT=${CONTAINER_PORT} >> .env
+            API_PORT=${API_PORT} >> .env
+            FRONT_PORT=${FRONT_PORT} >> .env
+            POSTGRES_PASSWORD=${POSTGRES_PASSWORD} >> .env
       - run:
-        name: docker-compose up
-        command: docker-compose up -d
+          name: docker-compose up
+          command: docker-compose up -d
       - run:
-        name: docker ps -a
-        command: docker ps -a
+          name: docker ps -a
+          command: docker ps -a
       - run:
-        name: rails_db_migrate
-        command: docker exec -it spa-back-1 rails db:migrate
+          name: rails_db_migrate
+          command: docker exec -it spa-back-1 rails db:migrate
       - run:
-        name: rails_test_rspec
-        command: docker exec -it spa-back-1 rspec
+          name: rails_test_rspec
+          command: docker exec -it spa-back-1 rspec
       - run:
-        name: nuxt_test_jest
-        command: docker exec -it spa-front-1 yarn test
+          name: nuxt_test_jest
+          command: docker exec -it spa-front-1 yarn test
       - run:
-        name: docker-compose down
-        command: docker-compose down
+          name: docker-compose down
+          command: docker-compose down
       
 
 workflows:
