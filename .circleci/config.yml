@@ -9,7 +9,6 @@ jobs:
       - run:
           name: create .env
           command: |
-            touch .env
             WORKDIR=${WORKDIR} > .env
             CONTAINER_PORT=${CONTAINER_PORT} >> .env
             API_PORT=${API_PORT} >> .env
