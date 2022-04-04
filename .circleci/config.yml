@@ -1,111 +1,107 @@
 version: 2.1
 
-orbs:
-  ruby: circleci/ruby@1.6.0
-  node: circleci/node@5.0.2
-
 jobs:
-  build_back:
+  test_backend:
     docker:
       - image: cimg/ruby:3.1.1-node-browser
-      environment:
-        - BUNDLER_VERSION: 2.3.7
-        - RAILS_ENV: 'test'
-    working_directory: ~/repo
-    steps:
-      - checkout:
-          path: back
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
-  test_back:
-    docker:
-       - image: cimg/ruby:3.1.1-node-browse
-       - image: cimg/postgres:14.1.0
-         environment:
-           POSTGRES_PASSWORD: circleci-demo-ruby
-           POSTGRES_DATABASE: rails_blog_test
-           POSTGRES_USER: ""
-    environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
-      APP_DATABASE_HOST: "127.0.0.1"
-      PGUSER: circleci-demo-ruby
-      PGPASSWORD: ""
-      RAILS_ENV: test
-    working_directory: ~/repo/back
-    steps:
-      - checkout:
-        path: ~/spa/back
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run:
-        name: Database_setup
-        command: bundle exec rails db:schema:load --trace
-      - ruby/rspec-test
-      #- ruby/rubocop-check 
-      working_directory: ~/repo/back
+        environment:
+          RAILS_ENV: test
+          DB_HOST: 127.0.0.1
+      - image: cimg/postgres:14.1.0
 
-  build_front:
-    docker:
-      -image: cimg/node:16.14.0
     working_directory: ~/repo
-    step:
+
+    steps:
       - checkout
+
+      # restore gem from cache
       - restore_cache:
-          name: restore Yarn cache
           keys:
-            - yarn-packages-{{ checksum "spa/front/yarn.lock" }}
+            - gem-cache-v1-{{ checksum "~/repo/backend/Gemfile.lock" }}
+            - gem-cache-v1-
+          working_directory: ~/repo/backend
+
+      # gem install
       - run:
-          name: install dependencies
-          command: yarn install --frozen-lockfile
-          working_directory: ~/spa/front
+          command: |
+            gem install bundler
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
+          working_directory: ~/repo/backend
+
       - save_cache:
-          name: keep Yarn package cache
-          key: yarn-packages-{{ checksum "spa/front/yarn.lock" }}
+          key: gem-cache-v1-{{ checksum "~/repo/backend/Gemfile.lock" }}
           paths:
-            - front/.cache/yarn
-      - run: 
-          name: build front
-          command: yarn run dev
-          working_directory: ~/spa/front
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ~/spa/front
-  test_front:
+            - ~/repo/backend/vendor/bundle
+          working_directory: ~/repo/backend
+
+      # Database setup
+      - run:
+          command: bundle exec rails db:create
+          working_directory: ~/repo/backend
+      - run:
+          command: bundle exec rails db:migrate
+          working_directory: ~/repo/backend
+
+      - run:
+          name: create directory to store test results
+          command: mkdir /tmp/test-results
+          working_directory: ~/repo/backend
+
+      # run tests
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) \
+              || (printf "====== RETRYING...\n\n\n"; bundle exec rspec --only-failures)
+          working_directory: ~/repo/backend
+
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      - store_artifacts:
+          path: /home/circleci/repo/tmp/screenshots
+
+  test_frontend:
     docker:
       - image: cimg/node:16.14.0
-    working_directory: ~/spa/front
+        environment:
+          NODE_ENV: test
+
+    working_directory: ~/repo
+
     steps:
-      - attach_workspace:
-          at: .
-      - run: 
-          name: jest test 
-          command: yarn test
-          working_directory: ~/spa/front
-      - persist_to_workspace:
-          root: .
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "~/repo/frontend/package.json" }}
+          working_directory: ~/repo/frontend
+      - run:
+          name: install-packages
+          command: npm install
+          working_directory: ~/repo/frontend
+      - save_cache:
           paths:
-            - ~/spa/front
+            - node_modules
+          key: v1-dependencies-{{ checksum "~/repo/frontend/package.json" }}
+          working_directory: ~/repo/frontend
+      - run:
+          name: test
+          command: npm run test
+          working_directory: ~/repo/frontend
 
 workflows:
   version: 2
-  build_and_test:
+  test:
     jobs:
-      - build_back
-      - test_back:
+      - test_backend:
           filters:
             branches:
               ignore: main
-      - build_front
-      - test_front:
+      - test_frontend:
           filters:
             branches:
               ignore: main
