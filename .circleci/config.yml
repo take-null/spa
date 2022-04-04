@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 jobs:
   test_backend:
@@ -98,10 +98,10 @@ workflows:
   test:
     jobs:
       - test_backend:
-          filters:
-            branches:
-              ignore: main
+          #filters:
+            #branches:
+              #ignore: main
       - test_frontend:
-          filters:
-            branches:
-              ignore: main
+          #filters:
+            #branches:
+              #ignore: main
