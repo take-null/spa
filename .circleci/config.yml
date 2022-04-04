@@ -97,11 +97,5 @@ workflows:
   version: 2
   test:
     jobs:
-      - test_backend:
-          #filters:
-            #branches:
-              #ignore: main
-      - test_frontend:
-          #filters:
-            #branches:
-              #ignore: main
+      - test_backend
+      - test_frontend
