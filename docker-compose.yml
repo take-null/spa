@@ -8,9 +8,11 @@ services:
       TZ: Asia/Tokyo
       PGTZ: Asia/Tokyo
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    #開発中に中身を確認するため
     ports:
       - "5432:5432"
 
+    #コンテナを破壊してもローカルでデータが永続化される
     volumes:
       - ./back/tmp/db:/var/lib/postgresql/data
 
