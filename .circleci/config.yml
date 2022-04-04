@@ -1,41 +1,111 @@
 version: 2.1
 
+orbs:
+  ruby: circleci/ruby@1.6.0
+  node: circleci/node@5.0.2
+
 jobs:
-  build:
-    machine:
-      image: cimg/base:2022.03
+  build_back:
+    docker:
+      - image: cimg/ruby:3.1.1-node-browser
+      environment:
+        - BUNDLER_VERSION: 2.3.7
+        - RAILS_ENV: 'test'
+    working_directory: ~/repo
     steps:
+      - checkout:
+          path: back
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+  test_back:
+    docker:
+       - image: cimg/ruby:3.1.1-node-browse
+       - image: cimg/postgres:14.1.0
+         environment:
+           POSTGRES_PASSWORD: circleci-demo-ruby
+           POSTGRES_DATABASE: rails_blog_test
+           POSTGRES_USER: ""
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      APP_DATABASE_HOST: "127.0.0.1"
+      PGUSER: circleci-demo-ruby
+      PGPASSWORD: ""
+      RAILS_ENV: test
+    working_directory: ~/repo/back
+    steps:
+      - checkout:
+        path: ~/spa/back
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+        name: Database_setup
+        command: bundle exec rails db:schema:load --trace
+      - ruby/rspec-test
+      #- ruby/rubocop-check 
+      working_directory: ~/repo/back
+
+  build_front:
+    docker:
+      -image: cimg/node:16.14.0
+    working_directory: ~/repo
+    step:
       - checkout
+      - restore_cache:
+          name: restore Yarn cache
+          keys:
+            - yarn-packages-{{ checksum "spa/front/yarn.lock" }}
       - run:
-          name: create .env
-          command: |
-            WORKDIR=${WORKDIR} > .env
-            CONTAINER_PORT=${CONTAINER_PORT} >> .env
-            API_PORT=${API_PORT} >> .env
-            FRONT_PORT=${FRONT_PORT} >> .env
-            POSTGRES_PASSWORD=${POSTGRES_PASSWORD} >> .env
-      - run:
-          name: docker-compose up
-          command: sudo docker-compose up -d
-      - run:
-          name: docker ps -a
-          command: sudo docker ps -a
-      - run:
-          name: rails_db_migrate
-          command: sudo docker exec -it spa-back-1 rails db:migrate
-      - run:
-          name: rails_test_rspec
-          command: sudo docker exec -it spa-back-1 rspec
-      - run:
-          name: nuxt_test_jest
-          command: sudo docker exec -it spa-front-1 yarn test
-      - run:
-          name: docker-compose down
-          command: sudo docker-compose down
-      
+          name: install dependencies
+          command: yarn install --frozen-lockfile
+          working_directory: ~/spa/front
+      - save_cache:
+          name: keep Yarn package cache
+          key: yarn-packages-{{ checksum "spa/front/yarn.lock" }}
+          paths:
+            - front/.cache/yarn
+      - run: 
+          name: build front
+          command: yarn run dev
+          working_directory: ~/spa/front
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ~/spa/front
+  test_front:
+    docker:
+      - image: cimg/node:16.14.0
+    working_directory: ~/spa/front
+    steps:
+      - attach_workspace:
+          at: .
+      - run: 
+          name: jest test 
+          command: yarn test
+          working_directory: ~/spa/front
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ~/spa/front
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - build_back
+      - test_back:
+          filters:
+            branches:
+              ignore: main
+      - build_front
+      - test_front:
+          filters:
+            branches:
+              ignore: main
