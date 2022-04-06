@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test_backend:
+  build_test_backend:
     docker:
       - image: cimg/ruby:3.1.1-node
         environment:
@@ -65,7 +65,7 @@ jobs:
       - store_artifacts:
           path: /home/circleci/app/tmp/screenshots
 
-  test_frontend:
+  build_test_frontend:
     docker:
       - image: cimg/node:16.14.0
         environment:
@@ -97,5 +97,5 @@ workflows:
   version: 2
   test:
     jobs:
-      - test_backend
-      - test_frontend
+      - build_test_backend
+      - build_test_frontend
