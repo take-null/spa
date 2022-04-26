@@ -25,7 +25,11 @@ default: &default
   password: <%= ENV["POSTGRES_PASSWORD"] %> 
 development: 
   <<: *default 
-  database: app_development 
+  <% unless Rails.application.credential.database.present? %>
+    host: db 
+    username: postgres 
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
+  <% end %>
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -85,8 +89,8 @@ production:
   #これを除く以下の３行はデフォルト  
   #database: app_production   
   #username: app   
-  #password: <%= ENV["APP_DATABASE_PASSWORD"] %>     
+  #password: <%= ENV["APP_DATABASE_PASSWORD"] %>
   host: "<%= Rails.application.credentials.rds[:host] %>"  
   database: "<%= Rails.application.credentials.rds[:database] %>"  
   username: "<%= Rails.application.credentials.rds[:username] %>"   
-  password: "<%= Rails.application.credentials.rds[:password] %>"   
+  password: "<%= Rails.application.credentials.rds[:password] %>"

@@ -37,4 +37,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the main process.
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000", "-e", "development "]
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000", "-e", "production"]
