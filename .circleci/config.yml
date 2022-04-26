@@ -40,9 +40,7 @@ jobs:
 
       # Database setup 
       - run:
-          command: |
-            EDITOR="vi" rails credentials:edit
-            bundle exec rails db:create
+          command: bundle exec rails db:create
           working_directory: ~/app/back
       - run:
           command: bundle exec rails db:migrate

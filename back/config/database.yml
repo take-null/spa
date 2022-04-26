@@ -85,10 +85,12 @@ test:
 production: 
   <<: *default     
   #これを除く以下の３行はデフォルト  
-  database: app_production   
-  username: app   
-  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
-  #host: "<%= Rails.application.credentials.rds[:host] %>"  
-  #database: "<%= Rails.application.credentials.rds[:database] %>"  
-  #username: "<%= Rails.application.credentials.rds[:username] %>"   
-  #password: "<%= Rails.application.credentials.rds[:password] %>"
+  #database: app_production   
+  #username: app   
+  #password: <%= ENV["APP_DATABASE_PASSWORD"] %>
+  <% if Rails.application.credentials.database.present? %>
+    host: "<%= Rails.application.credentials.rds[:host] %>"  
+    database: "<%= Rails.application.credentials.rds[:database] %>"  
+    username: "<%= Rails.application.credentials.rds[:username] %>"   
+    password: "<%= Rails.application.credentials.rds[:password] %>"
+  <% end %>
