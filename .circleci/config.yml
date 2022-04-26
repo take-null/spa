@@ -9,14 +9,13 @@ jobs:
       - image: cimg/ruby:3.1.1-node
         environment:
           RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           APP_DATABASE_HOST: 127.0.0.1
       - image: cimg/postgres:14.2
 
     working_directory: ~/app
 
     steps:
-      - checkout
+      - checkout 
 
       # restore gem from cache
       - restore_cache:
@@ -40,6 +39,10 @@ jobs:
           working_directory: ~/app/back
 
       # Database setup
+      env:
+        RAILS_ENV: test
+        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        
       - run:
           command: bundle exec rails db:create
           working_directory: ~/app/back
