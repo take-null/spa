@@ -99,7 +99,11 @@ workflows:
     jobs:
       - build_test_backend:
           filters:
-            only: main
+            branches:
+              only: 
+                - main
       - build_test_frontend:
           filters:
-            only: main
+            branches:
+              only: 
+                - main
