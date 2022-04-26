@@ -97,5 +97,9 @@ workflows:
   version: 2
   test:
     jobs:
-      - build_test_backend
+      - build_test_backend:
+          filters:
+            only: main
       - build_test_frontend
+          filters:
+            only: main

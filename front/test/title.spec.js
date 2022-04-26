@@ -4,6 +4,6 @@ import Hello from '@/pages/index'
 describe('open Sesame', () => {
   test('display open Sesame', () => {
     const wrapper = mount(Hello)
-    expect(wrapper.text()).toBe("open Sesame")
+    expect(wrapper.text()).toBe("hello")
   })
 })
