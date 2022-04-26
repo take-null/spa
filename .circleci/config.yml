@@ -41,7 +41,7 @@ jobs:
       # Database setup 
       - run:
           command: |
-            sudo EDITOR=vim rails credentials:edit
+            EDITOR="vi" rails credentials:edit
             bundle exec rails db:create
           working_directory: ~/app/back
       - run:
