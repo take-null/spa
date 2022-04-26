@@ -5,7 +5,7 @@
       name="button"
       @click="getMsg"
     >
-      open Sesame
+      hello
     </button>
     <div
       v-for="(msg, i) in msgs"
@@ -25,7 +25,10 @@ export default {
   },
   methods: {
     getMsg () {
-      this.$axios.$get('/api/v1/hello')
+      //本番用
+      //this.$axios.$get('https://referer-hub-api.net')
+      //開発用(railsのトップページを取得して配列に格納し、出力)
+      this.$axios.$get('/')
         .then(res => this.msgs.push(res))
     }
   }
