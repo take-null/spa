@@ -38,13 +38,11 @@ jobs:
             - ~/repo/back/vendor/bundle
           working_directory: ~/app/back
 
-      # Database setup
-      env:
-        RAILS_ENV: test
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        
+      # Database setup 
       - run:
-          command: bundle exec rails db:create
+          command: |
+            sudo EDITOR=vim rails credentials:edit
+            bundle exec rails db:create
           working_directory: ~/app/back
       - run:
           command: bundle exec rails db:migrate
