@@ -8,7 +8,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.1.1-node
         environment:
-          RAILS_ENV: test
+          RAILS_ENV: developement
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           APP_DATABASE_HOST: 127.0.0.1
       - image: cimg/postgres:14.2
