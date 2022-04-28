@@ -118,7 +118,7 @@ workflows:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           dockerfile: '/home/circleci/project/back/Dockerfile'    
-          path: C:\Users\bluer\docker\spa\back\Dockerfile  
+          path: ./back  
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
             - build_test_backend
@@ -134,7 +134,7 @@ workflows:
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
           dockerfile: front/Dockerfile    
-          path: '/home/circleci/project/front/Dockerfile'  
+          path: ./front  
           requires:  
             - build_test_backend
             - build_test_frontend
