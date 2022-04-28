@@ -28,7 +28,9 @@ RUN apk update && \
     apk upgrade && \
     apk add --no-cache ${RUNTIME_PACKAGES} && \
     apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
-    sudo bundle install -j4 && \
+    gem install bundler:2.3.7 && \
+    bundle config set path 'vendor/bundle' && \
+    bundle install --jobs=4 --retry=3 && \
     apk del build-dependencies
 
 # ローカルにあるものを全てイメージにコピー
