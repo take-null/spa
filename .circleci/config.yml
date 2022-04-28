@@ -7,7 +7,7 @@ orbs:
 jobs:
   build_test_backend:
     docker:
-      - image: cimg/ruby:3.1.1-node
+      - image: cimg/ruby:3.0.2-node
         environment:
           RAILS_ENV: test
           APP_DATABASE_HOST: 127.0.0.1
@@ -28,7 +28,7 @@ jobs:
       # gem install
       - run:
           command: |
-            gem install bundler:2.3.7
+            gem install bundler:2.3.4
             bundle config set path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
           working_directory: ~/app/back
