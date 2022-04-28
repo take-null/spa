@@ -116,8 +116,8 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL 
           repo: ${REPO_NAME_BACK}
           region: AWS_REGION
-          tag: "latest,${CIRCLE_SHA1}"     
-          path: './back'
+          tag: "${CIRCLE_SHA1}"     
+          dockerfile: ./back/Dockerfile
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
             - build_test_backend 
@@ -131,8 +131,8 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL 
           repo: ${REPO_NAME_FRONT}
           region: AWS_REGION
-          tag: "latest,${CIRCLE_SHA1}"      
-          path: './front'  
+          tag: "${CIRCLE_SHA1}"      
+          dockerfile: ./front/Dockerfile  
           requires:  
             - build_test_frontend
           filters:  
