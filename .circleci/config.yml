@@ -1,7 +1,8 @@
 version: 2.1
 
 orbs: 
-  aws-ecr: circleci/aws-ecr@8.1.0
+  aws-ecr: circleci/aws-ecr@7.3.0
+  aws-ecs: circleci/aws-ecs@2.1.0
 
 jobs:
   build_test_backend:
@@ -96,17 +97,70 @@ jobs:
           command: yarn test
           working_directory: ~/app/front
 
-workflows:
-  version: 2
-  test:
-    jobs:
-      - build_test_backend:
-          filters:
-            branches:
-              only: 
+workflows:  
+  version: 2  
+  build_and_test_and_deploy:  
+    jobs:  
+      - build_test_backend:  
+          filters:  
+            branches:  
+              only:  
                 - main
       - build_test_frontend:
-          filters:
-            branches:
-              only: 
+          filters:  
+            branches:  
+              only:   
+                - main
+      - aws-ecr/build-and-push-image:
+          name: 'build-and-push-back'
+          account-url: AWS_ECR_ACCOUNT_URL 
+          repo: REPO_NAME_BACK
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          path: './back'
+          dockerfile: back/Dockerfile
+          extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
+          requires:  
+            - build_test_backend
+            - build_test_frontend
+          filters:  
+            branches:  
+              only:  
+                - main
+      - aws-ecr/build-and-push-image:
+          name: 'build-and-push-front'
+          account-url: AWS_ECR_ACCOUNT_URL 
+          repo: REPO_NAME_FRONT
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+          path: './front'
+          dockerfile: front/Dockerfile
+          requires:  
+            - build_test_backend
+            - build_test_frontend
+          filters:  
+            branches:  
+              only:  
+                - main
+      - aws-ecs/deploy-service-update:
+          family: ${FAMILY_NAME_BACK}
+          service-name: ${SERVICE_NAME_BACK}
+          cluster-name: ${CLUSTER_NAME}
+          container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_BACK}:${CIRCLE_SHA1}'
+          requires:  
+            - 'build-and-push-back'  
+          filters:  
+            branches:  
+              only:  
+                - main
+      - aws-ecs/deploy-service-update:
+          family: ${FAMILY_NAME_FRONT}
+          service-name: ${SERVICE_NAME_FRONT}
+          cluster-name: ${CLUSTER_NAME}
+          container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_FRONT}:${CIRCLE_SHA1}'
+          requires:  
+            - 'build-and-push-front'  
+          filters:  
+            branches:  
+              only:  
                 - main
