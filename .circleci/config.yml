@@ -116,11 +116,12 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL 
           repo: ${REPO_NAME_BACK}
           region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"     
+          tag: "latest,${CIRCLE_SHA1}"     
           path: './back'
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
-            - build_test_backend
+            - build_test_backend 
+            - 'build-and-push-front' 
           filters:  
             branches:  
               only:  
@@ -130,7 +131,7 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL 
           repo: ${REPO_NAME_FRONT}
           region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"      
+          tag: "latest,${CIRCLE_SHA1}"      
           path: './front'  
           requires:  
             - build_test_frontend
@@ -155,6 +156,7 @@ workflows:
           cluster-name: ${CLUSTER_NAME}
           container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_FRONT}:${CIRCLE_SHA1}'
           requires:  
+            - 'build-and-push-back'  
             - 'build-and-push-front'  
           filters:  
             branches:  
