@@ -117,11 +117,10 @@ workflows:
           repo: ${REPO_NAME_BACK}
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"     
-          path: ./back
+          path: './back'
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
             - build_test_backend
-            - build_test_frontend
           filters:  
             branches:  
               only:  
@@ -132,9 +131,8 @@ workflows:
           repo: ${REPO_NAME_FRONT}
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"      
-          path: ./front  
+          path: './front'  
           requires:  
-            - build_test_backend
             - build_test_frontend
           filters:  
             branches:  
