@@ -117,7 +117,7 @@ workflows:
           repo: ${REPO_NAME_BACK}
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
-          path: './back'
+          path: 'spa/back'
           dockerfile: back/Dockerfile
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
@@ -133,7 +133,7 @@ workflows:
           repo: ${REPO_NAME_FRONT}
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
-          path: './front'
+          path: 'spa/front'
           dockerfile: front/Dockerfile
           requires:  
             - build_test_backend
