@@ -28,7 +28,7 @@ RUN apk update && \
     apk upgrade && \
     apk add --no-cache ${RUNTIME_PACKAGES} && \
     apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
-    bundle install -j4 && \
+    sudo bundle install -j4 && \
     apk del build-dependencies
 
 # ローカルにあるものを全てイメージにコピー
