@@ -115,8 +115,8 @@ workflows:
           name: 'build-and-push-back'
           account-url: AWS_ECR_ACCOUNT_URL 
           repo: ${REPO_NAME_BACK}
-          region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"     
+          region: AWS_REGION 
+          tag: ${CIRCLE_SHA1}      
           path: ./back
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
@@ -129,9 +129,9 @@ workflows:
       - aws-ecr/build-and-push-image:
           name: 'build-and-push-front'
           account-url: AWS_ECR_ACCOUNT_URL 
-          repo: ${REPO_NAME_FRONT}
-          region: AWS_REGION
-          tag: "${CIRCLE_SHA1}"  
+          repo: ${REPO_NAME_FRONT} 
+          region: AWS_REGION 
+          tag: ${CIRCLE_SHA1}  
           path: ./front  
           requires:  
             - build_test_frontend
@@ -146,6 +146,7 @@ workflows:
           container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_BACK}:${CIRCLE_SHA1}'
           requires:  
             - 'build-and-push-back'  
+            - 'build-and-push-front'  
           filters:  
             branches:  
               only:  
