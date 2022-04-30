@@ -114,14 +114,14 @@ workflows:
       - aws-ecr/build-and-push-image:
           name: 'build-and-push-back'
           account-url: AWS_ECR_ACCOUNT_URL 
-          repo: ${REPO_NAME_BACK}
+          repo: '${MY_APP_PREFIX}-back'  
           region: AWS_REGION 
-          tag: ${CIRCLE_SHA1}      
+          tag: '${CIRCLE_SHA1}'      
           path: ./back
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
-            - build_test_backend 
-            - 'build-and-push-front' 
+            - build_test_backend  
+            - build_test_frontend   
           filters:  
             branches:  
               only:  
@@ -129,21 +129,21 @@ workflows:
       - aws-ecr/build-and-push-image:
           name: 'build-and-push-front'
           account-url: AWS_ECR_ACCOUNT_URL 
-          repo: ${REPO_NAME_FRONT} 
+          repo: '${MY_APP_PREFIX}-front'   
           region: AWS_REGION 
-          tag: ${CIRCLE_SHA1}  
+          tag: '${CIRCLE_SHA1}'    
           path: ./front  
           requires:  
-            - build_test_frontend
+            - build_test_backend  
+            - build_test_frontend  
           filters:  
             branches:  
               only:  
                 - main
       - aws-ecs/deploy-service-update:
-          family: ${FAMILY_NAME_BACK}
-          service-name: ${SERVICE_NAME_BACK}
-          cluster-name: ${CLUSTER_NAME}
-          container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_BACK}:${CIRCLE_SHA1}'
+          family: '${MY_APP_PREFIX}-back'  
+          cluster-name: '${MY_APP_PREFIX}-cluster'  
+          container-image-name-updates: 'container=${MY_APP_PREFIX}-back,tag=${CIRCLE_SHA1}'
           requires:  
             - 'build-and-push-back'  
             - 'build-and-push-front'  
@@ -152,10 +152,9 @@ workflows:
               only:  
                 - main
       - aws-ecs/deploy-service-update:
-          family: ${FAMILY_NAME_FRONT}
-          service-name: ${SERVICE_NAME_FRONT}
-          cluster-name: ${CLUSTER_NAME}
-          container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_FRONT}:${CIRCLE_SHA1}'
+          family: '${MY_APP_PREFIX}-front'  
+          cluster-name: '${MY_APP_PREFIX}-cluster'  
+          container-image-name-updates: 'container=${MY_APP_PREFIX}-front,tag=${CIRCLE_SHA1}'
           requires:  
             - 'build-and-push-back'  
             - 'build-and-push-front'  
