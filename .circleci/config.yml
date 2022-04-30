@@ -120,8 +120,7 @@ workflows:
           path: ./back
           extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
           requires:  
-            - build_test_backend  
-            - build_test_frontend   
+            - build_test_backend     
           filters:  
             branches:  
               only:  
@@ -134,7 +133,6 @@ workflows:
           tag: '${CIRCLE_SHA1}'    
           path: ./front  
           requires:  
-            - build_test_backend  
             - build_test_frontend  
           filters:  
             branches:  
@@ -145,8 +143,7 @@ workflows:
           cluster-name: '${MY_APP_PREFIX}-cluster'  
           container-image-name-updates: 'container=${MY_APP_PREFIX}-back,tag=${CIRCLE_SHA1}'
           requires:  
-            - 'build-and-push-back'  
-            - 'build-and-push-front'  
+            - 'build-and-push-back'    
           filters:  
             branches:  
               only:  
@@ -156,9 +153,8 @@ workflows:
           cluster-name: '${MY_APP_PREFIX}-cluster'  
           container-image-name-updates: 'container=${MY_APP_PREFIX}-front,tag=${CIRCLE_SHA1}'
           requires:  
-            - 'build-and-push-back'  
             - 'build-and-push-front'  
           filters:  
             branches:  
               only:  
-                - main
+                - main 
