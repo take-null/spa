@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
-    def hello
-        render json: "HELL"
-    end
+  include DeviseTokenAuth::Concerns::SetUserByToken
+  include ActionController::Cookies
+  def hello
+    render json: "HELL"
+  end
 end
