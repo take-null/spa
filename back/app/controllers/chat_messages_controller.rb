@@ -1,5 +1,5 @@
 class ChatMessagesController < ApplicationController
-  #工事中
+  #before_action :logged_in_user, only: [:create, :destroy] 工事中
   def index
     messages = ChatMessage.all
     message_array = messages.map do |message|
@@ -7,7 +7,7 @@ class ChatMessagesController < ApplicationController
         id: message.id,
         user_id: message.user.id,
         name: message.name,
-        content: message.content,
+        content: message.chat_message_content,
         created_at: message.created_at
       }
     end

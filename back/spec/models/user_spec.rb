@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    @user = User.new( name: "Example User", email: "example@example.com", 
-                      password: "password", password_confirmation: "password" )
+    @user = FactoryBot.build(:user)
   end
 
   subject { @user }
@@ -12,6 +11,7 @@ RSpec.describe User, type: :model do
   it { should respond_to(:email) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  #it { should respond_to(:tweer_content) }
 
   it { should be_valid }
 
@@ -60,8 +60,7 @@ RSpec.describe User, type: :model do
   end
   describe "when password is not present" do
     before do
-      @user = User.new(name: "Example User", email: "example@example.com",
-                       password: " ", password_confirmation: " " )
+      @user = FactoryBot.build(:user, password: " ", password_confirmation: " " )
     end
     it { should_not be_valid }
   end
@@ -72,5 +71,17 @@ RSpec.describe User, type: :model do
   describe "with a password that's too short" do
     before { @user.password = @user.password_confirmation = "a" * 5 }
     it { should be_invalid }
+  end
+  describe "tweet associations" do
+    before { @user.save }
+    let!(:older_micropost) do
+      FactoryBot.create(:tweet_content, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_micropost) do
+      FactoryBot.create(:tweet_content, user: @user, created_at: 1.day.ago)
+    end
+    it "should have the right tweet in right order" do
+      expect(@user.tweet_message.to_a).to eq [newer_micropost, older_micropost]
+    end
   end
 end

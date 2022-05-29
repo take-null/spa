@@ -16,15 +16,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_140000) do
 
   create_table "chat_messages", force: :cascade do |t|
     t.integer "user_id"
-    t.text "content"
+    t.text "chat_message_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "created_at"], name: "index_chat_messages_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_chat_messages_on_user_id"
+  end
+
+  create_table "hellos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tweets", force: :cascade do |t|
     t.integer "user_id"
-    t.text "tweet_message"
+    t.text "tweet_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_tweets_on_user_id_and_created_at"
