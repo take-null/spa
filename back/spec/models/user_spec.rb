@@ -11,7 +11,8 @@ RSpec.describe User, type: :model do
   it { should respond_to(:email) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
-  #it { should respond_to(:tweer_content) }
+  #userはhas_many tweetsなので()の中はtweetモデルの複数形がシンボルとして入る
+  it { should respond_to(:tweets) }
 
   it { should be_valid }
 
@@ -74,14 +75,25 @@ RSpec.describe User, type: :model do
   end
   describe "tweet associations" do
     before { @user.save }
-    let!(:older_micropost) do
-      FactoryBot.create(:tweet_content, user: @user, created_at: 1.day.ago)
+    let!(:older_tweet) do
+      FactoryBot.create(:tweet, user: @user, created_at: 1.day.ago)
     end
-    let!(:newer_micropost) do
-      FactoryBot.create(:tweet_content, user: @user, created_at: 1.day.ago)
+    let!(:newer_tweet) do
+      FactoryBot.create(:tweet, user: @user, created_at: 1.day.ago)
     end
+    #生成したuser、すなわち@userは上記で生成したtweetを複数持つ
+    #それらを模したものが:older_micropostとnewer_micropostである
+    #@user.tweetsでtweetの配列を返す事になる為、これとeq以下で定義した配列が同一ならば順序をテストした事と同義になる
     it "should have the right tweet in right order" do
-      expect(@user.tweet_message.to_a).to eq [newer_micropost, older_micropost]
+      expect(@user.tweets.to_a).to eq [newer_tweet, older_tweet]
+    end
+    it "should destroy associated tweets" do
+      tweets = @user.tweets.to_a
+      @user.destroy
+      expect(tweets).not_to be_empty
+      tweets.each do |tweet|
+        expect(Tweet.where(id: tweet.id)).to be_empty
+      end
     end
   end
 end

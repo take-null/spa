@@ -28,4 +28,14 @@ RSpec.describe Tweet, type: :model do
     before { @tweet.user_id = nil }
     it { should be_invalid }
   end
+
+  describe "with blank content" do
+    before { @tweet.tweet_content = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with content that is too long" do
+    before { @tweet.tweet_content = @tweet.tweet_content = "a" * 141 }
+    it { should be_invalid }
+  end
 end
