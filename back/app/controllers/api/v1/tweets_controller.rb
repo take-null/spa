@@ -1,20 +1,11 @@
 module Api
   module V1
     class TweetsController < ApplicationController
-      before_action :set_post, only: [:index, :show, :update, :destroy]
-      before_action :authenticate_api_v1_user! 
+      before_action :set_tweet, only: [:index, :show, :update, :destroy]
+      #before_action :authenticate_api_v1_user! 
       def index
-        messages = Tweet.all
-        message_array = messages.map do |message|
-          {
-            id: message.id,
-            user_id: message.user.id,
-            name: message.name,
-            content: message.tweet_content,
-            created_at: message.created_at
-          }
-        end
-        render json: messages_array, status: 'SUCCESS'
+        tweets = Tweet.all
+        render json: { status: 'SUCCESS', message: 'Loaded tweets', data: tweets }
       end
 
       def show
@@ -26,7 +17,7 @@ module Api
             'image': @user.image
           }
         }
-        render json: { status: 'SUCCESS', message: 'Loaded the post', data: json_data }
+        render json: { status: 'SUCCESS', message: 'Loaded the tweet', data: json_data }
       end
 
       def create
@@ -40,7 +31,7 @@ module Api
 
       def destroy
         @tweet.destroy
-        render json: { status: 'SUCCESS', message: 'Delete the post', data: @tweet }
+        render json: { status: 'SUCCESS', message: 'Delete the tweet', data: @tweet }
       end
 
       def update
@@ -50,14 +41,13 @@ module Api
       private
 
 
-      def set_post
-        @tweet = Tweet.find(params[:id])
+      def set_tweet
+        @tweet = Tweet.find_by(params[:id])
       end 
 
       def tweet_params
         params.require(:tweet).permit(:tweet_content, :user_id)
       end
-
     end
   end
 end
