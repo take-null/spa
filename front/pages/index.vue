@@ -5,7 +5,7 @@
       name="button"
       @click="getMsg"
     >
-      hello
+      click here
     </button>
     <div
       v-for="(msg, i) in msgs"
