@@ -13,16 +13,6 @@ module Api
         render json: @user, status: :ok
       end
 
-      def edit
-        @user = User.find(params[:id])
-      end
-
-      def update
-        #@user = User.find(params[:id])
-        #if @user.update()
-      end
-
-
       def destroy
         @user = correct_user
         if @user.destroy
@@ -35,7 +25,6 @@ module Api
       private
       def correct_user
         @user = User.find(params[:id])
-        redirect_to(root_url) unless 
       end
 
     end
