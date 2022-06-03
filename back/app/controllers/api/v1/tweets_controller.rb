@@ -28,6 +28,7 @@ module Api
       #認証中のユーザーが自分と同一でないuser_idを持つtweetを削除した場合エラーになる
       def destroy
         @tweet = current_user.tweets.find(params[:id])
+        @tweet.destroy
         if @tweet.destroy
           render json: { status: 'SUCCESS', message: 'Delete the tweet', data: @tweet }
         else
