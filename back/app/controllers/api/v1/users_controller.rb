@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      before_action :authenticate_api_v1_user!
       #before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
       def index
         @user = User.all
@@ -9,6 +10,7 @@ module Api
 
       def show
         @user = correct_user
+        @tweets = @user.tweets
         #@tweets = @user.tweets.paginate(page: params[:page])
         render json: @user, status: :ok
       end

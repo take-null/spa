@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       }
       #ユーザー検索機能用？
       resources :users, only: [:index, :show, :destroy]
-      resources :tweets
+      resources :tweets, only: [:index, :show, :create, :destroy]
     end
   end
 end
