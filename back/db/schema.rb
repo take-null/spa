@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_03_072526) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_04_053416) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_072526) do
     t.text "chat_message_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "created_at"], name: "index_chat_messages_on_user_id_and_created_at"
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_chat_messages_on_room_id"
     t.index ["user_id"], name: "index_chat_messages_on_user_id"
   end
 
@@ -37,13 +38,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_072526) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.text "room_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tweets", force: :cascade do |t|
     t.integer "user_id"
     t.text "tweet_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_tweets_on_user_id_and_created_at"
-    t.index ["user_id"], name: "index_tweets_on_user_id"
+  end
+
+  create_table "user_rooms", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_user_rooms_on_room_id"
+    t.index ["user_id"], name: "index_user_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -68,8 +83,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_072526) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "chat_messages", "rooms"
   add_foreign_key "chat_messages", "users"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "tweets", "users"
+  add_foreign_key "user_rooms", "rooms"
+  add_foreign_key "user_rooms", "users"
 end

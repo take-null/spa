@@ -2,7 +2,7 @@ module Api
   module V1
     class TweetsController < ApplicationController
       #認証に成功していなければ以下のアクション全てでリクエストに失敗する
-      before_action :authenticate_api_v1_user!
+      before_action :authenticate_api_v1_user!, only: [:index, :show, :create, :destroy]
 
       def index
         tweets = Tweet.all

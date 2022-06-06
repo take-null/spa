@@ -4,7 +4,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
   #dependent: :destroyユーザーの投稿をユーザーの破棄と同時に破棄するコード
-  has_many :chat_messages, dependent: :destroy
+  #チャット機能用のリレーション
+  #has_many :chat_messages, dependent: :destroy
+  #has_many :user_room, dependent: :destroy
+
+  has_many :user_rooms, dependent: :destroy
+  has_many :rooms, through: :user_rooms
+  #マイクロポスト用のリレーション
   has_many :tweets, dependent: :destroy
   has_many :likes, dependent: :destroy
 

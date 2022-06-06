@@ -1,0 +1,7 @@
+<h1>Chat Rooms</h1>
+
+<ul>
+    <% @rooms.each do |room| %>
+        <li><%= link_to room.room_name, api_v1_user_room_path(@user,room) %></li>
+    <% end %>
+</ul>
