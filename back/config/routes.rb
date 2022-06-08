@@ -10,11 +10,10 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :destroy] do
         resources :rooms, only: [:index, :show]
       end
-      resources :chat_messages, only: [:index, :create]
+      resources :chat_messages, only: [:create]
       resources :tweets, only: [:index, :show, :create, :destroy] do
         resources :likes, only: [:create, :destroy]
       end
     end
   end
-  #resources :chat_messages, only: [:index, :create]
 end

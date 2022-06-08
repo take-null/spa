@@ -1,13 +1,13 @@
 # gem 'rails', '~> 7' はRuby2.7.0以上が必須で3.0以上が望ましい
 # 軽量なalpineを選択(バージョンも固定した方が安定性は増す)
-FROM ruby:3.0.2-alpine3.13
+FROM ruby:2.7.6-alpine3.15
 
 # docker-compose.ymlで具体的に指定(./back)
 ARG WORKDIR
 
 # Dockerイメージで使用する環境変数
 # イメージからコンテナへ渡され、コンテナへ渡されると、コンテナ内で起動したアプリケーションで参照可
-ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata postgresql-dev postgresql git imagemagick" \
+ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata postgresql-dev postgresql git imagemagick yarn" \
     DEV_PACKAGES="build-base curl-dev" \
     HOME=/${WORKDIR} \
     LANG=C.UTF-8 \

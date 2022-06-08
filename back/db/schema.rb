@@ -10,53 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_04_053416) do
+ActiveRecord::Schema.define(version: 2022_06_04_053416) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "chat_messages", force: :cascade do |t|
     t.integer "user_id"
     t.text "chat_message_content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
     t.index ["room_id"], name: "index_chat_messages_on_room_id"
     t.index ["user_id"], name: "index_chat_messages_on_user_id"
   end
 
   create_table "hellos", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "tweet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
     t.text "room_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tweets", force: :cascade do |t|
     t.integer "user_id"
     t.text "tweet_content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "created_at"], name: "index_tweets_on_user_id_and_created_at"
   end
 
   create_table "user_rooms", force: :cascade do |t|
     t.integer "user_id"
     t.integer "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_user_rooms_on_room_id"
     t.index ["user_id"], name: "index_user_rooms_on_user_id"
   end
@@ -66,9 +67,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_04_053416) do
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: 6
     t.boolean "allow_password_change", default: false
-    t.datetime "remember_created_at"
+    t.datetime "remember_created_at", precision: 6
     t.string "name"
     t.string "image"
     t.string "email"
@@ -76,8 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_04_053416) do
     t.date "age"
     t.string "locate"
     t.json "tokens"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
