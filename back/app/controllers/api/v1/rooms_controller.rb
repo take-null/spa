@@ -10,8 +10,9 @@ class Api::V1::RoomsController < ActionController::Base
 
   def show
     @room = @user.rooms.find(params[:id])
-    @chat_messages = @room.chat_messages.all
+    @chat_messages = @room.chat_messages.order(created_at: :desc).limit(10)
     @chat_message = @room.chat_messages.build
+    #render json: { status: 'SUCCESS', message: 'Loaded rooms', data: @room }
     #render json: { status: 'SUCCESS', message: 'Loaded rooms', data: @chat_messages }
   end
 

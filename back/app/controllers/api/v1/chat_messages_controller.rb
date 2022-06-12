@@ -18,12 +18,15 @@ module Api
 
       def create
         @chat_message = ChatMessage.create!(message_params)
+        @room = Room.find_by(id: message_params[:room_id])
+        RoomChannel.broadcast_to(@room, message: @chat_message.template)
         #render json: { status: 'SUCCESS', data: @chat_message }
       end
 
     private
+
       def message_params
-        params.require(:chat_message).permit(:chat_message_content, :room_id, :user_id)
+        params.require(:chat_message).permit(:message, :room_id, :user_id)
       end
     end
   end

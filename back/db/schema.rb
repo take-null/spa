@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_04_053416) do
+ActiveRecord::Schema.define(version: 2022_06_11_112249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "chat_messages", force: :cascade do |t|
     t.integer "user_id"
-    t.text "chat_message_content"
+    t.text "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2022_06_04_053416) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.text "room_name"
+    t.text "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

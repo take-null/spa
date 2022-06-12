@@ -1,20 +1,15 @@
-<h1><%= @room.room_name %></h1>
+<h1><%= @room.name %></h1>
 <div id="data" data-room-id="<%= @room.id %>" data-user-id="<%= @user.id %>"></div>
 
 <div id="container">
     <%= render @chat_messages %>
 </div>
-#form_withは、引数として(model: 指定したインスタンス(@chat_message))のように記述する
-#今回はnamesupaceでurlを指定しているため、url: (名前付きルーティング)　としてルートを指定している
-#名前付きルーティングの確認方法は　/app# rails routes をした後、Prefixの部分で確認できる
-# 今回の例でいえば、具体的には　(Prefix)_path　と記述する事で繋がる
-#roomsで表示されたroom一覧からチャットルームに入るにはurlが必要
-<%= form_with(model: @chat_message, url: api_v1_chat_messages_path, html:{name: "myform"}) do |f| %>
 
-    <%= f.text_field :chat_message_content %>
-    <%= f.hidden_field :user_id, value: @user.id %>
-    <%= f.hidden_field :room_id, value: @room.id %>
-    <%= f.submit '送信' %>
+<%= form_with(model: @chat_message, url: api_v1_chat_messages_path, format: js, local: true, html:{name: "myform"}) do |f| %>
+  <%= f.text_field :message %>
+  <%= f.hidden_field :user_id, value: @user.id %>
+  <%= f.hidden_field :room_id, value: @room.id %>
+  <%= f.submit '送信' %>
 <% end %>
 
 <%= link_to 'Back', api_v1_user_rooms_path(@user) %>

@@ -3,6 +3,10 @@ class ChatMessage < ApplicationRecord
   belongs_to :user
   belongs_to :room
 
-  validates :chat_message_content, presence: true
-  validates :chat_message_content, length: { maximum: 140 }
+  validates :message, presence: true
+  validates :message, length: { maximum: 140 }
+
+  def template
+    ApplicationController.renderer.render partial: 'api/v1/chat_messages/chat_message', locals: { chat_message: self }
+  end
 end

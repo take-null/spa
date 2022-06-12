@@ -1,2 +1,14 @@
 pry(#<RoomChannel>)> params
 exit
+ChatMessages.all
+User.all
+Room.all
+User.all
+Tweet.all
+exit
+User.all
+exit
+user = User.find(1)
+user2 = User.find(2)
+UserRoom.all
+Like.all

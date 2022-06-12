@@ -9,10 +9,11 @@ module Api
       end
 
       def show
-        @user = correct_user
-        @tweets = @user.tweets
+        @user = User.find(params[:id])
+        #@user = correct_user
+        #@tweets = @user.tweets
         #@tweets = @user.tweets.paginate(page: params[:page])
-        render json: @user, status: :ok
+        #render json: @user, status: :ok
       end
 
       def destroy
