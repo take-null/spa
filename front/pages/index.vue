@@ -1,5 +1,11 @@
 <template>
   <div>
+    <p>ポートフォリオサイトへようこそ</p>
+    <nuxt-link to="/login">登録済みの方はこちら</nuxt-link>
+    <nuxt-link to="/signup">新規登録</nuxt-link>
+  </div>
+  <!--
+  <div>
     <button
       type="button"
       name="button"
@@ -14,9 +20,11 @@
       {{ msg }}
     </div>
   </div>
+  -->
 </template>
 
 <script>
+/*
 export default {
   data () {
     return {
@@ -33,4 +41,5 @@ export default {
     }
   }
 }
+*/
 </script>
