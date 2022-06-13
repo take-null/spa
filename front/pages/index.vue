@@ -1,8 +1,14 @@
 <template>
-  <div>
+  <div class="container welcome">
     <p>ポートフォリオサイトへようこそ</p>
-    <nuxt-link to="/login">登録済みの方はこちら</nuxt-link>
-    <nuxt-link to="/signup">新規登録</nuxt-link>
+    <div v-if="shouldShowLoginForm">
+      <LoginForm />
+      <p class="change-form">初めての方は<span @click="shouldShowLoginForm = false">こちら</span>をクリック</p>
+    </div>
+    <div v-if="!shouldShowLoginForm">
+      <SignupForm />
+      <p class="change-form">アカウントをお持ちの方は<span @click="shouldShowLoginForm = true">こちら</span>をクリック</p>
+    </div>
   </div>
   <!--
   <div>
@@ -24,6 +30,16 @@
 </template>
 
 <script>
+import LoginForm from '~/components/FormComponents/LoginForm.vue'
+import SignupForm from "~/components/FormComponents/SignupForm.vue"
+export default {
+  components: { SignupForm, LoginForm },
+  data () {
+    return {
+      shouldShowLoginForm: true
+    }
+  }
+};
 /*
 export default {
   data () {
