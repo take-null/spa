@@ -1,5 +1,6 @@
 <template>
-  <v-text-field 
+  <v-text-field
+    v-model="setPassword"
     :value="password" 
     label="パスワード"
     prepend-icon="mdi-lock"
@@ -8,7 +9,8 @@
     hint="最小６文字"
     counter
     @click:append="show = !show"
-    @input="$emit('update:password', $event)"
+    placeholder="パスワードを入力"
+    outlined
   >
   </v-text-field>
 </template>
@@ -18,13 +20,14 @@ export default {
     password: {
       type: String,
       default: "",
-      required: true,
-    },     
+      required: true
+    }     
   },
-  data() {
-    return {
-      show: false,
-    };
-  },
-};
+  computed: {
+    setPassword: {
+      get () { return this.password },
+      set (newVal) { return this.$emit('update:password', newVal) }
+    }
+  }
+}
 </script>

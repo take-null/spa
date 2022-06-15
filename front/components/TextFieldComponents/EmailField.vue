@@ -1,9 +1,11 @@
 <template>
-  <v-text-field 
+  <v-text-field
+    v-model="setEmail" 
     :value="email"
     label="メールアドレス"
     prepend-icon="mdi-mail"
-    @input="$emit('update:email', $event)"
+    placeholder="your@email.com"
+    outlined
   >
   </v-text-field>
 </template>
@@ -13,8 +15,14 @@ export default {
     email: {
       type: String,
       default: "",
-      required: true,
-    },       
+      required: true
+    }       
   },
-};
+  computed: {
+    setEmail: {
+      get () { return this.email },
+      set (newVal) { return this.$emit('update:email', newVal) }
+    }
+  }
+}
 </script>

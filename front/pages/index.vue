@@ -33,6 +33,9 @@
 import LoginForm from '~/components/FormComponents/LoginForm.vue'
 import SignupForm from "~/components/FormComponents/SignupForm.vue"
 export default {
+  layout ({ store }) {
+    return store.state.loggedIn ? 'default' : 'welcome'
+  },
   components: { SignupForm, LoginForm },
   data () {
     return {

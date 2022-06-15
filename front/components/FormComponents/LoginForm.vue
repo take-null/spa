@@ -12,7 +12,7 @@
  
       <!-- アクションボタン -->
       <v-card-actions>
-        <v-btn @click="submit">ログイン</v-btn>
+        <v-btn @click="loginWithAuthModule">ログイン</v-btn>
       </v-card-actions>
     </v-card>
   </v-form>
@@ -23,6 +23,7 @@ import EmailField from "~/components/TextFieldComponents/EmailField.vue";
 import PasswordField from "~/components/TextFieldComponents/PasswordField.vue";
 export default {
   components: { EmailField, PasswordField },
+  auth: false,
   data() {
     return {
       email: "",
@@ -30,9 +31,28 @@ export default {
     };
   },
   methods: {
-    submit() {
-      console.log(this.email + "," + this.password);
+    async loginWithAuthModule() {
+      await this.$auth
+        .loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+        .then(
+          (response) => {
+            // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
+            localStorage.setItem('access-token', response.headers['access-token'])
+            localStorage.setItem('client', response.headers.client)
+            localStorage.setItem('uid', response.headers.uid)
+            localStorage.setItem('token-type', response.headers['token-type'])
+            return response
+          },
+          (error) => {
+            return error
+          }
+        )
     },
   },
-};
+}
 </script>

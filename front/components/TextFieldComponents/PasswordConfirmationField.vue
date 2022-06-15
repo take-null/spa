@@ -1,14 +1,16 @@
 <template>
-  <v-text-field 
+  <v-text-field
+    v-model="setPasswordConfirmation"
     :value="passwordConfirmation" 
     label="パスワード(確認)"
-        prepend-icon="mdi-lock"
+    prepend-icon="mdi-lock"
     :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
     :type="show ? 'text' : 'password'"
     hint="最小６文字"
     counter
     @click:append="show = !show"
-    @input="$emit('update:passwordConfirmation', $event)"
+    placeholder="パスワードを入力(確認用)"
+    outlined
   >
   </v-text-field>
 </template>
@@ -18,13 +20,14 @@ export default {
     passwordConfirmation: {
       type: String,
       default: "",
-      required: true,
-    },   
+      required: true
+    }   
   },
-  data() {
-    return {
-      show: false,
-    };
-  },
-};
+  computed: {
+    setPasswordConfirmation: {
+      get () { return this.passwordConfirmation },
+      set (newVal) { return this.$emit('update:passwordConfirmation', newVal) }
+    }
+  }
+}
 </script>

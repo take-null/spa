@@ -1,9 +1,11 @@
 <template>
-  <v-text-field 
+  <v-text-field
+    v-model="setName"
     :value="name"  
     label="名前" 
     prepend-icon="mdi-account-circle"
-    @input="$emit('update:name', $event)"
+    placeholder="あなたの名前"
+    outlined
   >
   </v-text-field>
 </template>
@@ -13,8 +15,14 @@ export default {
     name: {
       type: String,
       default: "",
-      required: true,
-    },    
+      required: true
+    }    
   },
-};
+  computed: {
+    setName: {
+      get () { return this.name },
+      set (newVal) { return this.$emit('update:name', newVal) }
+    }
+  }
+}
 </script>
