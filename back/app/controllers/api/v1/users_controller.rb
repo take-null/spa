@@ -4,8 +4,8 @@ module Api
       #before_action :authenticate_api_v1_user!
       #before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
       def index
-        @user = User.all
-        render json: @user, status: :ok
+        users = User.all.order(:id)
+        render json: users.as_json(only: [:id, :name, :email, :created_at])
       end
 
       def show

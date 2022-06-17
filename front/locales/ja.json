@@ -5,7 +5,7 @@
     "content-two": "コンテンツ2",
     "content-three": "コンテンツ3"
   },
-  "title": {
+  "pages": {
     "signup": "新規登録",
     "login": "ログイン"
   }

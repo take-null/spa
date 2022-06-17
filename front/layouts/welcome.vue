@@ -8,7 +8,7 @@
     <v-img
       id="scroll-top"
       dark
-      src="https://picsum.photos/id/834/1920/1080?blur=5"
+      src="https://picsum.photos/id/635/1920/1080?blur=5"
       
       :height="imgHeight"
     >
@@ -22,13 +22,13 @@
           class="text-center"
         >
           <h1 class="display-1 mb-4">
-            日常を、誰かと。
+            コピー
           </h1>
           <h4
             class="subheading"
             :style="{ letterSpacing: '5px' }"
           >
-            緩やかに繋がるリアルタイムチャットサービス。
+            サブタイトル
           </h4>
         </v-col>
       </v-row>

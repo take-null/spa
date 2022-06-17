@@ -1,5 +1,5 @@
-#class Api::V1::RoomsController < ApplicationController
-class Api::V1::RoomsController < ActionController::Base
+class Api::V1::RoomsController < ApplicationController
+#class Api::V1::RoomsController < ActionController::Base
   #before_action :authenticate_api_v1_user!, only: [:index, :show]
   before_action :set_user, only: [:index, :show]
 

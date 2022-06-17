@@ -1,64 +1,83 @@
 <template>
-  <div class="container welcome">
-    <p>ポートフォリオサイトへようこそ</p>
-    <div v-if="shouldShowLoginForm">
-      <LoginForm />
-      <p class="change-form">初めての方は<span @click="shouldShowLoginForm = false">こちら</span>をクリック</p>
-    </div>
-    <div v-if="!shouldShowLoginForm">
-      <SignupForm />
-      <p class="change-form">アカウントをお持ちの方は<span @click="shouldShowLoginForm = true">こちら</span>をクリック</p>
-    </div>
-  </div>
-  <!--
-  <div>
-    <button
-      type="button"
-      name="button"
-      @click="getMsg"
+  <v-container fluid>
+    <v-card
+      flat
+      tile
+      color="transparent"
     >
-      click here
-    </button>
-    <div
-      v-for="(msg, i) in msgs"
-      :key="i"
-    >
-      {{ msg }}
-    </div>
-  </div>
-  -->
+      <v-card-title>
+        Usersテーブルの取得
+      </v-card-title>
+      <v-card-text>
+        <v-simple-table dense>
+          <template
+            v-if="users.length"
+            v-slot:default
+          >
+            <thead>
+              <tr>
+                <th
+                  v-for="(key, i) in userKeys"
+                  :key="`key-${i}`"
+                >
+                  {{ key }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(user, i) in users"
+                :key="`user-${i}`"
+              >
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ dateFormat(user.created_at) }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card-text>
+      <v-card-title>
+        Vuetifyの導入（オリジナルカラーの確認）
+      </v-card-title>
+      <v-card-text>
+        <v-btn
+          v-for="(color, i) in colors"
+          :key="`color-${i}`"
+          :color="color"
+          class="mr-2"
+        >
+          {{ color }}
+        </v-btn>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-import LoginForm from '~/components/FormComponents/LoginForm.vue'
-import SignupForm from "~/components/FormComponents/SignupForm.vue"
 export default {
-  layout ({ store }) {
-    return store.state.loggedIn ? 'default' : 'welcome'
+  async asyncData ({ $axios }) {
+    let users = []
+    await $axios.$get('/api/v1/users').then(res => (users = res))
+    const userKeys = Object.keys(users[0] || {}) // 追加
+    return { users, userKeys }
   },
-  components: { SignupForm, LoginForm },
+  // data () 追加
   data () {
     return {
-      shouldShowLoginForm: true
-    }
-  }
-};
-/*
-export default {
-  data () {
-    return {
-      msgs: []
+      colors: ['primary', 'info', 'success', 'warning', 'error', 'background']
     }
   },
-  methods: {
-    getMsg () {
-      //本番用
-      //this.$axios.$get('https://referer-hub-api.net')
-      //開発用(railsのトップページを取得して配列に格納し、出力)
-      this.$axios.$get('/')
-        .then(res => this.msgs.push(res))
+  computed: {
+    dateFormat () {
+      return (date) => {
+        const dateTimeFormat = new Intl.DateTimeFormat(
+          'ja', { dateStyle: 'medium', timeStyle: 'short' }
+        )
+        return dateTimeFormat.format(new Date(date))
+      }
     }
   }
 }
-*/
 </script>

@@ -25,14 +25,18 @@
         {{ $t(`menus.${menu.title}`) }}
       </v-btn>
     </v-toolbar-items>
-      {{ isScrollPoint }}
+    <signupLink />
+    <loginLink />
   </v-app-bar>
 </template>
 
 <script>
 import appLogo from '~/components/ui/appLogo.vue'
+import signupLink from '~/components/beforeLogin/signupLink.vue'
+import loginLink from '~/components/beforeLogin/loginLink.vue'
+
 export default {
-  components: { appLogo },
+  components: { appLogo, signupLink, loginLink },
   props: {
     menus: {
         type: Array,
