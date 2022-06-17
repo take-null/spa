@@ -6,6 +6,7 @@
     />
     <v-sheet> 
     <v-img
+      id="scroll-top"
       dark
       src="https://picsum.photos/id/834/1920/1080?blur=5"
       
@@ -42,6 +43,7 @@
         :key="`menu-${i}`"
       >
       <v-col
+        :id="menu.title"
         cols="12"
       >
         <v-card flat>
