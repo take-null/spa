@@ -19,6 +19,7 @@
         {{ $t(`menus.${menu.title}`) }}
       </v-btn>
     </v-toolbar-items>
+      {{ isScrollPoint }}
   </v-app-bar>
 </template>
 
@@ -30,11 +31,33 @@ export default {
     menus: {
         type: Array,
         default: () => []
+    },
+    imgHeight: {
+    type: Number,
+    default: 0
+    },
+  },
+  data ({ $config: { appName }, $store }) {
+    return {
+      appName,
+      scrollY: 0,
+      appBarHeight: $store.state.styles.beforeLogin.appBarHeight
     }
   },
-  data ({ $config: { appName } }) {
-    return {
-      appName
+  computed: {
+    isScrollPoint () {
+      return this.scrollY > (this.imgHeight - this.appBarHeight)
+    }
+  },
+  mounted () {
+    window.addEventListener('scroll', this.onScroll)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll)
+  },
+  methods: {
+    onScroll () {
+      this.scrollY = window.scrollY
     }
   }
 }

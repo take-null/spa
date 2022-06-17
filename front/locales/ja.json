@@ -1,6 +1,9 @@
 {   
   "menus": {
-    "about": "サイトについて"
+    "about": "サイトについて",
+    "content-one": "コンテンツ1",
+    "content-two": "コンテンツ2",
+    "content-three": "コンテンツ3"
   },
   "title": {
     "signup": "新規登録",

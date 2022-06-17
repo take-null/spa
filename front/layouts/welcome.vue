@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <wel-app-bar 
-      :menus="menus" />
+      :menus="menus"
+      :img-height="imgHeight"  
+    />
     <v-sheet> 
     <v-img
       dark
@@ -31,19 +33,14 @@
       </v-row>
     </v-img>
 
-
-       
-      <v-container
-        fluid
-        :style="{ maxWidth: '1280px' }"
+    <v-container
+      fluid
+      :style="{ maxWidth: '1280px' }"
+    >
+      <v-row
+        v-for="(menu, i) in menus"
+        :key="`menu-${i}`"
       >
-
-
-
-        <v-row
-          v-for="(menu, i) in menus"
-          :key="`menu-${i}`"
-        >
       <v-col
         cols="12"
       >
@@ -57,11 +54,8 @@
         </v-card>
       </v-col>
 
-
-
-
-          <v-col cols="12">
-            <div :is="`wel-${menu.title}`" />
+      <v-col cols="12">
+        <div :is="`wel-${menu.title}`" />
           </v-col>
         </v-row>
       </v-container>
@@ -73,18 +67,24 @@
 <script>
 import welAppBar from '~/components/welcome/welAppBar'
 import welAbout from '~/components/welcome/welAbout'
+import welContentOne from '~/components/welcome/welContentOne'
+import welContentTwo from '~/components/welcome/welContentTwo'
+import welContentThree from '~/components/welcome/welContentThree'
 
 export default {
   components: {
-    welAbout, welAppBar
+    welAbout, welContentOne, welContentTwo, welContentThree, welAppBar
   },
   data () {
     return {
       imgHeight: 500,
       menus: [
-        { title: 'about', subtitle: 'ポートフォリオサイトです' }
+        { title: 'about', subtitle: 'ポートフォリオサイトです' },
+        { title: 'content-one', subtitle: 'コンテンツ１です'},
+        { title: 'content-two', subtitle: 'コンテンツ２です'},
+        { title: 'content-three', subtitle: 'コンテンツ３です'}
       ]
     }
   }
-}
+};
 </script>

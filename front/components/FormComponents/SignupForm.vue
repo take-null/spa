@@ -6,16 +6,16 @@
  
       <!-- 入力欄 -->
       <v-card-text>
-        <user-name-form 
+        <NameField 
           :name.sync="params.user.name"
         />
-        <user-email-form
+        <EmailField
           :email.sync="params.user.email" 
         />
-        <user-password-form 
+        <PasswordField 
           :password.sync="params.user.password" 
         />
-        <user-password-confirmation-form
+        <PasswordConfirmationField
           :passwordConfirmation.sync="params.user.passwordConfirmation"
         />
       </v-card-text>
@@ -37,7 +37,7 @@
 import NameField from "~/components/TextFieldComponents/NameField.vue";
 import EmailField from "~/components/TextFieldComponents/EmailField.vue";
 import PasswordField from "~/components/TextFieldComponents/PasswordField.vue";
-import PasswordConfirmationField from "~/components/TextFieldComponents/PasswordConfirmationField.vue";
+import PasswordConfirmationField from '../TextFieldComponents/PasswordConfirmationField.vue';
 export default {
   components: { NameField, EmailField, PasswordField, PasswordConfirmationField },
   //auth: false,
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     async registerUser () {
-      this.$axios.post('/api/v1/auth', {name: this.name, email: this.email, password: this.password, password_confirmation: this.passwordConfirmation}).then((response) => {
+      this.$axios.post('/api/v1/auth', {params}).then((response) => {
         window.location.href = '/users/confirmation'
       })
     },
