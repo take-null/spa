@@ -19,8 +19,8 @@
 </template>
  
 <script>
-import EmailField from "~/components/TextFieldComponents/EmailField.vue";
-import PasswordField from "~/components/TextFieldComponents/PasswordField.vue";
+import EmailField from "~/components/user/userFormEmail.vue";
+import PasswordField from "~/components/user/userFormPassword.vue";
 export default {
   components: { EmailField, PasswordField },
   auth: false,

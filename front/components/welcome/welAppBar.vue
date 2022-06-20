@@ -9,12 +9,11 @@
     <appLogo
       @click.native="goTo('scroll-top')"
     />
-    <v-toolbar-title
-      class="hidden-mobile-and-down">
-      {{ appName }}
-    </v-toolbar-title>
+    <appTitle
+      class="hidden-mobile-and-down"
+    />
 
-        <v-spacer />
+    <v-spacer />
 
     <v-toolbar-items class="ml-2 hidden-ipad-and-down">
       <v-btn
@@ -27,10 +26,12 @@
         {{ $t(`menus.${menu.title}`) }}
       </v-btn>
     </v-toolbar-items>
+
     <signupLink />
     <loginLink />
 
     <v-menu
+
       bottom
       nudge-left="110"
       nudge-width="100"
@@ -57,7 +58,6 @@
         </v-list-item>
       </v-list>
     </v-menu>
-
   </v-app-bar>
 </template>
 
@@ -65,22 +65,22 @@
 import appLogo from '~/components/ui/appLogo.vue'
 import signupLink from '~/components/beforeLogin/signupLink.vue'
 import loginLink from '~/components/beforeLogin/loginLink.vue'
+import appTitle from '../ui/appTitle.vue'
 
 export default {
-  components: { appLogo, signupLink, loginLink },
+  components: { appLogo, signupLink, loginLink, appTitle },
   props: {
     menus: {
-        type: Array,
-        default: () => []
+      type: Array,
+      default: () => []
     },
     imgHeight: {
-    type: Number,
-    default: 0
-    },
+      type: Number,
+      default: 0
+    }
   },
-  data ({ $config: { appName }, $store }) {
+  data ({ $store }) {
     return {
-      appName,
       scrollY: 0,
       appBarHeight: $store.state.styles.beforeLogin.appBarHeight
     }
@@ -110,5 +110,5 @@ export default {
       this.$vuetify.goTo(`#${id}`)
     }
   }
-}
+};
 </script>

@@ -34,10 +34,10 @@
 </template>
  
 <script>
-import NameField from "~/components/TextFieldComponents/NameField.vue";
-import EmailField from "~/components/TextFieldComponents/EmailField.vue";
-import PasswordField from "~/components/TextFieldComponents/PasswordField.vue";
-import PasswordConfirmationField from '../TextFieldComponents/PasswordConfirmationField.vue';
+import NameField from "~/components/user/userFormName.vue";
+import EmailField from "~/components/user/userFormEmail.vue";
+import PasswordField from "~/components/user/userFormPassword.vue";
+import PasswordConfirmationField from "~/components/user/userFrormPasswordConfirmation.vue";
 export default {
   components: { NameField, EmailField, PasswordField, PasswordConfirmationField },
   //auth: false,
