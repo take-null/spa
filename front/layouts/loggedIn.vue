@@ -1,10 +1,9 @@
 <template>
   <v-app>
-    <before-login-app-bar />
-    <v-main> 
+    <logged-in-app-bar />
+    <v-main>
       <nuxt />
     </v-main>
-    <before-login-footer />
   </v-app>
 </template>
 

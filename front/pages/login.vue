@@ -19,7 +19,7 @@
             class="body-2 text-decoration-none"
         >
           パスワードを忘れた？
-        </nuxt-link>
+          </nuxt-link>
         </v-card-actions>
         <v-card-text class="px-0">
           <v-btn
@@ -34,9 +34,6 @@
           </v-btn>
         </v-card-text>
       </v-form>
-      <v-card-text>
-        {{ params }}
-      </v-card-text>
     </template>
   </before-login-form-card>
 </template>
