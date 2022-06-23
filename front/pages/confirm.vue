@@ -6,8 +6,27 @@
       color="transparent"
     >
       <v-card-title>
-        Usersテーブルの取得
+        RailsのUsersテーブルを用いたv-cardの試作品
       </v-card-title>
+
+      <div>
+        <v-container fluid>
+          <v-row>
+            <v-col
+              v-for="user in users" :key="user.id">
+              <userProfile 
+                :name="user.name" 
+                :profile="user.profile" 
+                :age="user.age" 
+                :locate="user.locate"/>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
+
+      <v-card-title>
+        RailsのUsersテーブルを用いたv-simple-tableの試作品
+      </v-card-title> 
       <v-card-text>
         <v-simple-table dense>
           <template
@@ -31,13 +50,18 @@
               >
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
+                <td>{{ user.image }}</td>
+                <td>{{ user.profile }}</td>
+                <td>{{ user.age }}</td>
+                <td>{{ user.locate }}</td>
                 <td>{{ dateFormat(user.created_at) }}</td>
               </tr>
             </tbody>
           </template>
         </v-simple-table>
       </v-card-text>
+
+
       <v-card-title>
         Vuetifyの導入（オリジナルカラーの確認）
       </v-card-title>
@@ -51,6 +75,8 @@
           {{ color }}
         </v-btn>
       </v-card-text>
+
+
 
       <v-card-title>
         VuetifyカスタムCSSの検証
@@ -76,16 +102,26 @@
 </template>
 
 <script>
+  import userProfile from '~/components/profile/userProfile.vue'
 export default {
+  components: { userProfile },
   async asyncData ({ $axios }) {
     let users = []
     await $axios.$get('/api/v1/users').then(res => (users = res))
+    //Object.keys() メソッドは、
+    //指定されたオブジェクトが持つプロパティの 名前の配列を、
+    //通常のループで取得するのと同じ順序で返します。
+    //const arr = ['a', 'b', 'c'];
+    //console.log(Object.keys(arr)); // console: ['0', '1', '2']
     const userKeys = Object.keys(users[0] || {}) // 追加
     return { users, userKeys }
   },
   // data () 追加
   data () {
     return {
+      dialog: false,
+      show: false,
+      cards: [{ title: 'Favorite road trips', src: "https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg", flex: 6 }],
       colors: ['primary', 'info', 'success', 'warning', 'error', 'background'],
       customClass: [
         { name: 'hidden-ipad-and-down', color: 'error', des: 'ipad未満で隠す' },

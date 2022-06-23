@@ -5,7 +5,7 @@ module Api
       #before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
       def index
         users = User.all.order(:id)
-        render json: users.as_json(only: [:id, :name, :email, :created_at])
+        render json: users.as_json(only: [:id, :image, :name, :profile, :age, :locate, :created_at])
       end
 
       def show
@@ -13,7 +13,7 @@ module Api
         #@user = correct_user
         #@tweets = @user.tweets
         #@tweets = @user.tweets.paginate(page: params[:page])
-        #render json: @user, status: :ok
+        render json: @user.as_json(only: [:id, :image, :name, :profile, :age, :locate, :created_at])
       end
 
       def destroy

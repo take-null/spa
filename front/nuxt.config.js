@@ -46,7 +46,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    'nuxt-i18n'
+    'nuxt-i18n',
+    'bootstrap-vue/nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
