@@ -8,24 +8,25 @@
         v-model="isValid"
       >
         <user-form-name 
-          :name.sync="params.user.name"
+          :name.sync="params.name"
         />
         <user-form-email 
-          :email.sync="params.user.email"
+          :email.sync="params.email"
         />
         <user-form-password 
-          :password.sync="params.user.password"
+          :password.sync="params.password"
         />
         <user-frorm-password-confirmation 
-          :passwordConfirmation.sync="params.user.passwordConfirmation"
+          :password_confirmation.sync="params.password_confirmation"
         />
+        <div>{{error}}</div>
         <v-btn
           :disabled="!isValid || loading"
           :loading="loading"
           block
           color="blue"
           class="white--text"
-          @click="signup"
+          @click.prevent="signup"
         >
           登録する
         </v-btn>
@@ -41,21 +42,34 @@ export default {
     return {
       isValid: false,
       loading: false,
-      params: { user: { name: '', email: '', password: '', passwordConfirmation: "" } }
+      params: { name: '', email: '', password: '', password_confirmation: '' },
+      error: null
     }
   },
   methods: {
-    signup () {
+    async signup () {
+      try {
         this.loading = true
-        setTimeout(() => {
-            this.formReset()
-            this.loading = false
-        }, 1500)
-    },
-    formReset () {
+          const res = await this.$axios.post('/api/v1/auth', this.params)
+          .then(
+            (res) => {
+            this.$store.dispatch('login')
+            this.$router.replace('/')
+            return res
+          }
+        ) 
+        console.log({res})
+        } catch (error) {
+          console.log({error})
+          this.loading = false
+          this.error = '登録に失敗しました。'
+          this.formReset()
+        }
+      },
+      formReset () {
         this.$refs.form.reset()
-        this.params = { user: { name: '', email: '', password: '', passwordConfirmation: "" } }
-    }
-  }
+        this.params = { name: '', email: '', password: '', password_confirmation: '' }
+      }
+   },
 };
 </script>

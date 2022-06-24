@@ -6,11 +6,11 @@
         v-model="isValid"
       >
         <user-form-email 
-          :email.sync="params.auth.email"
+          :email.sync="params.email"
           no-validation
         />
         <user-form-password 
-          :password.sync="params.auth.password"
+          :password.sync="params.password"
           no-validation
         />
         <v-card-actions>
@@ -22,6 +22,7 @@
           </nuxt-link>
         </v-card-actions>
         <v-card-text class="px-0">
+          <div>{{error}}</div>
           <v-btn
             :disabled="!isValid || loading"
             :loading="loading"
@@ -41,22 +42,39 @@
 <script>
 export default {
   layout: 'beforeLogin',
+  auth: false,
   data () {
     return {
       isValid: false,
       loading: false,
-      params: { auth: { email: '', password: '' } }
+      params: { email: '', password: '' }, 
+      error: null
     }
   },
   methods: {
-    login () {
-      this.loading = true
-      setTimeout(() => {
-        this.$store.dispatch('login')
-        this.$router.replace('/')
+    async login () {
+      try {
+        this.loading = true
+        const res = await this.$auth.loginWith('local', { data: this.params })
+        .then(
+          (res) => {
+          this.$store.dispatch('login')
+          this.$router.replace('/')
+          return res
+        }
+      )
+      console.log({res})
+      } catch (error) {
+        console.log({error})
         this.loading = false
-      }, 1500)
+        this.error = 'メールアドレス、もしくはパスワードが間違っています。'
+        this.formReset()
+      }
+    },
+    formReset () {
+      this.$refs.form.reset()
+      this.params = { email: '', password: '' }
     }
-  }
+  },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <v-text-field
-    v-model="setPasswordConfirmation"
+    v-model="setPassword_confirmation"
     :rules="form.rules"
     label="パスワードを入力(確認)"
     prepend-icon="mdi-lock"
@@ -19,7 +19,7 @@
 <script>
 export default {
   props: { 
-    passwordConfirmation: {
+    password_confirmation: {
       type: String,
       default: "",
       required: true
@@ -35,9 +35,9 @@ export default {
     };
   },
   computed: {
-    setPasswordConfirmation: {
-      get () { return this.passwordConfirmation },
-      set (newVal) { return this.$emit('update:passwordConfirmation', newVal) }
+    setPassword_confirmation: {
+      get () { return this.password_confirmation },
+      set (newVal) { return this.$emit('update:password_confirmation', newVal) }
     },
     form () {
       const min = '8文字以上'

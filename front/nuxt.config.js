@@ -27,7 +27,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    'plugins/myInject'
+    'plugins/myInject',
+    '~/plugins/axios.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -58,17 +59,17 @@ export default {
 
   auth: {
     redirect: {
-        login: '/users/login',
+        login: '/',
         logout: '/',
         callback: false,
-        home: '/users/profile',
+        home: '/',
     },
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/v1/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: '/api/v1/auth/logout', method: 'post' },
-          user: false,
+          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: 'access_token' },
+          logout: { url: '/api/v1/auth/sign_out', method: 'delete' },
+          user: false
         },
       }
     }
