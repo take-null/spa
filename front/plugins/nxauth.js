@@ -1,5 +1,6 @@
 import { strategies } from "@nuxtjs/auth/lib/module/defaults"
-
+// Doc: https://www.npmjs.com/package/crypto-js
+const cryptoJs = require('crypto-js')
 const storage = window.localStorage
 const keys = { expiry: 'expiry' }
 
@@ -8,18 +9,34 @@ class Authentication {
     this.store = ctx.store
     this.$axios = ctx.$axios
     this.$auth = ctx.$auth
+    this.error = ctx.error
+    this.$config = ctx.$config
   }
-  //setStorage (expiry) {
-    //localstorageを見て不要なら下記の計算式を削除
-    //storage.setItem(expiry, expiry * 1000 )
-  //}
+  setStorage (expiry) {
+    storage.setItem(keys.expiry, this.encrypt(expiry))
+    //storage.setItem('expiry', expiry * 1000 )
+  }
+  encrypt (expiry) {
+    const expire = String(expiry * 1000)
+    return cryptoJs.AES.encrypt(expire, this.$config.cryptoKey).toString()
+  }
+  decrypt (expiry) {
+    try {
+      const bytes = cryptoJs.AES.decrypt(expiry, this.$config.cryptoKey)
+      return bytes.toString(cryptoJs.enc.Utf8) || this.removeStorage()
+    } catch (e) {
+      return this.removeStorage()
+    }
+  }
   removeStorage () {
     for (const key of Object.values(keys)) {
       storage.removeItem(key)
     }
   }
   getExpire () {
-    return storage.getItem(keys.expiry)
+    const expire = storage.getItem(keys.expiry)
+    return expire ? this.decrypt(expire) : null
+    //return storage.getItem(keys.expiry)
   }
   isAuthenticated () {
     return new Date().getItem() < this.getExpire()
@@ -38,6 +55,6 @@ class Authentication {
   }
 }
 
-export default ({ store, $axios, $auth }, inject) => {
-    inject('nxauth', new Authentication({ store, $axios, $auth }))
+export default ({ store, $axios, $auth, error, $config }, inject) => {
+    inject('nxauth', new Authentication({ store, $axios, $auth, error, $config }))
 }

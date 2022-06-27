@@ -55,8 +55,10 @@ export default {
             (res) => {
             this.$store.dispatch('login')
             const user = res.data
+            const expiry = res.headers.expiry 
             this.$nxauth.setData(user)
-            console.log(this.$store.state.current.user)
+            this.$nxauth.setStorage(expiry)
+            //console.log(this.$store.state.current.user)
             this.loading = false
             this.$router.replace('/')
             return res

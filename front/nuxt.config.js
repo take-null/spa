@@ -115,6 +115,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   publicRuntimeConfig: {
-    appName: process.env.APP_NAME // 追加
+    appName: process.env.APP_NAME, // 追加
+    cryptoKey: process.env.CRYPTO_KEY
   },
 }

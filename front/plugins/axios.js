@@ -40,7 +40,8 @@ export default function ({ $axios }) {
       localStorage.setItem('uid', response.headers.uid)
       localStorage.setItem('client', response.headers.client)
       localStorage.setItem('access-token', response.headers['access-token'])
-      localStorage.setItem('expiry', response.headers.expiry * 1000)
+      //localStorage.setItem('expiry', response.headers.expiry)
+
     }
   })
 }
