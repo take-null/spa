@@ -54,10 +54,15 @@ export default {
           .then(
             (res) => {
             this.$store.dispatch('login')
+            const user = res.data
+            this.$nxauth.setData(user)
+            console.log(this.$store.state.current.user)
+            this.loading = false
             this.$router.replace('/')
             return res
           }
-        ) 
+        )
+        //responseを表示 
         console.log({res})
         } catch (error) {
           console.log({error})
