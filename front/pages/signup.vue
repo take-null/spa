@@ -54,7 +54,7 @@ export default {
           .then(
             (res) => {
             this.$store.dispatch('login')
-            const user = res.data
+            const user = res.data.data
             const expiry = res.headers.expiry 
             this.$nxauth.setData(user)
             this.$nxauth.setStorage(expiry)

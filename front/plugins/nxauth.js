@@ -14,7 +14,6 @@ class Authentication {
   }
   setStorage (expiry) {
     storage.setItem(keys.expiry, this.encrypt(expiry))
-    //storage.setItem('expiry', expiry * 1000 )
   }
   encrypt (expiry) {
     const expire = String(expiry * 1000)
@@ -39,7 +38,16 @@ class Authentication {
     //return storage.getItem(keys.expiry)
   }
   isAuthenticated () {
-    return new Date().getItem() < this.getExpire()
+    return new Date().getTime() < this.getExpire()
+  }
+  get user () {
+    return this.store.state.current.user || {}
+  }
+  isUserPresent () {
+    return ('id' in this.user)
+  }
+  get loggedIn () {
+    return this.isUserPresent() && this.isAuthenticated()
   }
   //uidは暫定処置。nameに変更予定。
   setData (user) {
@@ -51,6 +59,7 @@ class Authentication {
     localStorage.removeItem("client")
     localStorage.removeItem("uid")
     localStorage.removeItem("token-type")
+    localStorage.removeItem("expiry")
     this.store.dispatch('getCurrentUser', null)
   }
 }
