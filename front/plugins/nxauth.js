@@ -60,6 +60,7 @@ class Authentication {
     localStorage.removeItem("uid")
     localStorage.removeItem("token-type")
     localStorage.removeItem("expiry")
+    localStorage.removeItem("id")
     this.store.dispatch('getCurrentUser', null)
   }
 }

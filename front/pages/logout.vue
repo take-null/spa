@@ -6,15 +6,10 @@
 export default {
   layout: 'logout',
   beforeCreate () {
-
-     this.$auth.logout()
-      .then(() => {
-        this.$store.dispatch('logout')
-        localStorage.removeItem("access-token")
-        localStorage.removeItem("client")
-        localStorage.removeItem("uid")
-        localStorage.removeItem("token-type")
-        this.$router.replace('/')
+    this.$auth.logout()
+    .then(() => {
+      this.$router.replace('/')
+      this.$nxauth.deleteData()
     })
   },
 };
