@@ -16,6 +16,17 @@
     <appTitle
       class="hidden-mobile-and-down"
     />
+    
+    <v-spacer />
+
+    <v-btn
+      v-for="link in links"
+        :key="link"
+        text
+      >
+        {{ link }}
+    </v-btn>
+
 
     <v-spacer />
 
@@ -43,8 +54,8 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-subtitle>
-              <!-- TODO -->
-              ユーザー名が表示されます
+              <!-- ログイン中のユーザー名 -->
+              {{ $nxauth.user.name }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -85,12 +96,18 @@ export default {
   components: { appLogo, appTitle },
   data () {
     return {
+      links: [
+        'Dashboard',
+        'Messages',
+        'Profile',
+        'Updates',
+      ],
       accountMenus: [
         { name: 'account-settings', icon: 'mdi-account-cog' },
         { name: 'account-password', icon: 'mdi-lock-outline' },
         { name: 'logout', icon: 'mdi-logout-variant', divider: true }
-      ]
+      ],
     }
-  }
+  } 
 };
 </script>

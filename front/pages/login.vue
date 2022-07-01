@@ -71,7 +71,7 @@ export default {
         }
       )
       //responseを表示
-      console.log({res})
+      //console.log({res})
       } catch (error) {
         console.log({error})
         this.loading = false

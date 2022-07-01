@@ -58,14 +58,14 @@ export default {
             const expiry = res.headers.expiry 
             this.$nxauth.setData(user)
             this.$nxauth.setStorage(expiry)
-            //console.log(this.$store.state.current.user)
+            console.log(this.$store.state.current.user)
             this.loading = false
             this.$router.replace('/')
             return res
           }
         )
         //responseを表示 
-        console.log({res})
+        //console.log({res})
         } catch (error) {
           console.log({error})
           this.loading = false

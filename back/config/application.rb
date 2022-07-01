@@ -27,7 +27,8 @@ module App
     # 公式ではCookieStore推奨である
     # https://daido.hatenablog.jp/entry/2020/05/06/143145
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore
-    config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware
+    config.middleware.use ActionDispatch::Session::CacheStore
+    #config.middleware.use ActionDispatch::Session::CookieStore
+    #config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware
   end
 end
