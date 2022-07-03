@@ -90,7 +90,7 @@ export default {
       return this.scrollY > (this.imgHeight - this.appBarHeight)
     },
     toolbarStyle () {
-    const color = this.isScrollPoint? 'brown' : 'transparent'
+    const color = this.isScrollPoint? 'brown lighten-1' : 'transparent'
     const elevation = this.isScrollPoint ? 4 : 0
     return { color, elevation }
   

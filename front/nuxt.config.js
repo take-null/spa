@@ -30,7 +30,8 @@ export default {
     'plugins/nxauth',
     'plugins/myInject',
     '~/plugins/axios.js',
-    'plugins/nxClientInit'
+    'plugins/nxClientInit',
+    '~plugins/date-filter.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

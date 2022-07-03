@@ -107,13 +107,14 @@ export default {
   components: { userProfile },
   async asyncData ({ $axios }) {
     let users = []
-    await $axios.$get('/api/v1/users').then(res => (users = res))
+    await $axios.$get('/api/v1/users').then(res => (users = res, console.log(users)))
     //Object.keys() メソッドは、
     //指定されたオブジェクトが持つプロパティの 名前の配列を、
     //通常のループで取得するのと同じ順序で返します。
     //const arr = ['a', 'b', 'c'];
     //console.log(Object.keys(arr)); // console: ['0', '1', '2']
     const userKeys = Object.keys(users[0] || {}) // 追加
+    console.log(userKeys)
     return { users, userKeys }
   },
   // data () 追加

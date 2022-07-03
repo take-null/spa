@@ -88,6 +88,7 @@
     </template>
 
     <script>
+    //いつか使うかも。使わなければ削除。
     export default {
       props: {
         name: {

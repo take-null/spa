@@ -4,7 +4,7 @@
     dense
     elevation="1"
     clipped-left
-    color="brown"
+    color="brown lighten-1"
   >
     <nuxt-link
       to="/"

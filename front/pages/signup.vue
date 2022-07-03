@@ -24,7 +24,7 @@
           :disabled="!isValid || loading"
           :loading="loading"
           block
-          color="blue"
+          color="light-blue darken-1"
           class="white--text"
           @click.prevent="signup"
         >

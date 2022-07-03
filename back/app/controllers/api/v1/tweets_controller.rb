@@ -2,16 +2,47 @@ module Api
   module V1
     class TweetsController < ApplicationController
       #認証に成功していなければ以下のアクション全てでリクエストに失敗する
-      before_action :authenticate_api_v1_user!, only: [:index, :show, :create, :destroy]
+      #before_action :authenticate_api_v1_user!, only: [:all, :index, :show, :create, :destroy]
+      #before_action :set_user, only: [:index]
 
-      def index
-        tweets = Tweet.all
-        render json: { status: 'SUCCESS', message: 'Loaded tweets', data: tweets }
+      #def all_post
+        #@tweets = Tweet.all
+        #render json: { status: 'SUCCESS', message: 'Loaded tweets', data: tweets }
+      #end
+      #自分の投稿だけ表示
+      def all
+        tweets = Tweet.all.includes(:user).order("created_at DESC")
+        tweet_array = tweets.map do |tweet|
+          {
+            tweet_id: tweet.id,
+            id: tweet.user.id,
+            name: tweet.user.name,
+            content: tweet.tweet_content,
+            created_at: tweet.created_at
+          }
+        end
+        render json: { status: 'SUCCESS', message: 'Loaded the tweet', data: tweet_array }
       end
 
+      def index
+        tweets = Tweet.where(user_id: current_api_v1_user.id).includes(:user).order("created_at DESC")
+        tweet_array = tweets.map do |tweet|
+          {
+            tweet_id: tweet.id,
+            user_id: tweet.user.id,
+            name: tweet.user.name,
+            content: tweet.tweet_content,
+            created_at: tweet.created_at
+          }
+        end
+        render json: { status: 'SUCCESS', message: 'Loaded the tweet', data: tweet_array }
+        #render json: { status: 'SUCCESS', message: 'Loaded the tweet', id: "#{current_api_v1_user.id}", data: tweet_array }
+        #render json: { status: 'SUCCESS', message: 'Loaded tweets', data: @tweets}
+      end
+      
       def show
         @tweet = Tweet.find(params[:id])
-        @user = @tweet.user
+        #@user = @tweet.user
         render json: { status: 'SUCCESS', message: 'Loaded the tweet', data: @tweet }
       end
 
@@ -38,9 +69,10 @@ module Api
 
       private
       #リファクタリング予定※show,deleteはfindメソッドを使用しなかった場合エラーとなる
-      #def set_tweet
-        #@tweet = Tweet.find_by(params[:id])
+      #def set_user
+        #current_user = User.find_by(params[:id])
         #@tweet = Tweet.find(params[:id])
+      #end
       #end 
 
       def tweet_params

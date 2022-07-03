@@ -1,7 +1,7 @@
     <template>
         <div>
           <v-card 
-            color="white"
+            color="blue-grey lighten-5"
             class="mx-auto"
             width="680"
           >
@@ -22,7 +22,7 @@
               <v-card-text>住んでいる場所：{{locate}}</v-card-text>
               <b-container class="d-flex justify-content-end">
                 <v-btn
-                  color="cyan"
+                  color="light-blue darken-1"
                   class="white--text"
                   @click.stop="dialog = true"
                 >
@@ -34,14 +34,14 @@
 
         <v-dialog v-model="dialog" scrollable max-width="400">
           <v-card 
-            color="white"
+            color="blue-grey lighten-5"
             class="mx-auto"
             width="400"
           >
             <template>
               <b-container class="d-flex justify-content-end">
                 <v-btn
-                  color="cyan"
+                  color="light-blue darken-1"
                   class="white--text"
                   @click="dialog = false"
                 >
@@ -57,7 +57,7 @@
               >
               <v-card-title>
                 <v-icon
-                  color="blue" 
+                  color="light-blue darken-1" 
                   x-large
                 >
                   mdi-account-circle
@@ -93,7 +93,7 @@
                       :disabled="!isValid || loading"
                       :loading="loading"
                       block
-                      color="cyan"
+                      color="light-blue darken-1"
                       class="white--text"
                       @click="change"
                     >

@@ -12,7 +12,10 @@ Rails.application.routes.draw do
       end
       resources :chat_messages, only: [:create]
       resources :tweets, only: [:index, :show, :create, :destroy] do
-        resources :likes, only: [:create, :destroy]
+        #resources :likes, only: [:create, :destroy]
+         collection do
+          get 'all'
+        end
       end
     end
   end

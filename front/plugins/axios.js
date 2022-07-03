@@ -40,8 +40,14 @@ export default function ({ $axios }) {
       localStorage.setItem('uid', response.headers.uid)
       localStorage.setItem('client', response.headers.client)
       localStorage.setItem('access-token', response.headers['access-token'])
-      localStorage.setItem('id', response.data.data.id)
-
+      let req = []
+      const item = localStorage.getItem('id')
+      req = item
+      if (req.length === 0) {
+        localStorage.setItem('id', response.data.data.id)
+        //オブジェクトにユーザーidを含ませる時に使う
+        //localStorage.setItem('id', response.data.id)
+      }
     }
   })
 }
