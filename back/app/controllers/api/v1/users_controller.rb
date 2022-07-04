@@ -3,9 +3,16 @@ module Api
     class UsersController < ApplicationController
       #before_action :authenticate_api_v1_user!
       #before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+      
       def index
         users = User.all.order(:id)
-        render json: users.as_json(only: [:id, :image, :name, :profile, :age, :locate, :created_at])
+        render json: users.as_json(only: [:id, :email, :image, :name, :profile, :age, :locate, :created_at])
+      end
+
+      def search
+        #users = User.all
+        @user = User.find_by(email: params[:email])
+        render json: @user.as_json(only: [:id, :image, :name, :profile, :age, :locate, :created_at])
       end
 
       def show

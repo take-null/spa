@@ -35,8 +35,8 @@ module Api
             created_at: tweet.created_at
           }
         end
-        render json: { status: 'SUCCESS', message: 'Loaded the tweet', data: tweet_array }
-        #render json: { status: 'SUCCESS', message: 'Loaded the tweet', id: "#{current_api_v1_user.id}", data: tweet_array }
+        #render json: { status: 'SUCCESS', message: 'Loaded the tweet', data: tweet_array }
+        render json: { status: 'SUCCESS', message: 'Loaded the tweet', id: "#{current_api_v1_user.id}", data: tweet_array }
         #render json: { status: 'SUCCESS', message: 'Loaded tweets', data: @tweets}
       end
       
@@ -48,7 +48,7 @@ module Api
 
       def create
         @tweet = Tweet.new(tweet_params)
-        @tweet.user_id = current_user.id
+        @tweet.user_id = current_api_v1_user.id
         if @tweet.save
           render json: { status: 'SUCCESS', data: @tweet }
         else

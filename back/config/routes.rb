@@ -4,18 +4,30 @@ Rails.application.routes.draw do
   #devise_for :users
   namespace 'api' do
     namespace 'v1' do
+      #devise_scope :api_v1_user do
+        #resources :users, only: [:search] do
+         #collection do
+           #get 'search'
+          #end
+        #end
+      #end
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations'
       }
-      resources :users, only: [:index, :show, :destroy] do
-        resources :rooms, only: [:index, :show]
+      devise_scope :api_v1_user do
+        resources :users, only: [:index, :show, :destroy] do
+          collection do
+            get 'search'
+          end
+        #resources :rooms, only: [:index, :show]
+        end
       end
       resources :chat_messages, only: [:create]
       resources :tweets, only: [:index, :show, :create, :destroy] do
         #resources :likes, only: [:create, :destroy]
          collection do
-          get 'all'
-        end
+           get 'all'
+         end
       end
     end
   end

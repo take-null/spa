@@ -19,14 +19,23 @@
           </v-row>
         </v-container>
       </div>
+      <v-card>
+        <tweetPost
+          :tweet_content.sync="params.tweet_content" 
+        />
+      </v-card>
     </v-card>
   </v-container>
 </template>
 <script>
 //削除予定
+import tweetPost from '~/components/tweets/tweetPost.vue'
 import myTweetsCard from '~/components/tweets/myTweetsCard.vue'
 export default {
-  components: { myTweetsCard },
+  components: { myTweetsCard, tweetPost },
+    layout ({ $nxauth }) {
+    return $nxauth.loggedIn ? 'loggedIn' : 'welcome'
+  },
   async asyncData ({ $axios }) {
     let tweets = []
     await $axios.$get(`/api/v1/tweets`).then(res => (
@@ -40,6 +49,7 @@ export default {
   data () {
     return {
       dialog: false,
+      params: { tweet_content: "" }
     }
   },
 }

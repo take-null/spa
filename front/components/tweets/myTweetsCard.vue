@@ -2,7 +2,7 @@
   <div>
   <v-card
     class="mx-auto"
-    color="#26c6da"
+    color="blue-grey"
     dark
     max-width="250"
     @click.stop="dialog = true"
@@ -50,7 +50,7 @@
   <v-dialog v-model="dialog" scrollable max-width="600">
     <v-card
     class="mx-auto"
-    color="#26c6da"
+    color="blue-grey"
     dark
     max-width="600"
     @click.stop="dialog = false"

@@ -19,12 +19,23 @@
     
     <v-spacer />
 
+
     <v-btn
-      v-for="link in links"
-        :key="link"
-        text
+      color="blue-grey"
+      class="ma-2 white--text"
+    >
+      <nuxt-link
+        to="/myTweets"
+        class="text-decoration-none"
       >
-        {{ link }}
+        投稿ページ
+      </nuxt-link>
+      <v-icon
+        right
+        dark
+      >
+        mdi-cloud-upload
+      </v-icon>
     </v-btn>
 
 
@@ -92,16 +103,17 @@
 <script>
 import appLogo from '~/components/ui/appLogo.vue'
 import appTitle from '~/components/ui/appTitle.vue'
+import myIdea from '~/components/tweets/tweetPost.vue'
 export default {
-  components: { appLogo, appTitle },
+  components: { appLogo, appTitle, myIdea },
   data () {
     return {
-      links: [
-        'Dashboard',
-        'Messages',
-        'Profile',
-        'Updates',
-      ],
+      //links: [
+        //'Dashboard',
+        //'Messages',
+        //'Profile',
+        //myIdea,
+      //],
       accountMenus: [
         { name: 'account-settings', icon: 'mdi-account-cog' },
         { name: 'account-password', icon: 'mdi-lock-outline' },
