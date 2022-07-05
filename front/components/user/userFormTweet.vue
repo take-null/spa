@@ -4,7 +4,7 @@
     :value="tweet_content"
     :rules="rules"
     :counter="max"  
-    label="アイデアを投稿" 
+    label="呟きを投稿" 
     outlined
   >
   </v-text-field>
@@ -20,7 +20,7 @@ export default {
     }    
   },
   data () {
-    const max = 140
+    const max = 250
     return {
       max,
       rules: [

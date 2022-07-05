@@ -49,9 +49,8 @@ export default {
         const formData = new FormData()
         formData.append('password', this.params.password)
         formData.append('password_confirmation', this.params.password_confirmation)
-        await this.$axios.put('/api/v1/auth/password', formData, {
-          'content-type': 'multipart/form-data',
-        })
+        const res = await this.$axios.post('/api/v1/auth/password', formData, {headers: {'content-type': 'multipart/form-data',
+                'X-HTTP-Method-Override': 'PUT',}})
         .then(
           (res) => {
           //const user = res.data.data

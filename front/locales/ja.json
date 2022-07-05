@@ -10,8 +10,9 @@
     "login": "ログイン",
     "logout": "ログアウト",
     "account": {
-      "settings": "アカウント設定",
+      "settings": "マイページ",
       "password": "パスワード変更"
-    }
+    },
+    "account-password": "パスワード変更"
   }
 }
