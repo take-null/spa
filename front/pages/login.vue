@@ -64,7 +64,7 @@ export default {
           this.$nxauth.setData(user)
           this.$nxauth.setStorage(expiry)
           //vuexにセットされたユーザーデータを出力
-          console.log(this.$store.state.current.user)
+          console.log(this.$store.state.current.user.id)
           this.loading = false
           this.$router.replace('/')
           return res

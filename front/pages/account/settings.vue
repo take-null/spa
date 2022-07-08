@@ -16,6 +16,8 @@
                 :profile.sync="user.profile" 
                 :age.sync="user.age" 
                 :locate.sync="user.locate"
+                :following.sync="user.following"
+                :followers.sync="user.followers"
               />
             </div>
             </v-sheet>
@@ -32,7 +34,9 @@ export default {
   async asyncData ({ $axios, $nxauth }) {
     let user = []
     await $axios.$get(`/api/v1/users/${$nxauth.user.id}`).then((res) => (
-    user = res))
+    user = res,
+    console.log(user)
+    ))
     return { user }
   },
   // data () 追加

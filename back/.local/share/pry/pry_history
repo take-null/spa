@@ -18,3 +18,6 @@ user = User.find(15)
 user = User.find(16)
 t = tweet.user
 exit
+Relationships.all
+User.all
+Relationship.all

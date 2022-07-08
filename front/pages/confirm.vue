@@ -6,6 +6,30 @@
       color="transparent"
     >
       <v-card-title>
+        フォロー機能の試作品
+      </v-card-title>
+
+      <div>
+        <v-container fluid>
+          <v-row>
+            <v-col
+              v-for="user in users" :key="user.id">
+              <otherProfile 
+                :id.sync="user.id"
+                :name.sync="user.name" 
+                :profile.sync="user.profile" 
+                :age.sync="user.age" 
+                :locate.sync="user.locate"
+                :following.sync="user.following"
+                :followers.sync="user.followers"
+              />
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
+
+      
+      <v-card-title>
         RailsのUsersテーブルを用いたv-cardの試作品
       </v-card-title>
 
@@ -103,8 +127,9 @@
 
 <script>
   import userProfile from '~/components/profile/userProfile.vue'
+  import otherProfile from '~/components/profile/otherProfile.vue'
 export default {
-  components: { userProfile },
+  components: { userProfile, otherProfile },
   async asyncData ({ $axios }) {
     let users = []
     await $axios.$get('/api/v1/users').then(res => (users = res, console.log(users)))

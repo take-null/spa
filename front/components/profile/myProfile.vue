@@ -13,7 +13,8 @@
                 max-height="100%"
                 max-width="100%"
               >
-                <v-card-title><v-icon color="blue" x-large>mdi-account-circle</v-icon>{{ name }}</v-card-title> 
+                <v-card-title><v-icon color="blue" x-large>mdi-account-circle</v-icon>{{ name }}</v-card-title>
+                <v-card-text>Following: {{following.length}}    Followers: {{followers.length}}</v-card-text>
               </v-img>
               <v-card-text>自己紹介：{{profile}}</v-card-text>
               <v-divider></v-divider>
@@ -125,7 +126,13 @@
           type: String
         },
         locate: {
-          type: String,
+          type: String
+        },
+        following: {
+          type: Array
+        },
+        followers: {
+          type: Array
         }
       },
       data () {
