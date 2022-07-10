@@ -24,7 +24,7 @@
                 :following.sync="user.following"
                 :followers.sync="user.followers"
               />
-                <b-container class="d-flex justify-content-end">
+                <b-container class="d-flex justify-content-end" >
                 <v-btn
                   class="white--text"
                   color="light-blue darken-1"

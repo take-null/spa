@@ -4,6 +4,7 @@
             color="blue-grey lighten-5"
             class="mx-auto"
             width="680"
+            elevation="0"
           >
             <template>
               <v-img
