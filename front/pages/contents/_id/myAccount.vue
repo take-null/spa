@@ -14,6 +14,8 @@
             :profile.sync="user.profile" 
             :age.sync="user.age" 
             :locate.sync="user.locate"
+            :following.sync="user.following"
+            :followers.sync="user.followers"
           />
         </v-container>
       </div>

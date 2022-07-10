@@ -1,4 +1,5 @@
 <template>
+  <v-sheet>
   <v-app-bar
     app
     dense
@@ -6,6 +7,8 @@
     clipped-left
     color="brown lighten-1"
   >
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
     <nuxt-link
       to="/"
       class="text-decoration-none"
@@ -98,8 +101,13 @@
       </v-list>
     </v-menu>
   </v-app-bar>
+  <logged-in-nav-drawer
+    v-if="drawer"
+    :drawer.sync="drawer"
+    @closeDrawerParent="close"
+  />
+  </v-sheet>
 </template>
-
 <script>
 import appLogo from '~/components/ui/appLogo.vue'
 import appTitle from '~/components/ui/appTitle.vue'
@@ -108,6 +116,7 @@ export default {
   components: { appLogo, appTitle, myIdea },
   data () {
     return {
+      drawer: null,
       //links: [
         //'Dashboard',
         //'Messages',
@@ -120,6 +129,11 @@ export default {
         { name: 'logout', icon: 'mdi-logout-variant', divider: true }
       ],
     }
-  } 
+  },
+  methods: {
+    close() {
+      this.drawer = false;
+    }
+  }
 };
 </script>

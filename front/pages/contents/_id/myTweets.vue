@@ -33,9 +33,9 @@ import tweetPost from '~/components/tweets/tweetPost.vue'
 import myTweetsCard from '~/components/tweets/myTweetsCard.vue'
 export default {
   components: { myTweetsCard, tweetPost },
-    layout ({ $nxauth }) {
-    return $nxauth.loggedIn ? 'loggedIn' : 'welcome'
-  },
+    //layout ({ $nxauth }) {
+    //return $nxauth.loggedIn ? 'loggedIn' : 'welcome'
+  //},
   async asyncData ({ $axios }) {
     let tweets = []
     await $axios.$get(`/api/v1/tweets`).then(res => (
