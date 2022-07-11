@@ -7,6 +7,9 @@ class MyInject {
     const title = this.app.i18n.t(jsonPath)
     return (typeof (title) === 'object') ? title.index : title
   }
+  contentsLinkTo (id, name = 'contents-id-dashboard') {
+    return { name, params: { id } }
+  }
 }
 
 export default ({ app }, inject) => {

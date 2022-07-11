@@ -15,7 +15,7 @@
         />
         <v-card-actions>
           <nuxt-link
-            to="#"
+            to="/checkEmail"
             class="body-2 text-decoration-none"
         >
           パスワードを忘れた？

@@ -21,3 +21,16 @@ exit
 Relationships.all
 User.all
 Relationship.all
+ENV['EMAIL_ADDRESS']
+ActionMailer::Base.mail(
+  from: 'bluerose.pandra@gmail.com',
+  to: 'bluerose.pandra@gmail.com',
+  subject: "テスト"
+  body: "送信テスト"
+exit
+ActionMailer::Base.mail(
+  from: 'bluerose.pandra@gmail.com',
+  to: 'bluerose.pandra@gmail.com',
+  subject: "テスト",
+  body: "送信テスト"
+).deliver_now

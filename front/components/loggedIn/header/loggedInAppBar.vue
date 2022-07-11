@@ -19,28 +19,6 @@
     <appTitle
       class="hidden-mobile-and-down"
     />
-    
-    <v-spacer />
-
-
-    <v-btn
-      color="blue-grey"
-      class="ma-2 white--text"
-    >
-      <nuxt-link
-        to="/myTweets"
-        class="text-decoration-none"
-      >
-        投稿ページ
-      </nuxt-link>
-      <v-icon
-        right
-        dark
-      >
-        mdi-cloud-upload
-      </v-icon>
-    </v-btn>
-
 
     <v-spacer />
 

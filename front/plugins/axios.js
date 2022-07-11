@@ -26,7 +26,8 @@ import axios from "axios"
 export default function ({ $axios }) {
   $axios.onRequest((config) => {
     // Devise Token Auth
-    if (localStorage.getItem('token-type') === 'Bearer' && localStorage.getItem('access-token')) {
+    //if (localStorage.getItem('token-type') === 'Bearer' && localStorage.getItem('access-token'))
+    if (localStorage.getItem('access-token')) {
       config.headers.uid = localStorage.getItem('uid')
       config.headers.client = localStorage.getItem('client')
       config.headers['access-token'] = localStorage.getItem('access-token')

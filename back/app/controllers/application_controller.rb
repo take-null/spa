@@ -3,11 +3,14 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
   skip_before_action :verify_authenticity_token, if: :devise_controller?, raise: false
   before_action :config_permitted_parameters, if: :devise_controller?
+  before_action :set_host
 
   def home
     render json: "hello world"
   end
-
+  def set_host
+    Rails.application.routes.default_url_options[:host] = request.host_with_port
+  end
   private
     def config_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])

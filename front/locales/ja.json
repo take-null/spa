@@ -9,10 +9,19 @@
     "signup": "新規登録",
     "login": "ログイン",
     "logout": "ログアウト",
+    "checkEmail": "登録済のメールアドレスを入力してください",
+    "passwordReset": "新しいパスワードを入力してください",
     "account": {
       "settings": "マイページ",
       "password": "パスワード変更"
     },
-    "account-password": "パスワード変更"
-  }
+    "account-password": "パスワード変更",
+    "contents": {
+      "id": {
+        "account": "マイページ",
+        "tweets": "私の投稿",
+        "users": "ユーザー一覧"
+      }
+    }
+  } 
 }

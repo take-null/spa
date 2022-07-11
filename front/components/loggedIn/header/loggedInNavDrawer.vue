@@ -18,22 +18,20 @@
         こんにちは、{{ $nxauth.user.name }}さん
       </v-list-item-subtitle>
     </v-list-item-content>
-    <v-list>
-      <v-divider />
 
+    <v-list>
       <v-list-item
-        href="https://blog.cloud-acct.com/categories/udemy"
-        target="_blank"
+        v-for="(nav, i) in navMenus"
+        :key="`nav-${i}`"
+        :to="$my.contentsLinkTo($route.params.id, nav.name)"
       >
         <v-list-item-icon>
-          <v-icon>
-            mdi-open-in-new
-          </v-icon>
+          <v-icon v-text="nav.icon" />
         </v-list-item-icon>
 
         <v-list-item-content>
           <v-list-item-title>
-            このアプリの作り方
+            {{ $my.pageTitle(nav.name) }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -47,6 +45,15 @@ export default {
     drawer: {
       type: Boolean,
       default: null
+    }
+  },
+  data () {
+    return {
+      navMenus: [
+        { name: 'contents-id-account', icon: 'mdi-account-circle' },
+        { name: 'contents-id-tweets', icon: 'mdi-view-dashboard'},
+        { name: 'contents-id-users', icon: 'mdi-account-group'}
+      ]
     }
   },
   methods: {
