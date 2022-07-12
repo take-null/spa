@@ -36,6 +36,7 @@ module Api
       end
 
       private
+
       def correct_user
         @user = User.find(params[:id])
       end
