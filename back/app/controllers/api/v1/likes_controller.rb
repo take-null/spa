@@ -5,7 +5,7 @@ module Api
       before_action :set_like
 
       def create
-        @like = Like.new(user_id: current_user.id, tweet_id: @tweet.id)
+        @like = Like.new(user_id: current_api_v1_user.id, tweet_id: @tweet.id)
         if @like.save
           render json: { status: 'SUCCESS', data: @like }
         else
@@ -14,7 +14,6 @@ module Api
       end
 
       def destroy
-        @like = Like.find_by(user_id: current_user.id, tweet_id: @tweet.id)
         @like.delete
         if @like.destroy
           render json: { status: 'SUCCESS', message: 'Delete the like', data: @like }
