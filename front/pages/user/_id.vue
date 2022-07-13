@@ -38,7 +38,7 @@
           />
           <b-container class="d-flex justify-content-end">
             <v-btn v-if="flag"
-              color="indigo lighten-4"
+              dark
               class="white--text"
               @click="unfollowUser"
             >
@@ -46,7 +46,7 @@
                 unFollow
             </v-btn>
             <v-btn v-else
-              color="light-blue darken-1"
+              dark
               class="white--text"
               @click="followUser"
             >

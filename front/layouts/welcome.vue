@@ -8,7 +8,7 @@
     <v-img
       id="scroll-top"
       dark
-      src="https://picsum.photos/id/635/1920/1080?blur=5"
+      src="https://picsum.photos/id/1073/1920/1080?blur=2"
       
       :height="imgHeight"
     >

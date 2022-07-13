@@ -12,6 +12,7 @@
             <div>
               <myProfile
                 :name.sync="user.name"
+                :image.sync="user.image.url"
                 :email.sync="user.email" 
                 :profile.sync="user.profile" 
                 :age.sync="user.age" 

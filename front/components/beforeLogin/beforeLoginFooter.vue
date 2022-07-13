@@ -3,7 +3,6 @@
     <v-footer
       absolute
       dark
-      color="brown lighten-1"
       :height="height"
     >
       <v-col

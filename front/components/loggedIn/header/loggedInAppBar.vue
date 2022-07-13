@@ -5,7 +5,7 @@
     dense
     elevation="1"
     clipped-left
-    color="brown lighten-1"
+    dark
   >
     <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
@@ -26,16 +26,28 @@
       app
       offset-x
       offset-y
-      max-width="200"
+      max-width="1000"
     >
-      <template v-slot:activator="{ on }">
+      <template v-if="img === null"  v-slot:activator="{ on }">
         <v-btn
           icon
           v-on="on"
         >
-          <v-icon>
-            mdi-account-circle
-          </v-icon>
+          <v-avatar size="40">
+            <v-icon x-large>
+              mdi-account-circle
+            </v-icon>
+          </v-avatar>
+        </v-btn>
+      </template>
+      <template v-else  v-slot:activator="{ on }">
+        <v-btn
+          icon
+          v-on="on"
+        >
+          <v-avatar size="40" class="user-image">
+            <v-img :src="`http://localhost:3000/${img}`" alt="avatar" />
+          </v-avatar>
         </v-btn>
       </template>
       <v-list dense>
@@ -94,13 +106,8 @@ export default {
   components: { appLogo, appTitle, myIdea },
   data () {
     return {
+      img: this.$store.state.current.user.image.thumb.url,
       drawer: null,
-      //links: [
-        //'Dashboard',
-        //'Messages',
-        //'Profile',
-        //myIdea,
-      //],
       accountMenus: [
         { name: 'account-settings', icon: 'mdi-account-cog' },
         { name: 'account-password', icon: 'mdi-lock-outline' },

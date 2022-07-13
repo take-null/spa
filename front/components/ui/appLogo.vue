@@ -1,11 +1,11 @@
 <template>
   <v-avatar
-    color="blue-grey darken-1"
+    color="cyan accent-3"
     size="34"
     class="my-app-log"
   >
     <span class="white--text text-subtitle-2">
-      Tel
+      lib
     </span>
   </v-avatar>
 </template>

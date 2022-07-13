@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   #チャット機能用のリレーション
   #has_many :chat_messages, dependent: :destroy
   #has_many :user_room, dependent: :destroy
-
+  mount_uploader :image, ImageUploader
   has_many :user_rooms, dependent: :destroy
   has_many :rooms, through: :user_rooms
   #マイクロポスト用のリレーション

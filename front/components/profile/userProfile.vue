@@ -29,7 +29,7 @@
             <template>
               <b-container class="d-flex justify-content-end">
                 <v-btn
-                  color="cyan"
+                  dark
                   class="white--text"
                   @click="dialog = false"
                 >
@@ -48,7 +48,7 @@
 
                 <v-card-actions>
                   <v-btn
-                    color="cyan"
+                    dark
                     class="white--text"
                   >
                     Follow

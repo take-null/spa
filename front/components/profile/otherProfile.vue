@@ -8,7 +8,7 @@
           >
             <template>
               <v-img
-                :src="cards[0].src"
+                :src="cards.src"
                 class="white--text align-end"
                 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                 max-height="100%"
@@ -58,7 +58,7 @@
           isValid: false,
           loading: false,
           //error: null,
-          cards: [{ title: 'Favorite road trips', src: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg", flex: 6 }],
+          cards: { src: "https://picsum.photos/id/1073/1920/1080", flex: 6 },
         }
       },
     };

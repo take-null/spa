@@ -27,7 +27,7 @@
                 <b-container class="d-flex justify-content-end" >
                 <v-btn
                   class="white--text"
-                  color="light-blue darken-1"
+                  dark
                   @click="toShow(user.id)"
                 >
                   user detail
