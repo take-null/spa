@@ -2,7 +2,7 @@
     <v-app-bar
       app
       :height="appBarHeight"
-      dark
+      color="grey darken-4"
     >
       <nuxt-link
         to="/"

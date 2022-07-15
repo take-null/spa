@@ -8,67 +8,90 @@
       <v-card-title>
         Users
       </v-card-title>
-
-      <div>
-        <v-container fluid>
-          <v-row>
+        <v-row no-gutters color="transparent" max-width="768" justify="center">
+          <v-col
+            v-for="(fl, i) in fls"
+            :key="`fl-btn-${i}`"
+            cols="12"
+            sm="4"
+          >
+            <v-btn
+              class="pa-2"
+              text
+              block
+              elevation="0"
+              :loading="loading"
+              @click="change=fl.change"
+            >
+              {{ $t(`fls.${fl.title}`) }}
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-container fluid max-width="426">
+          <v-row v-if="change === false">
             <v-col
-              v-for="user in users" :key="user.id">
-            <v-card>
-              <otherProfile 
+              v-for="user in userFollowing" :key="user.id">
+              <v-container max-width="426">
+                <p>{{user.name}}をフォローしています</p>
+              <otherCard
                 :id.sync="user.id"
+                :image.sync="user.image.url"
                 :name.sync="user.name" 
                 :profile.sync="user.profile" 
                 :age.sync="user.age" 
                 :locate.sync="user.locate"
-                :following.sync="user.following"
-                :followers.sync="user.followers"
               />
-                <b-container class="d-flex justify-content-end" >
-                <v-btn
-                  class="white--text"
-                  dark
-                  @click="toShow(user.id)"
-                >
-                  user detail
-                </v-btn>
-              </b-container>
-            </v-card>
+              </v-container>
+            </v-col>
+          </v-row>
+          <v-row v-else>
+            <v-col
+              v-for="user in userForowers" :key="user.id">
+              <v-container max-width="426">
+                <p>{{user.name}}にフォローされています</p>
+              <otherCard
+                :id.sync="user.id"
+                :image.sync="user.image.url"
+                :name.sync="user.name" 
+                :profile.sync="user.profile" 
+                :age.sync="user.age" 
+                :locate.sync="user.locate"
+              />
+              </v-container>
             </v-col>
           </v-row>
         </v-container>
-      </div>
     </v-card>
   </v-container>
 </template>
 <script>
-  import otherProfile from '~/components/profile/otherProfile.vue'
+import otherCard from '~/components/profile/otherCard.vue'
 export default {
-  components: { otherProfile },
-  async asyncData ({ $axios }) {
-    let users = []
-    await $axios.$get('/api/v1/users').then(res => (users = res, console.log(users)))
-    //Object.keys() メソッドは、
-    //指定されたオブジェクトが持つプロパティの 名前の配列を、
-    //通常のループで取得するのと同じ順序で返します。
-    //const arr = ['a', 'b', 'c'];
-    //console.log(Object.keys(arr)); // console: ['0', '1', '2']
-    const userKeys = Object.keys(users[0] || {}) // 追加
-    console.log(userKeys)
-    return { users, userKeys }
+  components: { otherCard },
+  async asyncData ({ $axios, $nxauth}) {
+    let user = []
+    let userFollowing = []
+    let userForowers = []
+    await $axios.$get(`/api/v1/users/${$nxauth.user.id}`)
+    .then((res) => (
+    user = res,
+    userFollowing = res.following,
+    userForowers = res.followers
+    ))
+    const followingKeys = Object.keys(userFollowing[0] || {}) // 追加,
+    const followerKeys = Object.keys(userForowers[0] || {}) // 追加,
+    //console.log(userKeys)
+    //return { user, userKeys }
+    return { user, userFollowing, userForowers, followingKeys, followerKeys }
   },
-  // data () 追加
   data () {
     return {
+      loading: false,
+      change: false,
       dialog: false,
       show: false,
-      cards: [{ title: 'Favorite road trips', src: "https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg", flex: 6 }],
+      fls: [ {title: "following", change: false } ,{title: "followers", change: true} ]
     }
   },
-  methods: {
-    toShow(id) {
-    this.$router.push(`/user/${id}`)
-    }
-  }
 }
 </script>

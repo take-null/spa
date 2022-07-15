@@ -5,6 +5,10 @@
     "content-two": "コンテンツ2",
     "content-three": "コンテンツ3"
   },
+  "fls": {
+    "following": "フォロー中",
+    "followers": "フォロワー"
+  },
   "pages": {
     "signup": "新規登録",
     "login": "ログイン",
@@ -20,7 +24,7 @@
       "id": {
         "account": "マイページ",
         "tweets": "私の投稿",
-        "users": "ユーザー一覧"
+        "users": "フォロー/フォロワー"
       }
     }
   } 

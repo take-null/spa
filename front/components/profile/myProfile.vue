@@ -42,11 +42,12 @@
               <v-card-text>住んでいる場所：{{locate}}</v-card-text>
               <b-container class="d-flex justify-content-end">
                 <v-btn
-                  dark
-                  class="white--text"
+                  text
+                  outlined
+                  rounded
                   @click.stop="dialog = true"
                 >
-                  編集する
+                  edit user
                 </v-btn>
               </b-container>
             </template>
@@ -57,13 +58,13 @@
           <v-card 
             color="blue-grey lighten-5"
             class="mx-auto"
-            width="400"
           >
             <template>
               <b-container class="d-flex justify-content-end">
                 <v-btn
-                  dark
-                  class="white--text"
+                  text
+                  outlined
+                  rounded
                   @click="dialog = false"
                 >
                 close
@@ -76,18 +77,20 @@
                     ref="form"
                     v-model="isValid"
                   >
+                  <v-card-text>
+                  <v-icon> mdi-badge-account-horizontal </v-icon>
+                  <span>プロフィール</span>
+                  </v-card-text>
                     <v-card-text>
                     <userFormProfile
                       :profile.sync="params.profile" 
                     />
                     </v-card-text>
-                    <v-divider></v-divider>
                     <v-card-text>
                     <userFormAge
                       :age.sync="params.age" 
                     />
                     </v-card-text>
-                    <v-divider></v-divider>
                     <v-card-text>
                     <userFormLocate
                       :locate.sync="params.locate" 
@@ -96,7 +99,6 @@
                     <v-card-text class="px-0">
                       <div>{{error}}</div>
                     <v-btn
-                      :disabled="!isValid || loading"
                       :loading="loading"
                       block
                       dark

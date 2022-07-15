@@ -1,28 +1,32 @@
 <template>
-  <v-container fluid>
-    <v-card
-      flat
-      tile
-      color="transparent"
-    >
+<v-app id="inspire">
 
-      <div>
-        <v-container fluid>
-          <myProfile
-            :name.sync="user.name"
-            :email.sync="user.email" 
-            :profile.sync="user.profile" 
-            :age.sync="user.age" 
-            :locate.sync="user.locate"
-            :following.sync="user.following"
-            :followers.sync="user.followers"
-          />
-        </v-container>
-      </div>
-    </v-card>
-  </v-container>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-sheet
+              min-height="70vh"
+              rounded="lg"
+              max-width="768"
+            >
+            <div>
+              <myProfile
+                :name.sync="user.name"
+                :image.sync="user.image.url"
+                :email.sync="user.email" 
+                :profile.sync="user.profile" 
+                :age.sync="user.age" 
+                :locate.sync="user.locate"
+                :following.sync="user.following"
+                :followers.sync="user.followers"
+              />
+            </div>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+  </v-app>
 </template>
-
 
 <script>
 import myProfile from '~/components/profile/myProfile.vue'
@@ -31,7 +35,9 @@ export default {
   async asyncData ({ $axios, $nxauth }) {
     let user = []
     await $axios.$get(`/api/v1/users/${$nxauth.user.id}`).then((res) => (
-    user = res))
+    user = res,
+    console.log(user)
+    ))
     return { user }
   },
   // data () 追加
@@ -39,7 +45,6 @@ export default {
     return {
       dialog: false,
       show: false,
-      cards: [{ title: 'Favorite road trips', src: "https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg", flex: 6 }],
     }
   },
 }

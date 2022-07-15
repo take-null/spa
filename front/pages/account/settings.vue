@@ -7,7 +7,7 @@
             <v-sheet
               min-height="70vh"
               rounded="lg"
-              width="680"
+              max-width="768"
             >
             <div>
               <myProfile
@@ -45,7 +45,6 @@ export default {
     return {
       dialog: false,
       show: false,
-      cards: [{ title: 'Favorite road trips', src: "https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg", flex: 6 }],
     }
   },
 }

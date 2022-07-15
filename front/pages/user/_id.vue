@@ -1,35 +1,36 @@
 <template>
-  <div>
-    <v-card-title>
-      {{user.name}}
-    </v-card-title>
-    <v-card 
-      color="blue-grey lighten-5"
-      class="mx-auto"
-      width="680"
-    >
-      <template>
-        <b-container class="d-flex justify-content-end">
-              <div>
+<v-app id="inspire">
+
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-sheet
+              color="blue-grey lighten-5"
+              min-height="70vh"
+              rounded="lg"
+              max-width="768"
+            >
+            <div>
       <followAlert v-if="flag1"
         :name.sync="user.name"
       />
-    </div>
-    <div>                     
       <unfollowAlert v-if="flag2"
         :name.sync="user.name"
       />
-    </div>
+        <b-container class="d-flex justify-content-end" color="blue-grey lighten-5">
           <v-btn
+            text
+            rounded
+            outlined
             @click="toTop()"
-            elevation="0"
           >
-            ✕
+            close
           </v-btn>
         </b-container>
           <otherProfile 
             :id.sync="user.id"
             :name.sync="user.name" 
+            :image.sync="user.image.url"
             :profile.sync="user.profile" 
             :age.sync="user.age" 
             :locate.sync="user.locate"
@@ -38,8 +39,8 @@
           />
           <b-container class="d-flex justify-content-end">
             <v-btn v-if="flag"
-              dark
-              class="white--text"
+            text
+            outlined
               @click="unfollowUser"
             >
               <v-icon>mdi-checkbox-marked-circle</v-icon>
@@ -54,9 +55,12 @@
                 Follow
             </v-btn>
           </b-container>
-      </template>
-    </v-card>
-  </div>
+            </div>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+  </v-app>
 </template>
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
@@ -83,7 +87,6 @@ export default defineComponent({
       flag1: false,
       flag2: false,
       error: null,
-      cards: [{ title: 'Favorite road trips', src: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg", flex: 6 }],
     }
   },
   async asyncData ({ $axios, params }) {
@@ -99,7 +102,7 @@ export default defineComponent({
   },
   methods: {
     toTop() {
-      this.$router.push('/user')
+      this.$router.push('/contents/users')
     },  
     async followUser () {
     try {
@@ -111,6 +114,7 @@ export default defineComponent({
         (res) => {
         this.flag = true
         this.flag1 = true
+        this.flag2 = false
         console.log(res)
         this.user.followers.push(this.$store.state.current.user);
         console.log(this.user)
@@ -139,6 +143,7 @@ export default defineComponent({
         (res) => {
         this.flag = false
         this.flag2 = true
+        this.flag1 = false
         console.log(res)
         this.user.followers.pop(this.$store.state.current.user);
         console.log(this.user)

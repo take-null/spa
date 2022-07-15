@@ -7,7 +7,9 @@
   >
    <b-container class="d-flex justify-content-end">
     <v-btn
-      dark
+      text
+      outrined
+      rounded
       @click="closeDrawerChild"
     >
       close<v-icon>mdi-chevron-left</v-icon>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="grey lighten-5">
     <v-card
       flat
       tile
@@ -8,7 +8,26 @@
       <v-card-title>
         Users
       </v-card-title>
-
+      <div>
+        <v-container class="grey lighten-5">
+          <v-row no-gutters>
+            <v-col
+              v-for="n in 2"
+              :key="n"
+              cols="12"
+              sm="4"
+            >
+              <v-btn
+                class="pa-2"
+                outlined
+                tile
+              >
+                One of three columns
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
       <div>
         <v-container fluid>
           <v-row>
@@ -17,6 +36,7 @@
             <v-card>
               <otherProfile 
                 :id.sync="user.id"
+                :image.sync="user.image"
                 :name.sync="user.name" 
                 :profile.sync="user.profile" 
                 :age.sync="user.age" 
@@ -39,6 +59,9 @@
         </v-container>
       </div>
     </v-card>
+    <div>
+      {{users}}
+    </div>
   </v-container>
 </template>
 <script>

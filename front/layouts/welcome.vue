@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <wel-app-bar 
+    
       :menus="menus"
       :img-height="imgHeight"  
     />
