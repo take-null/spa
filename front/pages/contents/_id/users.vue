@@ -29,7 +29,10 @@
         </v-row>
         <v-container fluid max-width="426">
           <v-row v-if="change === false">
-            <v-col
+            <v-col v-if="!userFollowing.length">
+              <p>フォロー中のユーザーはいません</p>
+            </v-col>
+            <v-col v-else
               v-for="user in userFollowing" :key="user.id">
               <v-container max-width="426">
                 <p>{{user.name}}をフォローしています</p>
@@ -45,8 +48,11 @@
             </v-col>
           </v-row>
           <v-row v-else>
-            <v-col
-              v-for="user in userForowers" :key="user.id">
+            <v-col v-if="!userFollowers.length">
+              <p>フォロワーはいません</p>
+            </v-col>
+            <v-col v-else
+              v-for="user in userFollowers" :key="user.id">
               <v-container max-width="426">
                 <p>{{user.name}}にフォローされています</p>
               <otherCard
@@ -71,18 +77,18 @@ export default {
   async asyncData ({ $axios, $nxauth}) {
     let user = []
     let userFollowing = []
-    let userForowers = []
+    let userFollowers = []
     await $axios.$get(`/api/v1/users/${$nxauth.user.id}`)
     .then((res) => (
     user = res,
     userFollowing = res.following,
-    userForowers = res.followers
+    userFollowers = res.followers
     ))
     const followingKeys = Object.keys(userFollowing[0] || {}) // 追加,
-    const followerKeys = Object.keys(userForowers[0] || {}) // 追加,
+    const followerKeys = Object.keys(userFollowers[0] || {}) // 追加,
     //console.log(userKeys)
     //return { user, userKeys }
-    return { user, userFollowing, userForowers, followingKeys, followerKeys }
+    return { user, userFollowing, userFollowers, followingKeys, followerKeys }
   },
   data () {
     return {
