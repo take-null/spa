@@ -34,3 +34,51 @@ ActionMailer::Base.mail(
   subject: "テスト",
   body: "送信テスト"
 ).deliver_now
+@google_books = GoogleBook.search('Rails')
+@google_books[0].title
+@google_books[0].last.author
+@google_books.last.author
+@google_books.last.authors
+@google_books.map { |google_book| google_book.title }
+@google_books.class
+@google_books.last.image
+@google_books = GoogleBook.new_from_id('wlNHDwAAQBAJ')
+@google_book = GoogleBook.new_from_id('wlNHDwAAQBAJ')
+@google_books.last.id
+@google_books.last.google_books_api_id
+@google_books[0].google_books_api_id
+@google_books = GoogleBook.search('Rails')
+exit
+@google_books = GoogleBook.search('Rails')
+@google_books = GoogleBook.search('Python')
+@google_books[0].title
+@google_books[0].google_books_api_id
+@google_book = GoogleBook.new_form_id("uWhmDwAAQBAJ")
+@google_book = GoogleBook.new_from_id("uWhmDwAAQBAJ")
+@google_book.title
+@google_book.save
+@google_book = GoogleBook.new_from_id("uWhmDwAAQBAJ")
+@google_book.title
+@google_book.save
+@google_book = GoogleBook.new_from_id("uWhmDwAAQBAJ")
+@google_book.title
+@google_book.save
+@book = Book.last
+@book.authors[0].name
+@book.authors.size
+@book.authors.class
+@author = Author.last
+@author.name
+exit
+@google_book = GoogleBook.new_from_id('wlNHDwAAQBAJ')
+@google_book.save
+@book = Book.last
+@book.title
+@book.authors[0].name
+@book
+@book.authors.size
+@book.authors
+@book.author
+@book.authors[0].name
+exit
+Book.all

@@ -33,6 +33,11 @@ Rails.application.routes.draw do
            get 'all'
          end
       end
+      resources :books, only: [:create, :show], shallow: true do
+        collection do
+          get :search
+        end
+      end
     end
   end
 end

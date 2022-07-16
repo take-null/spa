@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_12_053510) do
+ActiveRecord::Schema.define(version: 2022_07_16_142400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,26 @@ ActiveRecord::Schema.define(version: 2022_07_12_053510) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "authors", force: :cascade do |t|
+    t.bigint "book_id"
+    t.string "name", null: false
+    t.boolean "is_representative", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_authors_on_book_id"
+  end
+
+  create_table "books", force: :cascade do |t|
+    t.string "google_books_api_id", null: false
+    t.string "title", null: false
+    t.string "image"
+    t.string "publisher"
+    t.date "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["google_books_api_id"], name: "index_books_on_google_books_api_id", unique: true
+  end
+
   create_table "chat_messages", force: :cascade do |t|
     t.integer "user_id"
     t.text "message"
@@ -51,6 +71,11 @@ ActiveRecord::Schema.define(version: 2022_07_12_053510) do
     t.integer "room_id"
     t.index ["room_id"], name: "index_chat_messages_on_room_id"
     t.index ["user_id"], name: "index_chat_messages_on_user_id"
+  end
+
+  create_table "google_books", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "hellos", force: :cascade do |t|
@@ -124,6 +149,7 @@ ActiveRecord::Schema.define(version: 2022_07_12_053510) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "authors", "books"
   add_foreign_key "chat_messages", "rooms"
   add_foreign_key "chat_messages", "users"
   add_foreign_key "likes", "tweets"
