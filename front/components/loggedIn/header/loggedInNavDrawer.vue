@@ -54,7 +54,8 @@ export default {
       navMenus: [
         { name: 'contents-id-account', icon: 'mdi-account-circle' },
         { name: 'contents-id-tweets', icon: 'mdi-view-dashboard'},
-        { name: 'contents-id-users', icon: 'mdi-account-group'}
+        { name: 'contents-id-users', icon: 'mdi-account-group'},
+        { name: 'contents-id-books', icon: 'mdi-book-open-page-variant-outline'}
       ]
     }
   },

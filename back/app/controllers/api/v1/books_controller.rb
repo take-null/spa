@@ -4,7 +4,22 @@ module Api
       def search
         #@q = GoogleBook.ransack(params[:q])
         books = GoogleBook.search(params[:keyword])
-        render json: { status: 'SUCCESS', data: books }
+        books_array = books.map do |book|
+          { 
+            google_books_api_id: book.google_books_api_id,
+            image: book.image,
+            published_at: book.published_at,
+            title: book.title,
+            publisher: book.publisher,
+            authors: book.authors
+          }
+        end
+        books_array.each do |i|
+          if i[:authors] != nil
+            i[:authors] = i[:authors].sort.join(',')
+          end
+        end
+        render json: books_array, status: 200
       end
 
       def create
