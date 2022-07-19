@@ -37,7 +37,7 @@
               </div>
               <v-card-text>自己紹介：{{profile}}</v-card-text>
               <v-divider></v-divider>
-              <v-card-text>誕生日：{{age}}</v-card-text>
+              <v-card-text>年齢：{{age}}</v-card-text>
               <v-divider></v-divider>
               <v-card-text>住んでいる場所：{{locate}}</v-card-text>
             </template>

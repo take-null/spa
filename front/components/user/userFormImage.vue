@@ -1,7 +1,7 @@
 <template>
   <v-form ref="form" lazy-validation class="ma-16">
     <v-icon> mdi-account-box </v-icon>
-    <span>イメージプレビュー</span>
+    <span>ユーザーイメージ</span>
     <v-row justify="center" class="pt-6">
         <template v-if="img !== null">
           <v-avatar v-if="input_image === null" size="100">

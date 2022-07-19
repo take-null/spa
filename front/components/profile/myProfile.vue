@@ -4,6 +4,7 @@
             color="blue-grey lighten-5"
             class="mx-auto"
             max-width="768"
+            elevation="0"
           >
             <template>
               <div v-if="image === null">
@@ -34,7 +35,6 @@
                 <v-card-text>Following: {{following.length}}    Followers: {{followers.length}}</v-card-text>
               </v-img>
               </div>
-
               <v-card-text>自己紹介：{{profile}}</v-card-text>
               <v-divider></v-divider>
               <v-card-text>年齢：{{age}}</v-card-text>
@@ -103,7 +103,7 @@
                       block
                       dark
                       class="white--text"
-                      @click="change"
+                      @click.stop="change"
                     >
                     プロフィールを更新
                     </v-btn>

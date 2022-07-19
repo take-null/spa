@@ -1,77 +1,86 @@
 <template>
 <v-app id="inspire">
-
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-sheet
-              color="blue-grey lighten-5"
-              min-height="70vh"
-              rounded="lg"
-              max-width="768"
-            >
-            <div>
-      <followAlert v-if="flag1"
-        :name.sync="user.name"
-      />
-      <unfollowAlert v-if="flag2"
-        :name.sync="user.name"
-      />
-        <b-container class="d-flex justify-content-end" color="blue-grey lighten-5">
-          <v-btn
-            text
-            rounded
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-sheet
+          color="blue-grey lighten-5"
+          min-height="70vh"
+          rounded="lg"
+          max-width="768"
+        >
+          <v-snackbar
+            v-model="followSnackbar"
+            max-width="768"
+            color="primary"
+            absolute
             outlined
-            @click="toTop()"
+            text
+            top
           >
-            close
-          </v-btn>
-        </b-container>
-          <otherProfile 
-            :id.sync="user.id"
-            :name.sync="user.name" 
-            :image.sync="user.image.url"
-            :profile.sync="user.profile" 
-            :age.sync="user.age" 
-            :locate.sync="user.locate"
-            :following.sync="user.following"
-            :followers.sync="user.followers"  
-          />
-          <b-container class="d-flex justify-content-end">
-            <v-btn v-if="flag"
-            text
+            <p class="font-italic"><v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>{{user.name}}をフォローしました</p>
+          </v-snackbar>
+          <v-snackbar
+            v-model="unfollowSnackbar"
+            max-width="768"
+            color="primary"
+            absolute
             outlined
-              @click="unfollowUser"
+            text
+            top
+          >
+            <p class="font-italic"><v-icon>mdi-checkbox-marked-circle</v-icon>{{user.name}}のフォローを解除しました</p>
+          </v-snackbar>
+          <b-container class="d-flex justify-content-end" color="blue-grey lighten-5">
+            <v-btn
+              text
+              rounded
+              outlined
+              @click="toTop()"
             >
-              <v-icon>mdi-checkbox-marked-circle</v-icon>
+              close
+            </v-btn>
+            </b-container>
+            <otherProfile 
+              :id.sync="user.id"
+              :name.sync="user.name" 
+              :image.sync="user.image.url"
+              :profile.sync="user.profile" 
+              :age.sync="user.age" 
+              :locate.sync="user.locate"
+              :following.sync="user.following"
+              :followers.sync="user.followers"  
+            />
+            <b-container class="d-flex justify-content-end">
+              <v-btn v-if="flag"
+                text
+                outlined
+                @click="unfollowUser"
+              >
+                <v-icon>mdi-checkbox-marked-circle</v-icon>
                 unFollow
-            </v-btn>
-            <v-btn v-else
-              dark
-              class="white--text"
-              @click="followUser"
-            >
-              <v-icon>mdi-checkbox-marked-circle</v-icon>
+              </v-btn>
+              <v-btn v-else
+                color="cyan accent-3"
+                class="white--text"
+                @click="followUser"
+              >
+                <v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>
                 Follow
-            </v-btn>
-          </b-container>
-            </div>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-container>
+              </v-btn>
+            </b-container>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
 import otherProfile from '~/components/profile/otherProfile.vue'
-import followAlert from '~/components/followAlert.vue'
-import unfollowAlert from '~/components/unfollowAlert.vue'
 export default defineComponent({
   components: {
     otherProfile,
-    followAlert,
-    unfollowAlert
   },
   validate({ params }) {
     return /^\d+$/.test(params.id)
@@ -84,8 +93,8 @@ export default defineComponent({
   data () {
     return {
       flag: false,
-      flag1: false,
-      flag2: false,
+      followSnackbar: false,
+      unfollowSnackbar: false,
       error: null,
     }
   },
@@ -113,8 +122,10 @@ export default defineComponent({
       .then(
         (res) => {
         this.flag = true
-        this.flag1 = true
-        this.flag2 = false
+        this.followSnackbar = true
+        setTimeout(() => {
+        this.followSnackbar = false
+        }, 1500)
         console.log(res)
         this.user.followers.push(this.$store.state.current.user);
         console.log(this.user)
@@ -142,8 +153,10 @@ export default defineComponent({
       .then(
         (res) => {
         this.flag = false
-        this.flag2 = true
-        this.flag1 = false
+        this.unfollowSnackbar = true
+        setTimeout(() => {
+        this.unfollowSnackbar = false
+        }, 1500)
         console.log(res)
         this.user.followers.pop(this.$store.state.current.user);
         console.log(this.user)
