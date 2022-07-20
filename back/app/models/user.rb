@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   has_many :user_rooms, dependent: :destroy
   has_many :rooms, through: :user_rooms
+  has_many :books, through: :books_shelves
+  has_many :books_shelves
   #マイクロポスト用のリレーション
   has_many :tweets, dependent: :destroy
   has_many :likes, dependent: :destroy

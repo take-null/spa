@@ -38,6 +38,7 @@ Rails.application.routes.draw do
           get :search
         end
       end
+      resources :books_shelves, only: [:index, :show, :create]
     end
   end
 end

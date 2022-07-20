@@ -24,7 +24,8 @@ COPY Gemfile* ./
 # --virtual <name> このオプションを付けるとひとまとめにされ新たなパッケージとなり、nameで呼び出せる
 # -j4 並列処理でインストールを高速化
 # 最後にRailsの起動に不必要なものをdelで削除
-RUN apk update --no-cache less && \
+RUN apk add --update --no-cache less && \
+    #apk update --no-cache less && \
     apk upgrade && \
     apk add --no-cache ${RUNTIME_PACKAGES} && \
     apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \

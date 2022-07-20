@@ -82,3 +82,23 @@ exit
 @book.authors[0].name
 exit
 Book.all
+BookShelves.all
+BookShelf.all
+BooksShelf.all
+Tweet.all
+Book.all
+User.all
+Book.all
+GoogleBook.all
+exit
+Book.all
+book = Book.find(google_books_api_id : "jfApAQAAMAAJ")
+book = Book.find(google_books_api_id: "jfApAQAAMAAJ")
+book
+@book = Book.find_by(google_books_api_id: "jfApAQAAMAAJ")
+@book
+BooksShelves.all
+BooksShelf.all
+Tweet.all
+BooksShelf.all
+exit

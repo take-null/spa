@@ -1,30 +1,28 @@
 <template>
-<v-app id="inspire">
-
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-sheet
-              min-height="70vh"
-              rounded="lg"
-              max-width="768"
-            >
-            <div>
-              <myProfile
-                :name.sync="user.name"
-                :image.sync="user.image.url"
-                :email.sync="user.email" 
-                :profile.sync="user.profile" 
-                :age.sync="user.age" 
-                :locate.sync="user.locate"
-                :following.sync="user.following"
-                :followers.sync="user.followers"
-              />
-            </div>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-container>
+  <v-app id="inspire">
+    <v-container>
+      <v-row>
+        <v-col>
+          <v-sheet
+            color="blue-grey lighten-5"
+            min-height="70vh"
+            rounded="lg"
+            max-width="768"
+          >
+            <myProfile
+              :name.sync="user.name"
+              :image.sync="user.image.url"
+              :email.sync="user.email" 
+              :profile.sync="user.profile" 
+              :age.sync="user.age" 
+              :locate.sync="user.locate"
+              :following.sync="user.following"
+              :followers.sync="user.followers"
+            />
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
