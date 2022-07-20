@@ -3,10 +3,11 @@
     color="blue-grey lighten-5"
     class="mx-auto"
     max-width="426"
+    height="280"
   >
    <v-container>
     <v-row dense>
-      <v-col>
+      <v-col cols="6">
           <v-list-item-content>
             <v-list-item class="d-flex flex-column justify-content-start">
               <template v-if="image === null">
@@ -26,7 +27,7 @@
             </v-list-item>
           </v-list-item-content>
       </v-col>
-      <v-col>
+      <v-col cols="6">
         <v-list-item three-line>
         <v-list-item-content class="d-flex justify-content-end">
           <div class="text-sm-h7 mb-4">

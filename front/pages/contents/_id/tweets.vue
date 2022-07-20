@@ -5,11 +5,13 @@
       tile
       color="transparent"
     >
-      <div>
         <v-container fluid>
-          <v-row>
+          <v-row dense>
             <v-col
-              v-for="tweet in tweets" :key="tweet.id">
+              v-for="tweet in tweets" :key="tweet.id"
+              cols="12" sm="6" md="4" lg="3" xl="2"
+              class="d-flex align-end"
+            >
               <myTweetsCard
                 :name.sync="tweet.name"
                 :content.sync="tweet.content"
@@ -18,7 +20,7 @@
             </v-col>
           </v-row>
         </v-container>
-      </div>
+
       <v-card>
         <tweetPost
           :tweet_content.sync="params.tweet_content" 

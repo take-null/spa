@@ -7,7 +7,7 @@
       max-width="768"
     >
       <v-card-title>
-        books
+        本を探す
       </v-card-title>
       <v-form
         ref="form"
@@ -46,10 +46,10 @@
     </v-card>
     
     <v-container fluid>
-      <v-row>
+      <v-row dense >
         <v-col
           v-for="book in books" :key="book.google_books_api_id"
-          cols="4" xs="12" sm="12" md="6" lg="4" xl="4"
+          cols="12" sm="6" md="4" lg="3" xl="3"
         >
           <book-card
             :google_books_api_id.sync="book.google_books_api_id"

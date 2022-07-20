@@ -55,7 +55,8 @@ export default {
         { name: 'contents-id-account', icon: 'mdi-account-circle' },
         { name: 'contents-id-tweets', icon: 'mdi-view-dashboard'},
         { name: 'contents-id-users', icon: 'mdi-account-group'},
-        { name: 'contents-id-books', icon: 'mdi-book-open-page-variant-outline'}
+        { name: 'contents-id-books', icon: 'mdi-magnify'},
+        { name: 'contents-id-shelf', icon: 'mdi-book-open-page-variant-outline'}
       ]
     }
   },

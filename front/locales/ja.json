@@ -16,16 +16,17 @@
     "checkEmail": "登録済のメールアドレスを入力してください",
     "passwordReset": "新しいパスワードを入力してください",
     "account": {
-      "settings": "マイページ",
+      "settings": "マイアカウント",
       "password": "パスワード変更"
     },
     "account-password": "パスワード変更",
     "contents": {
       "id": {
-        "account": "マイページ",
+        "account": "マイアカウント",
         "tweets": "私の投稿",
         "users": "フォロー/フォロワー",
-        "books": "レビューを投稿"
+        "books": "本を検索",
+        "shelf": "私の本棚"
       }
     }
   } 

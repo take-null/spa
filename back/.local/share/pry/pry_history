@@ -102,3 +102,19 @@ BooksShelf.all
 Tweet.all
 BooksShelf.all
 exit
+Tweet.all
+Tweet.find_by(id: 5)
+t = Tweet.find_by(id: 5)
+t
+t.destroy
+t = Tweet.find_by(id: 5)
+t = Tweet.find_by(id: 6)
+t.destroy
+Tweet.all
+t = Tweet.find_by(user_id: 1)
+t
+t = Tweet.find_by(user_id: 1)
+t
+t = Tweet.where(user_id: 1)
+BookShelf.all
+BooksShelf.all
