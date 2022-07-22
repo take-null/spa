@@ -1,11 +1,10 @@
 <template>
   <v-app id="inspire">
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col>
           <v-sheet
             color="blue-grey lighten-5"
-            min-height="70vh"
             rounded="lg"
             max-width="768"
           >

@@ -3,7 +3,7 @@
     v-model="setDrawer"
     app
     clipped
-    mobile-breakpoint="960"
+    mobile-breakpoint="420"
   >
    <b-container class="d-flex justify-content-end">
     <v-btn

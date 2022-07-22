@@ -118,3 +118,18 @@ t
 t = Tweet.where(user_id: 1)
 BookShelf.all
 BooksShelf.all
+Book.all
+book = Book.all
+book
+Book.all.each do |book|
+  puts [book]
+end
+Book.find_by(id: 16)
+BooksShelf.all
+@book = BookShelf.find(id: 14)
+@book = BooksShelf.find(id: 14)
+@book = BooksShelf.find_by(id: 14)
+@book
+@book.destroy
+@shelf = BooksShelf.include(:book).order("created_at DESC")
+@shelf = BooksShelf.includes(:book).order("created_at DESC")

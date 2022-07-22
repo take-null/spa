@@ -44,6 +44,15 @@
           </v-list-item-subtitle>
         </v-list-item-content>
         </v-list-item>
+        <div class="d-flex justify-content-end">
+          <v-btn
+            @click="openDialogChild"
+            dark
+            class="white--text"
+          >
+            <v-icon>mdi-pencil-plus</v-icon>
+          </v-btn>
+        </div>
       </v-col>
     </v-row>
     </v-container>
@@ -68,6 +77,22 @@ export default {
     },
     image: {
       type: String
+    },
+    google_books_api_id: {
+      type: String
+    }
+  },
+  methods: {
+    openDialogChild() {
+      this.$emit(
+        'openDialogParent', 
+        this.google_books_api_id,
+        this.publisher,
+        this.title,
+        this.authors,
+        this.published_at,
+        this.image
+      )
     }
   },
   data () {

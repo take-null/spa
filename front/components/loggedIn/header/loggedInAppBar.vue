@@ -91,11 +91,12 @@
       </v-list>
     </v-menu>
   </v-app-bar>
-  <logged-in-nav-drawer
-    v-if="drawer"
-    :drawer.sync="drawer"
-    @closeDrawerParent="close"
-  />
+    <logged-in-nav-drawer
+      v-if="drawer"
+      :drawer.sync="drawer"
+      @closeDrawerParent="close"
+    />
+
   </v-sheet>
 </template>
 <script>

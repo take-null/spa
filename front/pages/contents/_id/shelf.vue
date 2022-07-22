@@ -12,13 +12,13 @@
     <v-container fluid>
       <v-row dense>
         <v-col
-          v-for="book in books" :key="book.book.id"
+          v-for="book in books" :key="book.id"
           cols="12" sm="2" md="2" lg="2" xl="2"
           class="d-flex align-end"
         >
           <v-img
             contain 
-            :src="book.book.image"
+            :src="book.book_image"
             heigth="230"
             width="140"
           />
@@ -36,13 +36,13 @@
     <v-container fluid>
       <v-row dense>
         <v-col
-          v-for="book in books" :key="book.book.id"
+          v-for="book in books" :key="book.id"
           cols="3"
           class="d-flex align-end"
         >
           <v-img
             contain 
-            :src="book.book.image"
+            :src="book.book_image"
             heigth="230"
             width="140"
           />

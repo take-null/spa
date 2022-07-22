@@ -1,17 +1,72 @@
 module Api
     module V1
       class BooksShelvesController < ApplicationController
-
+      #マイページ
       def index
-        @books_shelves = BooksShelf.includes(:book).where(user_id: current_api_v1_user)
-        render json: @books_shelves.as_json(include: [{book: {}}])
+        @books_shelves = BooksShelf.includes(:book).where(user_id: current_api_v1_user).order("created_at DESC")
+        booksShelves_array = @books_shelves.map do |booksShelf|
+         {
+            id: booksShelf.id,
+            user_id: booksShelf.user_id,
+            book_id: booksShelf.book_id,
+            google_books_api_id: booksShelf.book.google_books_api_id,
+            book_image: booksShelf.book.image,
+            title: booksShelf.book.title,
+            publisher: booksShelf.book.publisher,
+            published_at: booksShelf.book.published_at,
+            authors: booksShelf.book.authors[0],
+            rating: booksShelf.rating,
+            commnet: booksShelf.comment,
+            created_at: booksShelf.created_at,
+          }
+        end
+        render json: booksShelves_array, status: 200
       end
-
-      def show
-        @books_shelf = BooksShelf.includes(:book).find(params[:id])
-        render json: @books_shelf.as_json(include: [{book: {}}])
+      #他人のページ
+      def user
+        @books_shelves = BooksShelf.includes(:book).where(user_id: params[:id]).order("created_at DESC")
+        booksShelves_array = @books_shelves.map do |booksShelf|
+         {
+            id: booksShelf.id,
+            user_id: booksShelf.user_id,
+            book_id: booksShelf.book_id,
+            google_books_api_id: booksShelf.book.google_books_api_id,
+            book_image: booksShelf.book.image,
+            title: booksShelf.book.title,
+            publisher: booksShelf.book.publisher,
+            published_at: booksShelf.book.published_at,
+            authors: booksShelf.book.authors[0],
+            rating: booksShelf.rating,
+            commnet: booksShelf.comment,
+            created_at: booksShelf.created_at,
+          }
+        end
+        render json: booksShelves_array, status: 200
       end
-
+      #タイムライン
+      def all
+        @books_shelves = BooksShelf.includes(:book, :user).order("created_at DESC")
+        booksShelves_array = @books_shelves.map do |booksShelf|
+          {
+            id: booksShelf.id,
+            user_id: booksShelf.user_id,
+            user_image: booksShelf.user.image.thumb.url,
+            user_name: booksShelf.user.name,
+            book_id: booksShelf.book_id,
+            google_books_api_id: booksShelf.book.google_books_api_id,
+            book_image: booksShelf.book.image,
+            title: booksShelf.book.title,
+            publisher: booksShelf.book.publisher,
+            published_at: booksShelf.book.published_at,
+            authors: booksShelf.book.authors[0],
+            rating: booksShelf.rating,
+            commnet: booksShelf.comment,
+            created_at: booksShelf.created_at,
+          }
+        end
+        render json: booksShelves_array, status: 200
+      end
+      #レビュー作成
       def create
         @books_shelf = BooksShelf.new(books_shelf_params)
         @books_shelf.user_id = current_api_v1_user.id

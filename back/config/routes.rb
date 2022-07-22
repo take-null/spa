@@ -38,7 +38,12 @@ Rails.application.routes.draw do
           get :search
         end
       end
-      resources :books_shelves, only: [:index, :show, :create]
+      resources :books_shelves, only: [:index, :show, :create] do
+        collection do
+          get :all
+          get :user
+        end
+      end
     end
   end
 end
