@@ -69,13 +69,12 @@
         <v-subheader>
           アカウント
         </v-subheader>
-
-        <template v-for="(menu, i) in accountMenus">
+        
+        <v-list v-for="(menu, i) in accountMenus" :key=i>
           <v-divider
             v-if="menu.divider"
             :key="`menu-divider-${i}`"
           />
-
           <v-list-item
             :key="`menu-list-${i}`"
             :to="{ name: menu.name }"
@@ -87,7 +86,8 @@
               {{ $my.pageTitle(menu.name) }}
             </v-list-item-title>
           </v-list-item>
-        </template>
+        </v-list>
+
       </v-list>
     </v-menu>
   </v-app-bar>

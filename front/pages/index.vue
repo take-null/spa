@@ -1,59 +1,12 @@
 <template>
   <v-app id="inspire">
-    <v-system-bar app>
-      <v-spacer></v-spacer>
-
-      <v-icon>mdi-square</v-icon>
-
-      <v-icon>mdi-circle</v-icon>
-
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
-
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-    >
-      <v-sheet
-        color="grey lighten-4"
-        class="pa-4"
-      >
-        <v-avatar
-          class="mb-4"
-          color="grey darken-1"
-          size="64"
-        ></v-avatar>
-
-        <div>john@vuetifyjs.com</div>
-      </v-sheet>
-
-      <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item
-          v-for="[icon, text] in links"
-          :key="icon"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-main>
       <v-container
         class="py-8 px-6"
         fluid
       >
         <v-row>
           <v-col
-            v-for="book in books"
+            v-for="book in formattedBooks"
             :key="book.id"
             cols="12"
           >
@@ -64,131 +17,178 @@
             <v-container
               fluid
             >
-              <v-row>
+              <v-row
+                dense>
                 <v-col
                   cols="6"
                 >
-              <v-card-text>
-                <div>{{book.created_at}}</div>
-                <p class="text-h5 text--primary">
-                  {{book.title}}
-                </p>
-                <p>          
-                  <v-rating
-                    v-model="book.rating"
-                    background-color="orange lighten-3"
-                    color="orange"
-                    ></v-rating>
-                </p>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  text
-                  color="teal accent-4"
-                  @click="reveal = true"
-                >
-                  More
-                </v-btn>
-              </v-card-actions>
+                  <v-card-text>
+                    <div>{{book.created_at}}前</div>
+                    <p class="text-subtitle-1 text--primary">
+                      【{{book.title}}】
+                    </p>
+                    <v-row
+                      dense
+                    >
+                      <p>投稿者</p>
+                      <v-col
+                        cols="2"
+                      >
+                        <v-list-item-avatar
+                          size="50"
+                          class="d-flex justify-content-start"
+                        >
+                          <template v-if="book.user_image === null">
+                            <v-icon x-large>
+                              mdi-account-circle
+                            </v-icon>
+                          </template>
+                          <template v-else>
+                            <v-img :src="`http://localhost:3000/${book.user_image}`" alt="avatar" />
+                          </template>
+                        </v-list-item-avatar>
+                      </v-col>
+                      <v-col
+                        cols="10"
+                      >
+                        <v-list-item
+                          class="d-flex justify-content-start"
+                        >
+                          <v-card-text class="pb-0">
+                            <p 
+                              class="text-subtitle-1 text--primary"
+                            >
+                              {{book.user_name}}
+                            </p>
+                          </v-card-text>                
+                        </v-list-item>
+                      </v-col>
+                    </v-row>
+
+                  </v-card-text>
                 </v-col>
                 <v-col cols="6">
                   <v-list-item-content>
                     <v-list-item class="d-flex flex-column justify-content-start">
                       <template v-if="book.book_image === null">
                         <img
-                          height="200"
-                          width="120"
+                          height="140"
+                          width="100"
                           src="@/assets/img/20200505_noimage.jpg"
                         >
                       </template>
                       <template v-else>
                         <v-img
-                          heigth="200"
-                          width="120"
+                          heigth="140"
+                          width="100"
                           :src="book.book_image"
                         />
                       </template>
+                    </v-list-item>
+                    <v-list-item class="d-flex justify-content-end">
+                      <v-btn
+                        text
+                        outlined
+                        rounded
+                        @click="reveal = true"
+                      >
+                        Review
+                      </v-btn>
                     </v-list-item>
                   </v-list-item-content>
                 </v-col>
               </v-row>
             </v-container>
-
               <v-expand-transition>
                 <v-card
                   v-if="reveal"
                   class="transition-fast-in-fast-out v-card--reveal"
                   style="height: 100%;"
                 >
-                <v-list-item>
-                  <v-card-text class="pb-0">
-                    <p class="text-h5 text--primary">
-                      {{book.user_name}}
-                    </p>
-                  </v-card-text>
-                  <v-card-text class="pb-0">
-                    <p class="text-h5 text--primary">
-                      {{book.commnet}}
-                    </p>
-                  </v-card-text>
-                  
-                    <v-list-item-avatar
-                      tile
-                      size="80"
+                  <v-container
+                    fluid
+                  >
+                    <v-row
+                      dense
                     >
-                      <template v-if="book.user_image === null">
-                          <v-icon x-large>
-                            mdi-account-circle
-                          </v-icon>
-                      </template>
-                      <template v-else>
-                          <v-img :src="`http://localhost:3000/${book.user_image}`" alt="avatar" />
-                      </template>
-                    </v-list-item-avatar>
-                  </v-list-item>
-                  <v-card-actions class="pt-0">
-                    <v-btn
-                      text
-                      color="teal accent-4"
-                      @click="reveal = false"
-                    >
-                      Close
-                    </v-btn>
-                  </v-card-actions>
+                      <v-col
+                        cols="2"
+                      >
+                        <p 
+                          class="text-subtitle-2 text--primary"
+                        >
+                          評価:
+                        </p>
+                      </v-col>
+                      <v-col
+                        cols="7"
+                      >
+                        <v-rating
+                          v-model="book.rating"
+                          background-color="orange lighten-3"
+                          color="orange"
+                          x-small
+                        ></v-rating>
+                      </v-col>
+                      <v-col
+                        cols="3"
+                      >
+                        <v-list-item class="d-flex justify-content-end">
+                          <v-btn
+                            text
+                            outlined
+                            rounded
+                            @click="reveal = false"
+                          >
+                            <v-icon>
+                              mdi-refresh
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item>
+                      </v-col>
+                      </v-row>
+                      <v-row>
+                        <p class="text-subtitle-2 text--primary">レビュー:</p>
+                      <v-list-item>
+                        <v-card-text class="pb-0">
+                          <p class="text-subtitle-2 text--primary">
+                            {{book.commnet}}
+                          </p>
+                        </v-card-text>
+                      </v-list-item>
+                    </v-row>
+                  </v-container>
                 </v-card>
               </v-expand-transition>
             </v-card>
           </v-col>
         </v-row>
       </v-container>
-    </v-main>
   </v-app>
 </template>
 
 <script>
+import { formatDistanceToNow } from 'date-fns'
+import { ja } from 'date-fns/locale'
 export default {
   layout ({ $nxauth }) {
     return $nxauth.loggedIn ? 'loggedIn' : 'welcome'
   },
-    async asyncData ({ $axios }) {
+  async asyncData ({ $axios }) {
     let books = []
     await $axios.$get(`/api/v1/books_shelves/all`).then(res => (
     console.log(res),
     books = res,
     console.log(books)))
-    const bookKeys = Object.keys(books[0] || {}) // 追加
+    const formattedBooks = books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
+        return { ...book, created_at: time }
+    })
+    const bookKeys = Object.keys(books || {}) // 追加
     console.log(bookKeys)
-    return { books, bookKeys }
+    return { formattedBooks, bookKeys }
   },
   data: () => ({
-    drawer: null,
     reveal: false,
-    links: [
-      ['mdi-inbox-arrow-down', 'Inbox'],
-      ['mdi-send', 'Send'],
-      ['mdi-delete', 'Trash'],
-      ['mdi-alert-octagon', 'Spam'],
-    ],
   }),
 };
 </script>
