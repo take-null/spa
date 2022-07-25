@@ -13,15 +13,14 @@
         >
           <v-card-text>
             <div>{{created_at}}前</div>
-              <p class="text-subtitle-1 text--primary">
+              <p class="text-body-1 text--primary">
                【{{title}}】
               </p>
                 <v-row
                   dense
                 >
-                  <p>投稿者</p>
                 <v-col
-                  cols="3"
+                  cols="2"
                 >
                   <v-card-actions>
                     <v-btn
@@ -45,7 +44,7 @@
                   </v-card-actions>
                 </v-col>
                 <v-col
-                  cols="9"
+                  cols="10"
                 >
                   <v-list-item
                     class="d-flex justify-content-start"
@@ -60,6 +59,22 @@
                   </v-list-item>
                 </v-col>
               </v-row>
+              <v-row
+                dense
+              >
+                <v-col
+                  v-for="tag in tags" :key="tag.id"
+                >
+                  <p
+                    class="text-overline text--primary"
+                  >
+                    <v-icon>
+                      mdi-label
+                    </v-icon>
+                      {{tag.name}}
+                  </p>
+                </v-col>
+              </v-row>
           </v-card-text>
         </v-col>
         <v-col cols="5">
@@ -67,15 +82,15 @@
                     <v-list-item class="d-flex flex-column justify-content-start">
                       <template v-if="book_image === null">
                         <img
-                          height="140"
-                          width="100"
+                          height="160"
+                          width="120"
                           src="@/assets/img/20200505_noimage.jpg"
                         >
                       </template>
                       <template v-else>
                         <v-img
-                          heigth="140"
-                          width="100"
+                          heigth="160"
+                          width="120"
                           :src="book_image"
                         />
                       </template>
@@ -191,6 +206,9 @@ export default {
     },
     user_name: {
       type: String
+    },
+    tags: {
+        type:Array
     }
   },
   methods: {

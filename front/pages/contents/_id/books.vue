@@ -304,17 +304,21 @@ export default {
         .then(
           (res) => {
           console.log(res)
+          this.createParams ()
         }
       )
       await this.$axios.$post('/api/v1/books_shelves', {
         comment: this.comment,
         rating: this.rating,
-        google_books_api_id: this.google_books_api_id
+        google_books_api_id: this.google_books_api_id,
+        tag_list: this.params
       })
       .then(
         (res) => {
           this.loading = false
           this.dialog = false
+          this.params = []
+          this.model = []
           this.$refs.comment.reset()
           this.postMessage = true
           setTimeout(() => {
@@ -406,8 +410,7 @@ export default {
       ],
       nonce: 1,
       menu: false,
-      model: [
-      ],
+      model: [],
       x: 0,
       search: null,
       y: 0,

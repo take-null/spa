@@ -4,14 +4,16 @@
     class="mx-auto"
     max-width="350"
     height="250"
-    title
+    elevation="0"
   >
     <v-container
       fluid
     >
-      <v-row>
+      <v-row
+        no-gutters
+      >
         <v-col
-          cols="5"
+          cols="6"
         >
           <v-list-item-content
             two-line
@@ -22,14 +24,14 @@
               </div>
             </v-list-item>
             <v-list-item>
-              <div class="text-sm-subtitle-2 mb-4">
+              <div class="text-sm-body-2 mb-4">
                 {{title}}
               </div>
             </v-list-item>
           </v-list-item-content>
         </v-col>
         <v-col
-          cols="7"
+          cols="6"
         >
           <v-list-item-content>
             <v-list-item class="d-flex flex-column justify-content-start">

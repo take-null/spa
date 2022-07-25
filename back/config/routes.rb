@@ -43,6 +43,8 @@ Rails.application.routes.draw do
           get :all
           get :user
           get :rank
+          get :tag
+          get :search
         end
       end
     end
