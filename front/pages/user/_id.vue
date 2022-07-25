@@ -318,7 +318,7 @@ export default defineComponent({
   },
   methods: {
     toTop() {
-      this.$router.push('/contents/users')
+      this.$router.back()
     },
     handleResize: function() {
       this.width = window.innerWidth;

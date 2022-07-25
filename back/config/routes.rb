@@ -42,6 +42,7 @@ Rails.application.routes.draw do
         collection do
           get :all
           get :user
+          get :rank
         end
       end
     end
