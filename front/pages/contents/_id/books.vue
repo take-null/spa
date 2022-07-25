@@ -70,7 +70,6 @@
       <v-container>
         <v-row dense>
           <v-col cols="6">
-            <v-list-item-content>
               <v-list-item class="d-flex flex-column justify-content-start">
                 <template v-if="image === null">
                   <img
@@ -87,7 +86,6 @@
                   />
                 </template>
               </v-list-item>
-            </v-list-item-content>
           </v-col>
           <v-col cols="6">
             <v-list-item three-line>
@@ -108,10 +106,11 @@
             </v-list-item>
           </v-col>
         </v-row>
+        <v-row>
         <v-form
           ref="form"
           v-model="isValid"
-          class="pa-4 pt-6"
+          class="pa-4 pt-0"
         >
           <v-card-subtitle>
             本を評価(５段階)
@@ -120,7 +119,86 @@
             v-model="rating"
             background-color="orange lighten-3"
             color="orange"
+            x-small
           ></v-rating>
+          <v-card-subtitle>
+            タグを追加(５つまで)
+          </v-card-subtitle>
+            <v-combobox
+              v-model="model"
+              :filter="filter"
+              :hide-no-data="!search"
+              :items="items"
+              :search-input.sync="search"
+              hide-selected
+              label="先頭から最大５つまで、タグが登録されます"
+              multiple
+              small-chips
+              solo
+              >
+              <template v-slot:no-data>
+                <v-list-item>
+                  <span class="subheading">Create</span>
+                    <v-chip
+                      :color="`${colors[nonce - 1]} lighten-3`"
+                      label
+                      small
+                    >
+                      {{ search }}
+                    </v-chip>
+                </v-list-item>
+              </template>
+              <template v-slot:selection="{ attrs, item, parent, selected }">
+                <v-chip
+                  v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-3`"
+                    :input-value="selected"
+                    label
+                    small
+                >
+                  <span class="pr-2">
+                    {{ item.text }}
+                  </span>
+                  <v-icon
+                    small
+                    @click="parent.selectItem(item)"
+                  >
+                    $delete
+                  </v-icon>
+              </v-chip>
+              </template>
+              <template v-slot:item="{ index, item }">
+                <v-text-field
+                  v-if="editing === item"
+                  v-model="editing.text"
+                  autofocus
+                  flat
+                  background-color="transparent"
+                  hide-details
+                  solo
+                  @keyup.enter="edit(index, item)"
+                ></v-text-field>
+                <v-chip
+                  v-else
+                  :color="`${item.color} lighten-3`"
+                  dark
+                  label
+                  small
+                >
+                  {{ item.text }}
+                </v-chip>
+                <v-spacer></v-spacer>
+                <v-list-item-action @click.stop>
+                  <v-btn
+                    icon
+                    @click.stop.prevent="edit(index, item)"
+                  >
+                  <v-icon>{{ editing !== item ? 'mdi-pencil' : 'mdi-check' }}</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </template>
+            </v-combobox>
           <v-textarea
             ref="comment"
             :rules="[() => !!comment || 'コメントを入力して下さい']"
@@ -132,6 +210,7 @@
           >
           </v-textarea>
         </v-form>
+        </v-row>
       <v-divider></v-divider>
       <v-card-actions>
         <v-btn
@@ -249,6 +328,32 @@ export default {
         console.log({error})
       }
     },
+    createParams () {
+      var count = 0;
+      for(var i = 0; i <= this.model.length - 1; i++ ) {
+      this.params.push(this.model[i].text)
+      if(count > 4) break;
+      console.log(this.params)
+      }
+    },
+    edit (index, item) {
+      if (!this.editing) {
+        this.editing = item
+        this.editingIndex = index
+      } else {
+        this.editing = null
+        this.editingIndex = -1
+      }
+    },
+    filter (item, queryText, itemText) {
+      if (item.header) return false
+      const hasValue = val => val != null ? val : ''
+      const text = hasValue(itemText)
+      const query = hasValue(queryText)
+      return text.toString()
+        .toLowerCase()
+        .indexOf(query.toString().toLowerCase()) > -1
+    },
   },
   computed: {
     eventReady() {
@@ -262,6 +367,7 @@ export default {
   data () {
     const min = 1
     return {
+      params: [],
       rating: 5,
       comment: "",
       google_books_api_id: "",
@@ -283,7 +389,45 @@ export default {
       ],
       isValid: false,
       loading: false,
+      activator: null,
+      attach: null,
+      colors: ['green', 'purple', 'indigo', 'cyan', 'teal', 'orange'],
+      editing: null,
+      editingIndex: -1,
+      items: [
+        {
+          text: 'Foo',
+          color: 'blue',
+        },
+        {
+          text: 'Bar',
+          color: 'red',
+        },
+      ],
+      nonce: 1,
+      menu: false,
+      model: [
+      ],
+      x: 0,
+      search: null,
+      y: 0,
     }
+  },
+  watch: {
+    model (val, prev) {
+      if (val.length === prev.length) return
+      this.model = val.map(v => {
+        if (typeof v === 'string') {
+          v = {
+            text: v,
+            color: this.colors[this.nonce - 1],
+          }
+          this.items.push(v)
+          this.nonce++
+        }
+        return v
+      })
+    },
   },
 }
 </script>
