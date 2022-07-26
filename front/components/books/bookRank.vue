@@ -3,56 +3,53 @@
     color="blue-grey lighten-5"
     class="mx-auto"
     max-width="350"
-    height="250"
     elevation="0"
   >
-    <v-container
-      fluid
-    >
-      <v-row
-        no-gutters
+    <v-container>
+      <v-list-item-content
+        two-line
       >
-        <v-col
-          cols="6"
-        >
-          <v-list-item-content
-            two-line
+        <v-list-item>
+          <div 
+            class="text-sm-subtitle-1 mb-4"
           >
-            <v-list-item>
-              <div class="text-sm-subtitle-1 mb-4">
-                {{rank}}
-              </div>
-            </v-list-item>
-            <v-list-item>
-              <div class="text-sm-body-2 mb-4">
-                {{title}}
-              </div>
-            </v-list-item>
-          </v-list-item-content>
-        </v-col>
-        <v-col
-          cols="6"
+              {{rank}}
+          </div>
+        </v-list-item>
+        <v-list-item>
+          <div 
+            class="text-sm-body-2 mb-4"
+          >
+            {{title}}
+          </div>
+        </v-list-item>
+        <v-list-item 
+          class="d-flex flex-column justify-content-center"
         >
-          <v-list-item-content>
-            <v-list-item class="d-flex flex-column justify-content-start">
-              <template v-if="image === null">
-                <img
-                  height="180"
-                  width="105"
-                  src="@/assets/img/20200505_noimage.jpg"
-                >
-              </template>
-              <template v-else>
-                <v-img
-                  heigth="180"
-                  width="105"
-                  :src="image"
-                />
-              </template>
-            </v-list-item>
-          </v-list-item-content>
-        </v-col>
-      </v-row>
+          <template 
+            v-if="image === null"
+          >
+            <v-card
+              max-width="110"
+              @click="searchRankChild(google_books_api_id)"
+            >
+              <v-img :src="require('@/assets/img/20200505_noimage.jpg')" max-height="180" max-width="105">
+              </v-img>
+            </v-card>
+          </template>
+          <template 
+            v-else
+          >
+            <v-card
+              max-width="110"
+              @click="searchRankChild(google_books_api_id)"
+            >
+            <v-img :src="image" max-height="180" max-width="105">
+            </v-img>
+            </v-card>
+          </template>  
+        </v-list-item>
+      </v-list-item-content>
     </v-container>
   </v-card>
 </template>
@@ -74,9 +71,13 @@ export default {
       type: String
     }
   },
-  data () {
-    return {
-    }
+    methods: {
+    searchRankChild(google_books_api_id) {
+      this.$emit(
+        'searchRankParent', 
+        google_books_api_id,
+      )
+    },
   },
 }
 </script>

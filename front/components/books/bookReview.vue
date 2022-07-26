@@ -12,8 +12,12 @@
           cols="7"
         >
           <v-card-text>
-            <div>{{created_at}}前</div>
-              <p class="text-body-1 text--primary">
+            <div>
+              {{created_at}}前
+            </div>
+              <p 
+                class="text-body-1 text--primary"
+              >
                【{{title}}】
               </p>
                 <v-row
@@ -22,157 +26,172 @@
                 <v-col
                   cols="2"
                 >
-                  <v-card-actions>
-                    <v-btn
-                      icon
-                      @click="toShowChild(user_id)"
+                <v-card-actions>
+                  <v-btn
+                    icon
+                    @click="toShowChild(user_id)"
+                  >
+                    <v-list-item-avatar
+                      size="50"
+                      class="d-flex justify-content-center"
                     >
-                      <v-list-item-avatar
-                        size="50"
-                        class="d-flex justify-content-start"
-                      >
-                        <template v-if="user_image === null">
-                          <v-icon x-large>
-                            mdi-account-circle
-                          </v-icon>
-                        </template>
-                        <template v-else>
-                          <v-img :src="`http://localhost:3000/${user_image}`" alt="avatar" />
-                        </template>
-                      </v-list-item-avatar>
-                    </v-btn>
-                  </v-card-actions>
-                </v-col>
-                <v-col
-                  cols="10"
-                >
-                  <v-list-item
-                    class="d-flex justify-content-start"
-                  >
-                    <v-card-text class="pb-0">
-                      <p 
-                        class="text-body-1 text--primary"
-                      >
-                        {{user_name}}
-                      </p>
-                    </v-card-text>                
-                  </v-list-item>
-                </v-col>
-              </v-row>
-              <v-row
-                dense
+                      <template v-if="user_image === null">
+                        <v-icon 
+                          x-large
+                        >
+                          mdi-account-circle
+                        </v-icon>
+                      </template>
+                      <template v-else>
+                        <v-img :src="`http://localhost:3000/${user_image}`" alt="avatar" />
+                      </template>
+                    </v-list-item-avatar>
+                  </v-btn>
+                </v-card-actions>
+              </v-col>
+              <v-col
+                cols="10"
               >
-                <v-col
-                  v-for="tag in tags" :key="tag.id"
+                <v-list-item
+                  class="d-flex justify-content-start"
                 >
-                  <p
-                    class="text-overline text--primary"
-                  >
-                    <v-icon>
-                      mdi-label
-                    </v-icon>
-                      {{tag.name}}
-                  </p>
-                </v-col>
-              </v-row>
+                  <v-card-text class="pb-0">
+                    <p 
+                      class="text-body-1 text--primary"
+                    >
+                      {{user_name}}
+                    </p>
+                  </v-card-text>                
+                </v-list-item>
+              </v-col>
+            </v-row>
           </v-card-text>
         </v-col>
         <v-col cols="5">
-                  <v-list-item-content>
-                    <v-list-item class="d-flex flex-column justify-content-start">
-                      <template v-if="book_image === null">
-                        <img
-                          height="160"
-                          width="120"
-                          src="@/assets/img/20200505_noimage.jpg"
-                        >
-                      </template>
-                      <template v-else>
-                        <v-img
-                          heigth="160"
-                          width="120"
-                          :src="book_image"
-                        />
-                      </template>
-                    </v-list-item>
-                    <v-list-item class="d-flex justify-content-end">
-                      <v-btn
-                        text
-                        outlined
-                        rounded
-                        @click="reveal = true"
-                      >
-                        Review
-                      </v-btn>
-                    </v-list-item>
-                  </v-list-item-content>
-                </v-col>
-              </v-row>
-            </v-container>
-              <v-expand-transition>
-                <v-card
-                  v-if="reveal"
-                  class="transition-fast-in-fast-out v-card--reveal"
-                  style="height: 100%;"
+          <v-list-item-content>
+            <v-list-item class="d-flex justify-content-end">
+              <v-btn
+                text
+                outlined
+                rounded
+                small
+                @click="reveal = true"
+              >
+                <v-icon>
+                  mdi-refresh
+                </v-icon>
+                   Review
+              </v-btn>
+            </v-list-item>
+            <v-list-item class="d-flex flex-column justify-content-center">
+              <template v-if="book_image === null">
+                <img
+                  height="160"
+                  width="120"
+                  src="@/assets/img/20200505_noimage.jpg"
                 >
-                  <v-container
-                    fluid
+              </template>
+              <template v-else>
+                <v-img
+                  heigth="160"
+                  width="120"
+                  :src="book_image"
+                />
+              </template>
+            </v-list-item>
+          </v-list-item-content>
+        </v-col>
+      </v-row>
+      <v-row
+        no-gutters
+      >
+        <v-col
+          cols="4"
+          v-for="tag in tags" :key="tag.id"
+        >
+          <v-card-actions>
+            <v-btn
+              text
+              small
+              @click.stop="searchTagChild(tag.name)"
+            >
+              <p
+                class="text-overline text--primary"
+              >
+                <v-icon>
+                  mdi-label
+                </v-icon>
+                  {{tag.name}}
+              </p>
+            </v-btn>
+          </v-card-actions>
+        </v-col>
+      </v-row>
+    </v-container>
+      <v-expand-transition>
+        <v-card
+          v-if="reveal"
+          class="transition-fast-in-fast-out v-card--reveal"
+          style="height: 100%;"
+        >
+          <v-container
+            fluid
+          >
+            <v-row
+              dense
+            >
+              <v-col
+                cols="2"
+              >
+                <p 
+                  class="text-subtitle-2 text--primary"
+                >
+                  評価:
+                </p>
+              </v-col>
+              <v-col
+                cols="7"
+              >
+                <v-rating
+                  v-model="rating"
+                  background-color="orange lighten-3"
+                  color="orange"
+                  x-small
+                ></v-rating>
+              </v-col>
+              <v-col
+                cols="3"
+              >
+                <v-list-item class="d-flex justify-content-end">
+                  <v-btn
+                    text
+                    outlined
+                    rounded
+                    small
+                    @click="reveal = false"
                   >
-                    <v-row
-                      dense
-                    >
-                      <v-col
-                        cols="2"
-                      >
-                        <p 
-                          class="text-subtitle-2 text--primary"
-                        >
-                          評価:
-                        </p>
-                      </v-col>
-                      <v-col
-                        cols="7"
-                      >
-                        <v-rating
-                          v-model="rating"
-                          background-color="orange lighten-3"
-                          color="orange"
-                          x-small
-                        ></v-rating>
-                      </v-col>
-                      <v-col
-                        cols="3"
-                      >
-                        <v-list-item class="d-flex justify-content-end">
-                          <v-btn
-                            text
-                            outlined
-                            rounded
-                            @click="reveal = false"
-                          >
-                            <v-icon>
-                              mdi-refresh
-                            </v-icon>
-                          </v-btn>
-                        </v-list-item>
-                      </v-col>
-                      </v-row>
-                      <v-row>
-                        <p class="text-subtitle-2 text--primary">レビュー:</p>
-                      <v-list-item>
-                      <v-card-text class="pb-0">
-                        <p class="text-subtitle-2 text--primary">
-                          {{comment}}
-                        </p>
-                      </v-card-text>
-                    </v-list-item>
-                  </v-row>
-              </v-container>
-          </v-card>
+                    <v-icon>
+                      mdi-refresh
+                    </v-icon>
+                  </v-btn>
+                </v-list-item>
+              </v-col>
+            </v-row>
+            <v-row>
+              <p class="text-subtitle-2 text--primary">レビュー:</p>
+                <v-list-item>
+                  <v-card-text class="pb-0">
+                    <p class="text-subtitle-2 text--primary">
+                      {{comment}}
+                    </p>
+                  </v-card-text>
+                </v-list-item>
+            </v-row>
+          </v-container>
+        </v-card>
       </v-expand-transition>
   </v-card>
 </template>
-
 
 <script>
 export default {
@@ -217,7 +236,13 @@ export default {
         'toShowParent', 
         this.user_id,
       )
-    }
+    },
+    searchTagChild(tag) {
+      this.$emit(
+        'searchTagParent', 
+        tag,
+      )
+    },
   },
   data () {
     return {

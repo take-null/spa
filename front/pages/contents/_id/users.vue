@@ -8,68 +8,75 @@
       <v-card-title>
         Users
       </v-card-title>
-        <v-row no-gutters color="transparent" max-width="768" justify="center">
-          <v-col
-            v-for="(fl, i) in fls"
-            :key="`fl-btn-${i}`"
-            cols="12"
-            sm="4"
+      <v-tabs
+        v-model="tab"
+        background-color="transparent"
+        color="blue-grey lighten-5"
+        grow
+      >
+        <v-tab
+          v-for="item in items"
+          :key="item"
+        >
+          {{item}}  
+        </v-tab>
+      </v-tabs>
+      <v-tabs-items 
+        v-model="tab"
+      >
+        <v-tab-item>       
+          <v-container 
+            fluid 
+            max-width="426"
           >
-            <v-btn
-              class="pa-2"
-              text
-              block
-              elevation="0"
-              :loading="loading"
-              @click="change=fl.change"
-            >
-              {{ $t(`fls.${fl.title}`) }}
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-container fluid max-width="426">
-          <v-row v-if="change === false">
-            <v-col v-if="!userFollowing.length">
-              <p>フォロー中のユーザーはいません</p>
-            </v-col>
-            <v-col v-else
-              v-for="user in userFollowing" :key="user.id">
-              <v-container max-width="426">
-                <p>{{user.name}}をフォローしています</p>
-              <otherCard
-                :id.sync="user.id"
-                :image.sync="user.image.url"
-                :name.sync="user.name" 
-                :profile.sync="user.profile" 
-                :age.sync="user.age" 
-                :locate.sync="user.locate"
-              />
-              </v-container>
-            </v-col>
-          </v-row>
-          <v-row v-else>
-            <v-col v-if="!userFollowers.length">
-              <p>フォロワーはいません</p>
-            </v-col>
-            <v-col v-else
-              v-for="user in userFollowers" :key="user.id">
-              <v-container max-width="426">
-                <p>{{user.name}}にフォローされています</p>
-              <otherCard
-                :id.sync="user.id"
-                :image.sync="user.image.url"
-                :name.sync="user.name" 
-                :profile.sync="user.profile" 
-                :age.sync="user.age" 
-                :locate.sync="user.locate"
-              />
-              </v-container>
-            </v-col>
-          </v-row>
-        </v-container>
+            <v-row>
+              <v-col v-if="!userFollowing.length">
+                <p>フォロー中のユーザーはいません</p>
+              </v-col>
+              <v-col v-else
+                v-for="user in userFollowing" :key="user.id"
+              >
+                <otherCard
+                  :id.sync="user.id"
+                  :image.sync="user.image.url"
+                  :name.sync="user.name" 
+                  :profile.sync="user.profile" 
+                  :age.sync="user.age" 
+                  :locate.sync="user.locate"
+                />
+              </v-col>
+            </v-row>
+          </v-container> 
+        </v-tab-item>
+        <v-tab-item>
+          <v-container 
+            fluid 
+            max-width="426"
+          >
+            <v-row>
+              <v-col v-if="!userFollowers.length">
+                <p>フォロワーはいません</p>
+              </v-col>
+              <v-col v-else
+                v-for="user in userFollowers" :key="user.id"
+              >
+                <otherCard
+                  :id.sync="user.id"
+                  :image.sync="user.image.url"
+                  :name.sync="user.name" 
+                  :profile.sync="user.profile" 
+                  :age.sync="user.age" 
+                  :locate.sync="user.locate"
+                />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+      </v-tabs-items>
     </v-card>
   </v-container>
 </template>
+
 <script>
 import otherCard from '~/components/profile/otherCard.vue'
 export default {
@@ -94,8 +101,10 @@ export default {
     return {
       loading: false,
       change: false,
+      tab: null,
       dialog: false,
       show: false,
+      items: ['Following', 'Followers'],
       fls: [ {title: "following", change: false } ,{title: "followers", change: true} ]
     }
   },

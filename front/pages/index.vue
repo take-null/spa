@@ -3,12 +3,13 @@
     <v-container
       class="py-8 px-6"
       fill-height
+      id="top"
     >
       <v-row
         no-gutters
       >
         <v-col
-          cols="2"
+          cols="3"
         >
           <v-card
             color="blue-grey lighten-5"
@@ -23,22 +24,24 @@
                 Tags
               </p>
             </v-card-title>
-            <v-container
-              fluid
-            >
-              <v-row
-                dense
+            <v-card-actions>
+              <v-container
+                fluid
               >
-                <v-col
-                  v-for="tag in tags"
-                  :key="tag.id"
+                <v-row
+                  no-gutters
                 >
-                  <v-card-actions>
+                  <v-col
+                    cols="6"
+                    v-for="tag in tags"
+                    :key="tag.id"
+                  > 
                     <v-btn
                       text
+                      x-small
                       @click.stop="searchTag(tag.name)"
                     >
-                      <v-card-subtitle
+                      <p
                         class="text-body-2 text--primary"
                       >
                         <v-icon
@@ -47,12 +50,12 @@
                           mdi-label
                         </v-icon>
                         {{tag.name}}({{tag.taggings_count}})
-                      </v-card-subtitle>
+                      </p>
                     </v-btn>
-                  </v-card-actions>
-                </v-col>
-              </v-row>
-            </v-container>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-actions>
           </v-card>
         </v-col>
         <v-col
@@ -85,6 +88,7 @@
                     :user_name.sync="book.user_name"
                     :tags.sync="book.tags"
                     @toShowParent="toShow"
+                    @searchTagParent="searchTag"
                   />
                 </v-col>
               </v-row>
@@ -103,20 +107,17 @@
                   class="mx-auto"
                   max-width="425"
                   dark
+                  elevation="0"
+                  @click="searchFlag=false"
                 >
-                  <v-card-actions>
-                    <v-btn
-                      @click="searchFlag=false"
-                      block
-                      dark
-                      class="white--text"
-                      elevation="0"
-                    >
-                      <v-icon>
-                        mdi-refresh
-                      </v-icon>return
-                    </v-btn>
-                  </v-card-actions>
+                  <p
+                    class="text-subtitle-1 white--text"
+                  >
+                    <v-icon>
+                      mdi-refresh
+                    </v-icon>
+                      return
+                  </p>
                 </v-card>
                 <v-col
                   v-for="book in formattedShelves"
@@ -136,6 +137,7 @@
                     :user_name.sync="book.user_name"
                     :tags.sync="book.tags"
                     @toShowParent="toShow"
+                    @searchTagParent="searchTag"
                   />
                 </v-col>
               </v-row>
@@ -143,7 +145,7 @@
           </template>
         </v-col>
         <v-col
-          cols="4"
+          cols="3"
         >
           <v-card
             color="blue-grey lighten-5"
@@ -157,18 +159,23 @@
                 Ranking(top10)
               </p>
             </v-card-title>
-            <v-col
-              v-for="rank in ranking"
-              :key="rank.google_books_api_id"
-              cols="12"
+            <v-row
+              no-gutters
             >
-              <bookRank
-                :image.sync="rank.book_image"
-                :title.sync="rank.title"
-                :rank.sync="rank.rank"
-                :google_books_api_id.sync="rank.google_books_api_id"
-              />
-            </v-col>
+              <v-col
+                v-for="rank in ranking"
+                :key="rank.google_books_api_id"
+                cols="12"
+              >
+                <bookRank
+                  :image.sync="rank.book_image"
+                  :title.sync="rank.title"
+                  :rank.sync="rank.rank"
+                  :google_books_api_id.sync="rank.google_books_api_id"
+                  @searchRankParent="searchRank"
+                />
+              </v-col>
+            </v-row>
           </v-card>
         </v-col>
       </v-row>
@@ -211,16 +218,32 @@ export default {
         this.$router.push(`/user/${id}`)
       }
     },
+    goTo () {
+      this.$vuetify.goTo(`#top`)
+    },
     async searchTag (tag) {
-    let shelves = await this.$axios.$get(`/api/v1/books_shelves/search?tag=${tag}`)
-    const formattedShelves = shelves.map(shelf => {let time = formatDistanceToNow(new Date(shelf.created_at), { locale: ja })
+      let shelves = await this.$axios.$get(`/api/v1/books_shelves/search?tag=${tag}`)
+      const formattedShelves = shelves.map(shelf => {let time = formatDistanceToNow(new Date(shelf.created_at), { locale: ja })
         return { ...shelf, created_at: time }
-    })
-    const shelfKeys = Object.keys(shelves || {}) // 追加
-    console.log(formattedShelves)
-    this.formattedShelves = formattedShelves
-    this.searchFlag = true
-    return { formattedShelves, shelfKeys }
+      })
+      this.goTo()
+      const shelfKeys = Object.keys(shelves || {}) // 追加
+      console.log(formattedShelves)
+      this.formattedShelves = formattedShelves
+      this.searchFlag = true
+      return { formattedShelves, shelfKeys }
+    },
+    async searchRank (google_books_api_id) {
+      let shelves = await this.$axios.$get(`/api/v1/books_shelves/view?google_books_api_id=${google_books_api_id}`)
+      const formattedShelves = shelves.map(shelf => {let time = formatDistanceToNow(new Date(shelf.created_at), { locale: ja })
+        return { ...shelf, created_at: time }
+      })
+      this.goTo()
+      const shelfKeys = Object.keys(shelves || {}) // 追加
+      console.log(formattedShelves)
+      this.formattedShelves = formattedShelves
+      this.searchFlag = true
+      return { formattedShelves, shelfKeys }
     },
   }
 };

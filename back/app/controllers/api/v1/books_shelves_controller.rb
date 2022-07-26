@@ -69,7 +69,7 @@ module Api
         @tag = BooksShelf.tags_on(:tags)
         render json: @tag, status: 200
       end
-
+      #検証用
       def show
         @books_shelf = BooksShelf.find(params[:id])
         @tags = @books_shelf.tag_counts_on(:tags)
@@ -85,7 +85,7 @@ module Api
             title: booksShelf.book.title,
           }
         end
-        books_array = booksShelves_array.group_by { |e| e }.sort_by { |e| -e.length }.map(&:first)
+        books_array = booksShelves_array.group_by { |e| e }.sort_by { |e| -e[1].length }.map(&:first)
         new_books_array = []
         10.times do |i|
           books_array[i][:rank] = "#{i + 1}位"
@@ -96,6 +96,26 @@ module Api
       #タグ検索用
       def search
         @books_shelves = BooksShelf.includes(:book, :user).tagged_with(params[:tag]).order("created_at DESC")
+        booksShelves_array = @books_shelves.map do |booksShelf|
+          {
+            id: booksShelf.id,
+            user_id: booksShelf.user_id,
+            user_image: booksShelf.user.image.thumb.url,
+            user_name: booksShelf.user.name,
+            google_books_api_id: booksShelf.book.google_books_api_id,
+            book_image: booksShelf.book.image,
+            title: booksShelf.book.title,
+            rating: booksShelf.rating,
+            comment: booksShelf.comment,
+            created_at: booksShelf.created_at,
+            tags: booksShelf.tag_counts_on(:tags)
+          }
+        end
+        render json: booksShelves_array, status: 200
+      end
+      #ランキング検索用
+      def view
+        @books_shelves = BooksShelf.includes(:book, :user).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
             id: booksShelf.id,

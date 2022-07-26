@@ -45,6 +45,7 @@ Rails.application.routes.draw do
           get :rank
           get :tag
           get :search
+          get :view
         end
       end
     end
