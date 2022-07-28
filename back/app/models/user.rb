@@ -11,7 +11,12 @@ class User < ActiveRecord::Base
   has_many :user_rooms, dependent: :destroy
   has_many :rooms, through: :user_rooms
   has_many :books, through: :books_shelves
-  has_many :books_shelves
+  has_many :books_shelves, dependent: :destroy
+  has_many :goods, dependent: :destroy
+  #通知機能用
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+
   #マイクロポスト用のリレーション
   has_many :tweets, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -53,6 +58,19 @@ class User < ActiveRecord::Base
   #現在のユーザーがフォローされてたらtrueを返す
   def followers?(other_user)
     followers.include?(other_user)
+  end
+
+  def create_notification_follow!(current_api_v1_user)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_api_v1_user.id, id, 'follow'])
+    if temp.blank?
+      notification = current_api_v1_user.active_notifications.new(
+        user_name: current_api_v1_user.name,
+        user_image: current_api_v1_user.image,
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
   end
 
 

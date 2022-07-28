@@ -6,6 +6,7 @@ module Api
       def create
         if  @current_user.id == current_api_v1_user.id
           user = current_api_v1_user.follow(@other_user)
+          @other_user.create_notification_follow!(current_api_v1_user)
           render json: user
         else
           render json: { status: 400 }

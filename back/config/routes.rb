@@ -39,6 +39,7 @@ Rails.application.routes.draw do
         end
       end
       resources :books_shelves, only: [:index, :show, :create] do
+        resources :goods, only: [:create, :destroy]
         collection do
           get :all
           get :user
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
           get :view
         end
       end
+      resources :notifications, only: :index
     end
   end
 end

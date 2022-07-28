@@ -19,6 +19,7 @@ module Api
       def create
         @chat_message = ChatMessage.create!(message_params)
         @room = Room.find_by(id: message_params[:room_id])
+        @room.create_notification_comment!(current_api_v1_user, @chat_message.id)
         RoomChannel.broadcast_to(@room, message: @chat_message.template)
         #render json: { status: 'SUCCESS', data: @chat_message }
       end

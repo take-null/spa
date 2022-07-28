@@ -133,3 +133,38 @@ BooksShelf.all
 @book.destroy
 @shelf = BooksShelf.include(:book).order("created_at DESC")
 @shelf = BooksShelf.includes(:book).order("created_at DESC")
+RelationShips.all
+Relationship.all
+User.all
+Tweet.all
+BookShelf.all
+BooksShelf.all
+Relationship.all
+exit
+ChatMessageComment.all
+Room.all
+ChatMessageComment.all
+ChatMessage.all
+exit
+rails c
+Notification.all
+exit
+rails c
+exit
+Notification.all
+@notification = Notification.find(id: 1)
+@notification = Notification.find(1)
+@notification.delete
+@notification = Notification.find(2)
+@notification.delete
+Notification.all
+@notification = Notification.find(3)
+@notification.delete
+Notification.all
+exit
+Notification.all
+rails c
+exit
+Notification.all
+Relationship.all
+exit

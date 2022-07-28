@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_25_065457) do
+ActiveRecord::Schema.define(version: 2022_07_28_011748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,15 @@ ActiveRecord::Schema.define(version: 2022_07_25_065457) do
     t.index ["user_id"], name: "index_chat_messages_on_user_id"
   end
 
+  create_table "goods", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "books_shelf_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["books_shelf_id"], name: "index_goods_on_books_shelf_id"
+    t.index ["user_id"], name: "index_goods_on_user_id"
+  end
+
   create_table "google_books", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -103,6 +112,25 @@ ActiveRecord::Schema.define(version: 2022_07_25_065457) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "books_shelf_id"
+    t.integer "room_id"
+    t.integer "chat_message_id"
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_name", default: "", null: false
+    t.string "user_image"
+    t.index ["books_shelf_id"], name: "index_notifications_on_books_shelf_id"
+    t.index ["chat_message_id"], name: "index_notifications_on_chat_message_id"
+    t.index ["room_id"], name: "index_notifications_on_room_id"
+    t.index ["visited_id"], name: "index_notifications_on_visited_id"
+    t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -198,6 +226,8 @@ ActiveRecord::Schema.define(version: 2022_07_25_065457) do
   add_foreign_key "books_shelves", "users"
   add_foreign_key "chat_messages", "rooms"
   add_foreign_key "chat_messages", "users"
+  add_foreign_key "goods", "books_shelves"
+  add_foreign_key "goods", "users"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "taggings", "tags"

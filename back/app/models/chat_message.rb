@@ -2,6 +2,7 @@ class ChatMessage < ApplicationRecord
   #userとroomの中間にあり、メッセージを格納するもの
   belongs_to :user
   belongs_to :room
+  has_many :notifications, dependent: :destroy
 
   validates :message, presence: true
   validates :message, length: { maximum: 140 }
