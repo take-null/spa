@@ -49,7 +49,7 @@ Rails.application.routes.draw do
           get :view
         end
       end
-      resources :notifications, only: :index
+      resources :notifications, only: [:index, :destroy]
     end
   end
 end

@@ -63,15 +63,12 @@ export default {
           const expiry = res.headers.expiry 
           this.$nxauth.setData(user)
           this.$nxauth.setStorage(expiry)
-          //vuexにセットされたユーザーデータを出力
-          console.log(this.$store.state.current.user.id)
+          this.notification()
           this.loading = false
           this.$router.replace('/')
           return res
         }
       )
-      //responseを表示
-      //console.log({res})
       } catch (error) {
         console.log({error})
         this.loading = false
@@ -82,6 +79,14 @@ export default {
     formReset () {
       this.$refs.form.reset()
       this.params = { email: '', password: '' }
+    },
+    async notification() {
+      await this.$axios.$get(`/api/v1/users/search?email=${window.localStorage.getItem('uid')}`)
+      .then((res) => {
+        const user = res
+        this.$store.dispatch('getCurrentUser', user)
+        .catch(() => this.$nxauth.removeStorage())}
+      )
     }
   },
 };

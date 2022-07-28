@@ -168,3 +168,5 @@ exit
 Notification.all
 Relationship.all
 exit
+Notification.all
+exit

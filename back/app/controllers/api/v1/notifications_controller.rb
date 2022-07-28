@@ -3,13 +3,13 @@ module Api
     class NotificationsController < ApplicationController
       def index
         @notifications = current_api_v1_user.passive_notifications
-        @notifications.where(checked: false).each do |notification|
-          #notification.update_attributes(checked: false)
-        #end
-        #ary = @notifications.where(checked: false).map do |notification|
-          #{user: notification.user.visited_id}
-        #end
-        #render json: @notifications 
+        render json: { status: 'SUCCESS', data: @notifications }
+      end
+
+      def destroy
+        @notification = Notification.find(params[:id])
+        @notification.destroy
+        render json: { status: 'SUCCESS', data: @notifications }
       end
     end
   end

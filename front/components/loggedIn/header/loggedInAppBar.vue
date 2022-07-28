@@ -21,7 +21,302 @@
     />
 
     <v-spacer />
-
+    
+    <template 
+      v-if="notification.length === 0"
+    >
+      <v-icon
+        Large
+      >
+          mdi-bell-outline
+        </v-icon>
+    </template>
+    <template
+      v-else
+    >
+      <v-menu
+        app
+        offset-x
+        offset-y
+        max-width="1000"
+      >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          icon
+          v-on="on"
+        >
+          <v-icon
+            Large
+            color="red"
+          >
+            mdi-bell
+          </v-icon>
+          <p
+            class="white--text text-caption"
+          >
+            {{notification.length}}
+          </p>
+        </v-btn>
+      </template>
+        <v-list
+          color="blue-grey lighten-5"
+        >
+          <v-list-item v-model="notification"  v-for="notice in notification" :key="notice.id">
+            <v-list-item-title v-if="notice.action === 'follow'">
+              <v-card
+                class="mx-auto"
+                max-width="425"
+                color="blue-grey lighten-5"
+              >
+                <v-card-actions>
+                  <v-container v-if="notice.user_image === ''">
+                    <v-row>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          @click="showUser(notice.visitor_id)"
+                        >
+                          <v-avatar size="40">
+                            <v-icon x-large>
+                              mdi-account-circle
+                            </v-icon>
+                          </v-avatar>
+                        </v-btn>
+                      </v-col>
+                      <v-col
+                        cols="10">
+                        {{notice.user_name}}があなたをフォローしました
+                      </v-col>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          x-small
+                          @click="deleteNotice(notice.id)"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-check
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <v-container v-else>
+                    <v-row>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          @click="showUser(notice.visitor_id)"
+                        >
+                          <v-avatar size="40" class="user-image">
+                            <v-img :src="`http://localhost:3000/${notice.user_image}`" alt="avatar" />
+                          </v-avatar>
+                        </v-btn>
+                      </v-col>
+                      <v-col
+                        cols="9">
+                        {{notice.user_name}}があなたをフォローしました
+                      </v-col>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          x-small
+                          @click="deleteNotice(notice.id)"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-check
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-actions>
+              </v-card>
+            </v-list-item-title>
+            <v-list-item-title v-else-if="notice.action === 'chat_message'">
+              <v-card
+                class="mx-auto"
+                max-width="425"
+                color="blue-grey lighten-5"
+              >
+                <v-card-actions>
+                  <v-container v-if="notice.user_image === ''">
+                    <v-row>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          @click="showUser(notice.visitor_id)"
+                        >
+                          <v-avatar size="40">
+                            <v-icon x-large>
+                              mdi-account-circle
+                            </v-icon>
+                          </v-avatar>
+                        </v-btn>
+                      </v-col>
+                      <v-col
+                        cols="9"
+                      >
+                        {{notice.user_name}}があなたにメッセージを送りました
+                      </v-col>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          x-small
+                          @click="deleteNotice(notice.id)"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-check
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <v-container v-else>
+                    <v-row>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          @click="showUser(notice.visitor_id)"
+                        >
+                          <v-avatar size="40" class="user-image">
+                            <v-img :src="`http://localhost:3000/${notice.user_image}`" alt="avatar" />
+                          </v-avatar>
+                        </v-btn>
+                      </v-col>
+                      <v-col
+                        cols="9"
+                      >
+                        {{notice.user_name}}があなたにメッセージを送りました
+                      </v-col>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          x-small
+                          @click="deleteNotice(notice.id)"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-check
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-actions>
+              </v-card>
+            </v-list-item-title>
+            <v-list-item-title v-else>
+              <v-card
+                class="mx-auto"
+                max-width="425"
+                color="blue-grey lighten-5"
+              >
+                <v-card-actions>
+                  <v-container v-if="notice.user_image === ''">
+                    <v-row>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          @click="showUser(notice.visitor_id)"
+                        >
+                          <v-avatar size="40">
+                            <v-icon x-large>
+                              mdi-account-circle
+                            </v-icon>
+                          </v-avatar>
+                        </v-btn>
+                      </v-col>
+                      <v-col
+                        cols="9"
+                      >
+                        {{notice.user_name}}があなたの投稿を評価しました
+                      </v-col>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          x-small
+                          @click="deleteNotice(notice.id)"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-check
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <v-container v-else>
+                    <v-row>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          @click="showUser(notice.visitor_id)"
+                        >
+                          <v-avatar size="40" class="user-image">
+                            <v-img :src="`http://localhost:3000/${notice.user_image}`" alt="avatar" />
+                          </v-avatar>
+                        </v-btn>
+                      </v-col>
+                      <v-col
+                        cols="9"
+                      >
+                        {{notice.user_name}}があなたの投稿を評価しました
+                      </v-col>
+                      <v-col
+                        cols="1"
+                      >
+                        <v-btn
+                          icon
+                          x-small
+                          @click="deleteNotice(notice.id)"
+                        >
+                          <v-icon
+                            color="green"
+                          >
+                            mdi-check
+                          </v-icon>
+                        </v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-actions>
+              </v-card>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </template>
+   
     <v-menu
       app
       offset-x
@@ -87,7 +382,6 @@
             </v-list-item-title>
           </v-list-item>
         </v-list>
-
       </v-list>
     </v-menu>
   </v-app-bar>
@@ -107,6 +401,7 @@ export default {
   components: { appLogo, appTitle, myIdea },
   data () {
     return {
+      notification: this.$store.state.current.user.passive_notifications,
       img: this.$store.state.current.user.image.thumb.url,
       drawer: null,
       accountMenus: [
@@ -118,8 +413,20 @@ export default {
   },
   methods: {
     close() {
-      this.drawer = false;
+      this.drawer = false
+    },
+    showUser(id) {
+      if (`/user/${id}` !== this.$route.fullPath) {
+        this.$router.replace(`/user/${id}`)
+      }
+    },
+    async deleteNotice(id) {
+      await this.$axios.$delete(`/api/v1/notifications/${id}`)
+      .then((res) => {
+        console.log(res)
+        this.$store.commit('deleteNotice', id)
+      })
     }
-  }
+  },
 };
 </script>

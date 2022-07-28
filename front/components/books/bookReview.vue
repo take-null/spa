@@ -7,65 +7,89 @@
     <v-container
       fluid
     >
-      <v-row>
+      <v-row
+        no-gutters
+      >
         <v-col
           cols="7"
         >
           <v-card-text>
-            <div>
+            <p>
               {{created_at}}前
-            </div>
-              <p 
-                class="text-body-1 text--primary"
-              >
-               【{{title}}】
-              </p>
-                <v-row
-                  dense
-                >
-                <v-col
-                  cols="2"
-                >
-                <v-card-actions>
-                  <v-btn
-                    icon
-                    @click="toShowChild(user_id)"
-                  >
-                    <v-list-item-avatar
-                      size="50"
-                      class="d-flex justify-content-center"
-                    >
-                      <template v-if="user_image === null">
-                        <v-icon 
-                          x-large
-                        >
-                          mdi-account-circle
-                        </v-icon>
-                      </template>
-                      <template v-else>
-                        <v-img :src="`http://localhost:3000/${user_image}`" alt="avatar" />
-                      </template>
-                    </v-list-item-avatar>
-                  </v-btn>
-                </v-card-actions>
-              </v-col>
-              <v-col
-                cols="10"
-              >
-                <v-list-item
-                  class="d-flex justify-content-start"
-                >
-                  <v-card-text class="pb-0">
-                    <p 
-                      class="text-body-1 text--primary"
-                    >
-                      {{user_name}}
-                    </p>
-                  </v-card-text>                
-                </v-list-item>
-              </v-col>
-            </v-row>
+            </p>
+            <p 
+              class="text-body-1 text--primary"
+            >
+             【{{title}}】
+            </p>
           </v-card-text>
+          <v-row
+            dense
+          >
+            <v-col
+              cols="3"
+            >                
+              <v-card-actions>
+                <v-btn
+                  icon
+                  @click="toShowChild(user_id)"
+                >
+                  <v-avatar
+                    size="50"
+                    class="d-flex justify-content-center"
+                  >
+                    <template v-if="user_image === null">
+                      <v-icon 
+                        x-large
+                      >
+                        mdi-account-circle
+                      </v-icon>
+                    </template>
+                    <template v-else>
+                      <v-img :src="`http://localhost:3000/${user_image}`" alt="avatar" />
+                    </template>
+                  </v-avatar>
+                </v-btn>
+              </v-card-actions>
+            </v-col>
+            <v-col
+              cols="7"
+            >
+              <p 
+                class="text-text-body-2 text--primary"
+              >
+                {{user_name}}
+              </p>
+            </v-col>
+          </v-row>
+          <v-card-actions>
+            <v-container
+              fluid
+            >
+              <v-row
+                no-gutters
+              >
+                <v-col
+                  v-for="tag in tags" :key="tag.id"
+                >
+                  <v-btn
+                    text
+                    x-small
+                    @click.stop="searchTagChild(tag.name)"
+                  >
+                    <p
+                      class="text-overline text--primary"
+                    >
+                      <v-icon>
+                        mdi-label
+                      </v-icon>
+                        {{tag.name}}
+                    </p>
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-actions>
         </v-col>
         <v-col cols="5">
           <v-list-item-content>
@@ -100,31 +124,6 @@
               </template>
             </v-list-item>
           </v-list-item-content>
-        </v-col>
-      </v-row>
-      <v-row
-        no-gutters
-      >
-        <v-col
-          cols="4"
-          v-for="tag in tags" :key="tag.id"
-        >
-          <v-card-actions>
-            <v-btn
-              text
-              small
-              @click.stop="searchTagChild(tag.name)"
-            >
-              <p
-                class="text-overline text--primary"
-              >
-                <v-icon>
-                  mdi-label
-                </v-icon>
-                  {{tag.name}}
-              </p>
-            </v-btn>
-          </v-card-actions>
         </v-col>
       </v-row>
     </v-container>
