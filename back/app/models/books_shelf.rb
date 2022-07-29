@@ -11,6 +11,8 @@ class BooksShelf < ApplicationRecord
     # いいねされていない場合のみ、通知レコードを作成
     if temp.blank?
       notification = current_api_v1_user.active_notifications.new(
+        user_name: current_api_v1_user.name,
+        user_image: current_api_v1_user.image,
         books_shelf_id: id,
         visited_id: user_id,
         action: 'good'

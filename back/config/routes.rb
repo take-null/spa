@@ -28,10 +28,12 @@ Rails.application.routes.draw do
       resources :relationships, only: [:create, :destroy]
       resources :chat_messages, only: [:create]
       resources :tweets, only: [:index, :show, :create, :destroy] do
-        resources :likes, only: [:create, :destroy]
-         collection do
-           get 'all'
-         end
+        member do
+          resources :likes, only: [:create]
+        end
+        collection do
+          get 'all'
+        end
       end
       resources :books, only: [:create, :show], shallow: true do
         collection do
@@ -39,7 +41,6 @@ Rails.application.routes.draw do
         end
       end
       resources :books_shelves, only: [:index, :show, :create] do
-        resources :goods, only: [:create, :destroy]
         collection do
           get :all
           get :user
@@ -49,6 +50,7 @@ Rails.application.routes.draw do
           get :view
         end
       end
+      resources :goods, only: [:index, :create, :destroy]
       resources :notifications, only: [:index, :destroy]
     end
   end

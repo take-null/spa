@@ -3,7 +3,7 @@ module Api
       class BooksShelvesController < ApplicationController
       #マイページ用
       def index
-        @books_shelves = BooksShelf.includes(:book).where(user_id: current_api_v1_user).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: current_api_v1_user).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
             id: booksShelf.id,
@@ -19,13 +19,14 @@ module Api
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
             
+            
           }
         end
         render json: booksShelves_array, status: 200
       end
       #他人のページ用
       def user
-        @books_shelves = BooksShelf.includes(:book).where(user_id: params[:id]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: params[:id]).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
             id: booksShelf.id,
@@ -40,13 +41,14 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
+            good: booksShelf.goods
           }
         end
         render json: booksShelves_array, status: 200
       end
       #タイムライン用
       def all
-        @books_shelves = BooksShelf.includes(:book, :user).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user, :goods).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
             id: booksShelf.id,
@@ -59,12 +61,13 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
-            tags: booksShelf.tag_counts_on(:tags)
+            tags: booksShelf.tag_counts_on(:tags),
+            good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
           }
         end
         render json: booksShelves_array, status: 200
       end
-      #タイムラインのタグ表示用
+      #タイムラインのタグフィールド表示用
       def tag
         @tag = BooksShelf.tags_on(:tags)
         render json: @tag, status: 200
@@ -95,7 +98,7 @@ module Api
       end
       #タグ検索用
       def search
-        @books_shelves = BooksShelf.includes(:book, :user).tagged_with(params[:tag]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user, :goods).tagged_with(params[:tag]).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
             id: booksShelf.id,
@@ -108,14 +111,15 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
-            tags: booksShelf.tag_counts_on(:tags)
+            tags: booksShelf.tag_counts_on(:tags),
+            good: booksShelf.goods
           }
         end
         render json: booksShelves_array, status: 200
       end
       #ランキング検索用
       def view
-        @books_shelves = BooksShelf.includes(:book, :user).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user, :goods).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
             id: booksShelf.id,
@@ -128,7 +132,8 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
-            tags: booksShelf.tag_counts_on(:tags)
+            tags: booksShelf.tag_counts_on(:tags),
+            good: booksShelf.goods
           }
         end
         render json: booksShelves_array, status: 200

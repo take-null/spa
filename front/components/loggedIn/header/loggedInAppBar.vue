@@ -72,7 +72,7 @@
                   <v-container v-if="notice.user_image === ''">
                     <v-row>
                       <v-col
-                        cols="1"
+                        cols="2"
                       >
                         <v-btn
                           icon
@@ -86,7 +86,7 @@
                         </v-btn>
                       </v-col>
                       <v-col
-                        cols="10">
+                        cols="9">
                         {{notice.user_name}}があなたをフォローしました
                       </v-col>
                       <v-col
@@ -109,7 +109,7 @@
                   <v-container v-else>
                     <v-row>
                       <v-col
-                        cols="1"
+                        cols="2"
                       >
                         <v-btn
                           icon
@@ -154,7 +154,7 @@
                   <v-container v-if="notice.user_image === ''">
                     <v-row>
                       <v-col
-                        cols="1"
+                        cols="2"
                       >
                         <v-btn
                           icon
@@ -192,7 +192,7 @@
                   <v-container v-else>
                     <v-row>
                       <v-col
-                        cols="1"
+                        cols="2"
                       >
                         <v-btn
                           icon
@@ -238,7 +238,7 @@
                   <v-container v-if="notice.user_image === ''">
                     <v-row>
                       <v-col
-                        cols="1"
+                        cols="2"
                       >
                         <v-btn
                           icon
@@ -276,7 +276,7 @@
                   <v-container v-else>
                     <v-row>
                       <v-col
-                        cols="1"
+                        cols="2"
                       >
                         <v-btn
                           icon

@@ -16,12 +16,14 @@ module Api
         @user = User.includes(:following,
                               :followers,
                               :active_notifications, 
-                              :passive_notifications 
+                              :passive_notifications,
+                              :goods 
                              ).find_by(email: params[:email])
         render json: @user.as_json(include: [{following: {except: [:uid, :email]}}, 
                                              {followers: {except: [:uid, :email]}}, 
                                              {active_notifications: {}}, 
-                                             {passive_notifications: {}}])
+                                             {passive_notifications: {}},
+                                             {goods: {}}])
       end
 
       def show

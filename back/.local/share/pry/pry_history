@@ -170,3 +170,5 @@ Relationship.all
 exit
 Notification.all
 exit
+BooksShelf.all
+exit

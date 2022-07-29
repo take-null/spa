@@ -87,6 +87,7 @@
                     :user_image.sync="book.user_image"
                     :user_name.sync="book.user_name"
                     :tags.sync="book.tags"
+                    :goodArray.sync="book.good"
                     @toShowParent="toShow"
                     @searchTagParent="searchTag"
                   />
@@ -200,6 +201,7 @@ export default {
     const formattedBooks = books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
         return { ...book, created_at: time }
     })
+    console.log(tags)
     console.log(books)
     const bookKeys = Object.keys(books || {}) // 追加
     const rankKeys = Object.keys(ranking || {}) // 追加

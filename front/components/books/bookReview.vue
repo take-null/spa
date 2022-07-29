@@ -123,6 +123,42 @@
                 />
               </template>
             </v-list-item>
+            <v-list-item v-if="isGood" class="d-flex flex-column justify-content-end">
+              <v-btn
+                icon
+                @click="deleteGood()"
+              >
+                <v-icon
+                  color="cyan"
+                >
+                  mdi-thumb-up
+                </v-icon>
+                <p
+                  class="text-caption"
+                >
+                  {{ count }}
+                </p>
+              </v-btn>
+            </v-list-item>
+
+
+            <v-list-item v-else class="d-flex flex-column justify-content-end">
+              <v-btn
+                icon
+                @click="createGood()"
+              >
+                <v-icon
+                  dark
+                >
+                  mdi-thumb-up-outline
+                </v-icon>
+                <p
+                  class="text-caption"
+                >
+                  {{ count }}
+                </p>
+              </v-btn>
+            </v-list-item>
           </v-list-item-content>
         </v-col>
       </v-row>
@@ -226,9 +262,32 @@ export default {
       type: String
     },
     tags: {
-        type:Array
+      type:Array
+    },
+    goodArray: {
+      type:Array
     }
   },
+  data () {
+    return {
+      reveal: false,
+      goodList: this.goodArray
+    }
+  },
+  computed: {
+    count() {
+      return this.goodList.length
+    },
+    isGood() {
+      if (this.goodList.lenght === 0) { return false }
+      return Boolean(this.findGoodId())
+    }
+  },
+  //created: function() {
+    //this.fetchGoodByBooksShelfId().then(result => {
+      //this.goodList = result
+    //})
+  //},
   methods: {
     toShowChild() {
       this.$emit(
@@ -242,12 +301,37 @@ export default {
         tag,
       )
     },
-  },
-  data () {
-    return {
-      reveal: false
+    fetchGoodByBooksShelfId: async function() {
+      const res = await this.$axios.get(`/api/v1/goods/?books_shelf_id=${this.id}`)
+      if (res.status !== 200) {
+        console.log(res)
+      }
+      return res.data
+    },
+    createGood: async function() {
+      const res = await this.$axios.$post('/api/v1/goods', { books_shelf_id: this.id })
+      if (res.status !== 201) {
+        console.log(res)
+      }
+      this.fetchGoodByBooksShelfId().then(result => {
+        this.goodList = result
+      })
+    },
+    deleteGood: async function() {
+      const goodId = this.findGoodId()
+      const res = await this.$axios.$delete(`/api/v1/goods/${goodId}`)
+      if (res.status !== 200) {
+        console.log(res)
+      }
+      this.goodList = this.goodList.filter(n => n.id !== goodId)
+    },
+    findGoodId: function() {
+      const good = this.goodList.find((good) => {
+        return (good.user_id === this.$store.state.current.user.id)
+      })
+      if (good) { return good.id }
     }
-  },
+  }
 }
 </script>
 
