@@ -31,7 +31,8 @@ export default {
     'plugins/myInject',
     '~/plugins/axios.js',
     'plugins/nxClientInit',
-    '~plugins/date-filter.js'
+    '~plugins/date-filter.js',
+    { src: "~/plugins/vue-infinite-loading", ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

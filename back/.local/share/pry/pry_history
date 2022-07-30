@@ -172,3 +172,9 @@ Notification.all
 exit
 BooksShelf.all
 exit
+Like.all
+Likes.all
+rails db:migrate status
+exit
+BooksShelf.all
+exit

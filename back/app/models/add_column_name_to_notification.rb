@@ -1,2 +1,0 @@
-class AddColumnNameToNotification < ApplicationRecord
-end

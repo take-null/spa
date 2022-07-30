@@ -22,8 +22,8 @@
     "account-password": "パスワード変更",
     "contents": {
       "id": {
+        "main": "タイムライン",
         "account": "マイアカウント",
-        "tweets": "私の投稿",
         "users": "フォロー/フォロワー",
         "books": "本を検索",
         "shelf": "私の本棚"

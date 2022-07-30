@@ -1,231 +1,175 @@
 <template>
-  <v-card
+  <v-sheet
     class="mx-auto"
-    max-width="425"
+    max-width="600"
     color="blue-grey lighten-5"
+    title
+    rounded-0
+    elevation="1"
   >
+  <v-container
+    fluid
+  >
+  <div>No.{{id}}</div>
+    <v-row
+      no-gutters
+    >
+      <v-col>
+        <v-list-item class="px-2">
+          <v-list-item-avatar size="45">
+            <v-btn icon outlined rounded @click.stop="toShowChild(user_id)">
+              <template v-if="user_image === null">
+                <v-icon x-large>
+                  mdi-account-circle
+                </v-icon>
+              </template>
+              <template v-else>
+                <v-img :src="`http://localhost:3000/${user_image}`" alt="avatar" />
+              </template>
+            </v-btn>
+          </v-list-item-avatar>
+          <v-list-item-title class="text-text-body-2 text--primary">
+            {{user_name}}
+          </v-list-item-title>
+          </v-list-item>
+      </v-col>
+      <v-spacer></v-spacer>
+      <v-col>
+          <v-list-item-title class="text-text-caption text--primary">
+            {{created_at}}前
+          </v-list-item-title>
+      </v-col>  
+    </v-row>
+  </v-container>
+  <v-container
+    fluid
+    mt-n2 pt-0
+  >
+    <v-row
+        no-gutters
+      >
+      <v-col
+        cols="8">
+        <v-list-item-content>
+          <v-list-item-title
+            class="text-body-1 text--primary wrap-text"
+          >
+            【{{title}}】
+          </v-list-item-title>
+          <v-list-item-subtitle
+            class="text-body-2 text--primary wrap-text "
+          >
+            {{comment}}
+          </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-col>
+        <v-col
+          cols="4">
+          <v-list-item class="justify-content-center">
+            <template v-if="book_image === null">
+              <img
+                height="160"
+                width="120"
+                src="@/assets/img/20200505_noimage.jpg"
+              >
+            </template>
+            <template v-else>
+              <v-img
+                heigth="160"
+                width="120"
+                :src="book_image"
+              />
+            </template>
+          </v-list-item>
+          <v-list-item class="justify-content-start">
+            <v-rating
+              v-model="rating"
+              background-color="orange lighten-3"
+              color="orange"
+              x-small
+            ></v-rating>
+          </v-list-item>
+        </v-col>
+      </v-row>
+    </v-container>
     <v-container
       fluid
+      mt-n2 pt-0
     >
       <v-row
         no-gutters
       >
         <v-col
-          cols="7"
+          v-for="tag in tags" :key="tag.id"
         >
-          <v-card-text>
-            <p>
-              {{created_at}}前
-            </p>
-            <p 
-              class="text-body-1 text--primary"
-            >
-             【{{title}}】
-            </p>
-          </v-card-text>
-          <v-row
-            dense
+          <v-btn
+            text
+            small
+          @click.stop="searchTagChild(tag.name)"
           >
-            <v-col
-              cols="3"
-            >                
-              <v-card-actions>
-                <v-btn
-                  icon
-                  @click="toShowChild(user_id)"
-                >
-                  <v-avatar
-                    size="50"
-                    class="d-flex justify-content-center"
-                  >
-                    <template v-if="user_image === null">
-                      <v-icon 
-                        x-large
-                      >
-                        mdi-account-circle
-                      </v-icon>
-                    </template>
-                    <template v-else>
-                      <v-img :src="`http://localhost:3000/${user_image}`" alt="avatar" />
-                    </template>
-                  </v-avatar>
-                </v-btn>
-              </v-card-actions>
-            </v-col>
-            <v-col
-              cols="7"
+            <p
+              class="text-overline text--cyan"
             >
-              <p 
-                class="text-text-body-2 text--primary"
-              >
-                {{user_name}}
-              </p>
-            </v-col>
-          </v-row>
-          <v-card-actions>
-            <v-container
-              fluid
-            >
-              <v-row
-                no-gutters
-              >
-                <v-col
-                  v-for="tag in tags" :key="tag.id"
-                >
-                  <v-btn
-                    text
-                    x-small
-                    @click.stop="searchTagChild(tag.name)"
-                  >
-                    <p
-                      class="text-overline text--primary"
-                    >
-                      <v-icon>
-                        mdi-label
-                      </v-icon>
-                        {{tag.name}}
-                    </p>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-actions>
-        </v-col>
-        <v-col cols="5">
-          <v-list-item-content>
-            <v-list-item class="d-flex justify-content-end">
-              <v-btn
-                text
-                outlined
-                rounded
-                small
-                @click="reveal = true"
-              >
-                <v-icon>
-                  mdi-refresh
-                </v-icon>
-                   Review
-              </v-btn>
-            </v-list-item>
-            <v-list-item class="d-flex flex-column justify-content-center">
-              <template v-if="book_image === null">
-                <img
-                  height="160"
-                  width="120"
-                  src="@/assets/img/20200505_noimage.jpg"
-                >
-              </template>
-              <template v-else>
-                <v-img
-                  heigth="160"
-                  width="120"
-                  :src="book_image"
-                />
-              </template>
-            </v-list-item>
-            <v-list-item v-if="isGood" class="d-flex flex-column justify-content-end">
-              <v-btn
-                icon
-                @click="deleteGood()"
-              >
-                <v-icon
-                  color="cyan"
-                >
-                  mdi-thumb-up
-                </v-icon>
-                <p
-                  class="text-caption"
-                >
-                  {{ count }}
-                </p>
-              </v-btn>
-            </v-list-item>
-
-
-            <v-list-item v-else class="d-flex flex-column justify-content-end">
-              <v-btn
-                icon
-                @click="createGood()"
-              >
-                <v-icon
-                  dark
-                >
-                  mdi-thumb-up-outline
-                </v-icon>
-                <p
-                  class="text-caption"
-                >
-                  {{ count }}
-                </p>
-              </v-btn>
-            </v-list-item>
-          </v-list-item-content>
+              #{{tag.name}}
+            </p>
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
-      <v-expand-transition>
-        <v-card
-          v-if="reveal"
-          class="transition-fast-in-fast-out v-card--reveal"
-          style="height: 100%;"
-        >
-          <v-container
-            fluid
+    <v-container  
+      mt-n2 pt-0 
+      v-if="isGood" 
+    >
+      <v-row
+        dense
+      >
+        <v-col>
+          <v-btn
+            icon
+            @click="deleteGood()"
           >
-            <v-row
-              dense
+            <v-icon
+              color="cyan"
             >
-              <v-col
-                cols="2"
-              >
-                <p 
-                  class="text-subtitle-2 text--primary"
-                >
-                  評価:
-                </p>
-              </v-col>
-              <v-col
-                cols="7"
-              >
-                <v-rating
-                  v-model="rating"
-                  background-color="orange lighten-3"
-                  color="orange"
-                  x-small
-                ></v-rating>
-              </v-col>
-              <v-col
-                cols="3"
-              >
-                <v-list-item class="d-flex justify-content-end">
-                  <v-btn
-                    text
-                    outlined
-                    rounded
-                    small
-                    @click="reveal = false"
-                  >
-                    <v-icon>
-                      mdi-refresh
-                    </v-icon>
-                  </v-btn>
-                </v-list-item>
-              </v-col>
-            </v-row>
-            <v-row>
-              <p class="text-subtitle-2 text--primary">レビュー:</p>
-                <v-list-item>
-                  <v-card-text class="pb-0">
-                    <p class="text-subtitle-2 text--primary">
-                      {{comment}}
-                    </p>
-                  </v-card-text>
-                </v-list-item>
-            </v-row>
-          </v-container>
-        </v-card>
-      </v-expand-transition>
-  </v-card>
+              mdi-thumb-up
+            </v-icon>
+            <p
+              class="text-caption"
+            >
+              {{ count }}
+            </p>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container 
+      mt-n2 pt-0 
+      v-else
+    >
+      <v-row
+        dense
+      >
+        <v-col>
+          <v-btn
+            icon
+            @click="createGood()"
+          >
+            <v-icon
+              dark
+            >
+              mdi-thumb-up-outline
+            </v-icon>
+            <p
+              class="text-caption"
+            >
+              {{ count }}
+            </p>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-divider></v-divider>
+  </v-sheet>
 </template>
 
 <script>
@@ -270,7 +214,7 @@ export default {
   },
   data () {
     return {
-      reveal: false,
+      dialog: false,
       goodList: this.goodArray
     }
   },
@@ -280,14 +224,9 @@ export default {
     },
     isGood() {
       if (this.goodList.lenght === 0) { return false }
-      return Boolean(this.findGoodId())
+        return Boolean(this.findGoodId())
     }
   },
-  //created: function() {
-    //this.fetchGoodByBooksShelfId().then(result => {
-      //this.goodList = result
-    //})
-  //},
   methods: {
     toShowChild() {
       this.$emit(
@@ -341,5 +280,10 @@ export default {
   opacity: 1 !important;
   position: absolute;
   width: 100%;
+}
+
+.wrap-text {
+  word-break: break-all;
+  white-space: normal;
 }
 </style>

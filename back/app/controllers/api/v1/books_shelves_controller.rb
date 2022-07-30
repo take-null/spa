@@ -1,28 +1,30 @@
 module Api
-    module V1
-      class BooksShelvesController < ApplicationController
+  module V1
+    class BooksShelvesController < ApplicationController
+      include Pagenation
       #マイページ用
       def index
-        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: current_api_v1_user).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: current_api_v1_user).order("created_at DESC").page(params[:page]).per(5)
+        pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
-            id: booksShelf.id,
-            user_id: booksShelf.user_id,
-            book_id: booksShelf.book_id,
-            google_books_api_id: booksShelf.book.google_books_api_id,
-            book_image: booksShelf.book.image,
-            title: booksShelf.book.title,
-            publisher: booksShelf.book.publisher,
-            published_at: booksShelf.book.published_at,
-            authors: booksShelf.book.authors[0],
-            rating: booksShelf.rating,
-            comment: booksShelf.comment,
-            created_at: booksShelf.created_at,
-            
-            
+           id: booksShelf.id,
+           user_id: booksShelf.user_id,
+           book_id: booksShelf.book_id,
+           google_books_api_id: booksShelf.book.google_books_api_id,
+           book_image: booksShelf.book.image,
+           title: booksShelf.book.title,
+           publisher: booksShelf.book.publisher,
+           published_at: booksShelf.book.published_at,
+           authors: booksShelf.book.authors[0],
+           rating: booksShelf.rating,
+           comment: booksShelf.comment,
+           created_at: booksShelf.created_at,
+           good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map 
           }
         end
-        render json: booksShelves_array, status: 200
+        object = { books: booksShelves_array, kaminari: pagenation }
+        render json: object
       end
       #他人のページ用
       def user
@@ -41,14 +43,15 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
-            good: booksShelf.goods
+            good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
           }
         end
         render json: booksShelves_array, status: 200
       end
       #タイムライン用
       def all
-        @books_shelves = BooksShelf.includes(:book, :user, :goods).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user, :tags, :goods).order("created_at DESC").page(params[:page]).per(5)
+        pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
             id: booksShelf.id,
@@ -61,11 +64,12 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
-            tags: booksShelf.tag_counts_on(:tags),
+            tags: booksShelf.tags.select(:id, :name, :taggings_count).map,
             good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
           }
         end
-        render json: booksShelves_array, status: 200
+        object = { books: booksShelves_array, kaminari: pagenation }
+        render json: object
       end
       #タイムラインのタグフィールド表示用
       def tag
@@ -111,7 +115,7 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
-            tags: booksShelf.tag_counts_on(:tags),
+            tags: booksShelf.tags.select(:id, :name, :taggings_count).map,
             good: booksShelf.goods
           }
         end
@@ -119,7 +123,7 @@ module Api
       end
       #ランキング検索用
       def view
-        @books_shelves = BooksShelf.includes(:book, :user, :goods).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
             id: booksShelf.id,
@@ -132,8 +136,6 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
-            tags: booksShelf.tag_counts_on(:tags),
-            good: booksShelf.goods
           }
         end
         render json: booksShelves_array, status: 200

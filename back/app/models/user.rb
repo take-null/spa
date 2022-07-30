@@ -3,25 +3,24 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
-  #dependent: :destroyユーザーの投稿をユーザーの破棄と同時に破棄するコード
   #チャット機能用のリレーション
-  #has_many :chat_messages, dependent: :destroy
-  #has_many :user_room, dependent: :destroy
+  has_many :chat_messages, dependent: :destroy
+  has_many :user_room, dependent: :destroy
   mount_uploader :image, ImageUploader
   has_many :user_rooms, dependent: :destroy
   has_many :rooms, through: :user_rooms
   has_many :books, through: :books_shelves
   has_many :books_shelves, dependent: :destroy
   has_many :goods, dependent: :destroy
-  #通知機能用
-  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
-  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
-
-  #マイクロポスト用のリレーション
-  has_many :tweets, dependent: :destroy
-  has_many :likes, dependent: :destroy
+  #通知機能
+  has_many :active_notifications, class_name: 'Notification', 
+                                  foreign_key: 'visitor_id', 
+                                  dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', 
+                                   foreign_key: 'visited_id', 
+                                   dependent: :destroy
   
-  #以下フォロー機能
+  #フォロー機能
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
                                   dependent:   :destroy
@@ -36,20 +35,11 @@ class User < ActiveRecord::Base
   def follow(other_user)
     following << other_user
   end
-
-  #def follow(other_user)
-    #self.relationships.find_or_create_by(follow_id: other_user.id) unless self == other_user
-  #end
   
   # ユーザーをフォロー解除する
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
-
-  #def unfollow(other_user)
-    #relationship = self.relationships.find_by(follow_id: other_user.id)
-    #relationship&.destroy if relationship
-  #end
   
   # 現在のユーザーがフォローしてたらtrueを返す
   def following?(other_user)
@@ -59,7 +49,7 @@ class User < ActiveRecord::Base
   def followers?(other_user)
     followers.include?(other_user)
   end
-
+  #フォロー通知
   def create_notification_follow!(current_api_v1_user)
     temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_api_v1_user.id, id, 'follow'])
     if temp.blank?
@@ -73,11 +63,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  validates :name, presence: true, length: { maximum: 30 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
   #ユーザー新規作成時のみパスワードを入力必須にする
   validates :password, presence: true, on: :create
 end

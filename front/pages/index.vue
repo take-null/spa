@@ -3,63 +3,42 @@
     <v-container
       class="py-8 px-6"
       fill-height
+      fluid
       id="top"
     >
       <v-row
         no-gutters
       >
-        <v-col
-          cols="3"
+        <v-sheet 
+          elevation="0"
+          color="blue-grey lighten-5" 
         >
-          <v-card
-            color="blue-grey lighten-5"
-            elevation="0"
-            max-width="370"
-            min-height="70vh"
+          <v-tabs
+            background-color="blue-grey lighten-5"
+            next-icon="mdi-chevron-right"
+            prev-icon="mdi-chevron-left"
+            show-arrows
           >
-            <v-card-title
-              class="pb-0"
+            <v-tab
+              @click.stop="searchTag(tag.name)"
+              v-for="tag in tags"
+              :key="tag.id"
+              :href="'#tab-' + tag.id"
             >
-              <p class="text-h6 text--primary">
-                Tags
-              </p>
-            </v-card-title>
-            <v-card-actions>
-              <v-container
-                fluid
+              <p
+                class="text-button text--cyan"
               >
-                <v-row
-                  no-gutters
-                >
-                  <v-col
-                    cols="6"
-                    v-for="tag in tags"
-                    :key="tag.id"
-                  > 
-                    <v-btn
-                      text
-                      x-small
-                      @click.stop="searchTag(tag.name)"
-                    >
-                      <p
-                        class="text-body-2 text--primary"
-                      >
-                        <v-icon
-                          dark
-                        >
-                          mdi-label
-                        </v-icon>
-                        {{tag.name}}({{tag.taggings_count}})
-                      </p>
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-actions>
-          </v-card>
-        </v-col>
+                #{{tag.name}}({{tag.taggings_count}})
+              </p>
+            </v-tab>
+          </v-tabs>
+        </v-sheet>
+      </v-row>
+      <v-row
+        no-gutters
+      >
         <v-col
-          cols="6"
+          cols="9"
         >
           <template
             v-if="searchFlag === false"
@@ -68,7 +47,7 @@
               fluid
             >
               <v-row
-                dense
+                no-gutters
               >
                 <v-col
                   v-for="book in formattedBooks"
@@ -94,6 +73,7 @@
                 </v-col>
               </v-row>
             </v-container>
+            <infinite-loading @infinite="infiniteHandler"></infinite-loading>
           </template>
           <template
             v-else
@@ -102,11 +82,11 @@
               fluid
             >
               <v-row
-                dense
+                no-gutters
               >
                 <v-card
                   class="mx-auto"
-                  max-width="425"
+                  max-width="600"
                   dark
                   elevation="0"
                   @click="searchFlag=false"
@@ -185,6 +165,7 @@
 </template>
 
 <script>
+
 import { formatDistanceToNow } from 'date-fns'
 import { ja } from 'date-fns/locale'
 import bookReview from '~/components/books/bookReview.vue'
@@ -194,26 +175,25 @@ export default {
     return $nxauth.loggedIn ? 'loggedIn' : 'welcome'
   },
   components: { bookReview, bookRank },
+  data: () => ({
+    reveal: false,
+    searchFlag: false,
+    formattedShelves: [],
+    page: 2
+  }),
   async asyncData ({ $axios }) {
     let books = await $axios.$get(`/api/v1/books_shelves/all`)
     let ranking = await $axios.$get(`/api/v1/books_shelves/rank`)
     let tags = await $axios.$get(`/api/v1/books_shelves/tag`)
-    const formattedBooks = books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
+    const formattedBooks = books.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
         return { ...book, created_at: time }
     })
-    console.log(tags)
-    console.log(books)
-    const bookKeys = Object.keys(books || {}) // 追加
+    const bookKeys = Object.keys(books.books || {}) // 追加
     const rankKeys = Object.keys(ranking || {}) // 追加
     const tagKeys = Object.keys(tags || {}) // 追加
-    return { formattedBooks, bookKeys, ranking, rankKeys, tags, tagKeys }
     
+    return { formattedBooks, bookKeys, ranking, rankKeys, tags, tagKeys }
   },
-  data: () => ({
-    reveal: false,
-    searchFlag: false,
-    formattedShelves: []
-  }),
   methods: {
     toShow(id) {
         if (id !== this.$nxauth.user.id) {
@@ -247,7 +227,32 @@ export default {
       this.searchFlag = true
       return { formattedShelves, shelfKeys }
     },
+    infiniteHandler($state) {
+      this.$axios.$get(`/api/v1/books_shelves/all`, {
+          params: {
+              page: this.page , 
+          },
+      }).then((res) => {
+        const books = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
+          return { ...book, created_at: time }
+        })
+        setTimeout(() => {
+          if (this.page <= res.kaminari.pagenation.pages) {
+            this.page += 1
+            let num = 0;
+            while(num <= books.length - 1) {
+              this.formattedBooks.push(books[num]);
+              num++;
+            }
+            $state.loaded()
+          } else {
+            $state.complete()
+          }
+        }, 800)
+      }).catch((err) => {
+        $state.complete()
+      })
+    }
   }
 };
 </script>
-

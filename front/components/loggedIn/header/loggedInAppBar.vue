@@ -323,25 +323,15 @@
       offset-y
       max-width="1000"
     >
-      <template v-if="img === null"  v-slot:activator="{ on }">
+      <template v-slot:activator="{ on }">
         <v-btn
           icon
           v-on="on"
         >
-          <v-avatar size="40">
-            <v-icon x-large>
-              mdi-account-circle
+          <v-avatar size="50">
+            <v-icon>
+              mdi-account-cog
             </v-icon>
-          </v-avatar>
-        </v-btn>
-      </template>
-      <template v-else  v-slot:activator="{ on }">
-        <v-btn
-          icon
-          v-on="on"
-        >
-          <v-avatar size="40" class="user-image">
-            <v-img :src="`http://localhost:3000/${img}`" alt="avatar" />
           </v-avatar>
         </v-btn>
       </template>
@@ -396,14 +386,12 @@
 <script>
 import appLogo from '~/components/ui/appLogo.vue'
 import appTitle from '~/components/ui/appTitle.vue'
-import myIdea from '~/components/tweets/tweetPost.vue'
 export default {
-  components: { appLogo, appTitle, myIdea },
+  components: { appLogo, appTitle },
   data () {
     return {
       notification: this.$store.state.current.user.passive_notifications,
-      img: this.$store.state.current.user.image.thumb.url,
-      drawer: null,
+      drawer: true,
       accountMenus: [
         { name: 'account-settings', icon: 'mdi-account-cog' },
         { name: 'account-password', icon: 'mdi-lock-outline' },

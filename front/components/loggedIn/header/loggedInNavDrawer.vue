@@ -4,23 +4,73 @@
     app
     clipped
     mobile-breakpoint="420"
+    :mini-variant.sync="mini"
   >
-   <b-container class="d-flex justify-content-end">
-    <v-btn
-      text
-      outrined
-      rounded
-      @click="closeDrawerChild"
-    >
-      close<v-icon>mdi-chevron-left</v-icon>
-    </v-btn>
-    </b-container>
-    <v-list-item-content>
-      <v-list-item-subtitle>
-        こんにちは、{{ $nxauth.user.name }}さん
-      </v-list-item-subtitle>
-    </v-list-item-content>
-
+    <template v-if="mini === true">
+      <b-container class="d-flex justify-content-end">
+        <v-btn
+          icon
+          outrined
+          rounded
+          @click.stop="closeDrawerChild"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+      </b-container>
+    </template>
+    <template v-else>
+      <b-container class="d-flex justify-content-end">
+        <v-btn
+          icon
+          outrined
+          rounded
+          @click.stop="mini = !mini"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+      </b-container>
+    </template>
+    <template v-if="img === null">
+      <v-list-item class="px-2">
+        <v-list-item-avatar
+          size="45"
+        >
+          <v-btn
+            icon
+            outlined
+            rounded
+            @click.stop="mini = !mini"
+          >
+            <v-icon x-large>
+              mdi-account-circle
+            </v-icon>
+          </v-btn>
+        </v-list-item-avatar>
+        <v-list-item-title>
+          {{$store.state.current.user.name}}
+        </v-list-item-title>
+      </v-list-item>
+    </template>
+    <template v-else>
+      <v-list-item class="px-2">
+        <v-list-item-avatar
+          size="45"
+        >
+          <v-btn
+            icon
+            outrined
+            rounded
+            @click.stop="mini = !mini"
+          >
+            <v-img :src="`http://localhost:3000/${img}`" alt="avatar" />
+          </v-btn>
+        </v-list-item-avatar>
+        <v-list-item-title>
+          {{$store.state.current.user.name}}
+        </v-list-item-title>
+      </v-list-item>
+    </template>
+    <v-divider></v-divider>
     <v-list>
       <v-list-item
         v-for="(nav, i) in navMenus"
@@ -46,18 +96,19 @@ export default {
   props: {
     drawer: {
       type: Boolean,
-      default: null
     }
   },
   data () {
     return {
+      img: this.$store.state.current.user.image.thumb.url,
       navMenus: [
-        { name: 'contents-id-account', icon: 'mdi-account-circle' },
-        { name: 'contents-id-tweets', icon: 'mdi-view-dashboard'},
+        { name: 'contents-id-main', icon: 'mdi-timer-outline'},
+        { name: 'contents-id-account', icon: 'mdi-cog-outline' },
         { name: 'contents-id-users', icon: 'mdi-account-group'},
         { name: 'contents-id-books', icon: 'mdi-magnify'},
         { name: 'contents-id-shelf', icon: 'mdi-book-open-page-variant-outline'}
-      ]
+      ],
+      mini: true
     }
   },
   methods: {
