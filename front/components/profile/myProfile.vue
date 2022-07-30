@@ -7,6 +7,16 @@
             elevation="0"
           >
             <template>
+              <b-container class="d-flex justify-content-end">
+                <v-btn
+                  text
+                  outlined
+                  rounded
+                  @click.stop="dialog = true"
+                >
+                  edit user
+                </v-btn>
+              </b-container>
               <div v-if="image === null">
               <v-img
                 :src="cards.src"
@@ -40,16 +50,6 @@
               <v-card-text>年齢：{{age}}</v-card-text>
               <v-divider></v-divider>
               <v-card-text>住んでいる場所：{{locate}}</v-card-text>
-              <b-container class="d-flex justify-content-end">
-                <v-btn
-                  text
-                  outlined
-                  rounded
-                  @click.stop="dialog = true"
-                >
-                  edit user
-                </v-btn>
-              </b-container>
             </template>
             
           </v-card>

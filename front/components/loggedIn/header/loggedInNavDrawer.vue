@@ -103,10 +103,9 @@ export default {
       img: this.$store.state.current.user.image.thumb.url,
       navMenus: [
         { name: 'contents-id-main', icon: 'mdi-timer-outline'},
-        { name: 'contents-id-account', icon: 'mdi-cog-outline' },
+        { name: 'contents-id-account', icon: 'mdi-book-open-page-variant-outline' },
         { name: 'contents-id-users', icon: 'mdi-account-group'},
         { name: 'contents-id-books', icon: 'mdi-magnify'},
-        { name: 'contents-id-shelf', icon: 'mdi-book-open-page-variant-outline'}
       ],
       mini: true
     }

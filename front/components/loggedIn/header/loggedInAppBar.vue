@@ -393,7 +393,7 @@ export default {
       notification: this.$store.state.current.user.passive_notifications,
       drawer: true,
       accountMenus: [
-        { name: 'account-settings', icon: 'mdi-account-cog' },
+        { name: 'account-settings', icon: 'mdi-book-open-page-variant-outline' },
         { name: 'account-password', icon: 'mdi-lock-outline' },
         { name: 'logout', icon: 'mdi-logout-variant', divider: true }
       ],
