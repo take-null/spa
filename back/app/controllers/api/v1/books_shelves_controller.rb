@@ -4,7 +4,7 @@ module Api
       include Pagenation
       #マイページ用
       def index
-        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: current_api_v1_user).order("created_at DESC").page(params[:page]).per(5)
+        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: current_api_v1_user).order("created_at DESC").page(params[:page]).per(12)
         pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
@@ -28,7 +28,8 @@ module Api
       end
       #他人のページ用
       def user
-        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: params[:id]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: params[:id]).order("created_at DESC").page(params[:page]).per(12)
+        pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
             id: booksShelf.id,
@@ -46,7 +47,8 @@ module Api
             good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
           }
         end
-        render json: booksShelves_array, status: 200
+        object = { books: booksShelves_array, kaminari: pagenation }
+        render json: object
       end
       #タイムライン用
       def all

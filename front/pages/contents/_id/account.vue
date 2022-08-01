@@ -53,6 +53,24 @@
                      />
                   </v-col>
                 </v-row>
+                <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
+                    >
+                    <v-pagination
+                      v-model="page"
+                      :length="total"
+                      @input="movePage"
+                    >
+                    </v-pagination>
+                  </v-container>
+                </v-col>
+              </v-row>
               </v-container>
             </v-card>
             <v-card
@@ -76,6 +94,24 @@
                     heigth="230"
                     width="140"
                   />
+                </v-col>
+              </v-row>
+              <v-row
+                justify="center"
+              >
+                <v-col
+                  cols="8"
+                >
+                  <v-container
+                    class="max-width"
+                  >
+                    <v-pagination
+                      v-model="page"
+                      :length="total"
+                      @input="movePage"
+                    >
+                    </v-pagination>
+                  </v-container>
                 </v-col>
               </v-row>
             </v-container>
@@ -129,6 +165,24 @@
                      />
                   </v-col>
                 </v-row>
+                <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
+                    >
+                      <v-pagination
+                        v-model="page"
+                        :length="total"
+                        @input="movePage"
+                      >
+                      </v-pagination>
+                    </v-container>
+                  </v-col>
+                </v-row>
               </v-container>
             </v-card>
             <v-card
@@ -155,6 +209,24 @@
                   />
                 </v-col>
               </v-row>
+              <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
+                    >
+                    <v-pagination
+                      v-model="page"
+                      :length="total"
+                      @input="movePage"
+                    >
+                    </v-pagination>
+                  </v-container>
+                </v-col>
+              </v-row>
             </v-container>
           </v-card>
         </v-col>
@@ -172,6 +244,7 @@ export default {
   },
   data () {
     return {
+      page: 1,
       dialog: false,
       show: false,
       width: window.innerWidth,
@@ -185,12 +258,15 @@ export default {
     console.log(user)
     ))
     let books = []
-    await $axios.$get(`/api/v1/books_shelves/user?id=${$nxauth.user.id}`).then(res => (
-    books = res,
+    let total = null
+    await $axios.$get('/api/v1/books_shelves/').then(res => (
+    books = res.books,
+    total = res.kaminari.pagenation.pages,
+    console.log(res),
     console.log(books)))
     const bookKeys = Object.keys(books[0] || {})
     console.log(bookKeys)
-    return { user, books, bookKeys }
+    return { user, books, bookKeys, total }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
@@ -202,7 +278,17 @@ export default {
     handleResize: function() {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
+    },
+    async movePage(number) {
+      await this.$axios.$get('/api/v1/books_shelves/', {
+        params: {
+          page: number, 
+        },
+      }).then(res => (
+      this.books = res.books,
+      console.log(res),
+      console.log(res.books)))
     }
-  }
+  },
 };
 </script>

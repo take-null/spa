@@ -2,7 +2,7 @@
 <v-app id="inspire">
   <v-container
     fluid
-  >
+  > 
     <v-row
       dense
     >
@@ -103,6 +103,24 @@
                      />
                   </v-col>
                 </v-row>
+                <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
+                    >
+                    <v-pagination
+                      v-model="page"
+                      :length="total"
+                      @input="movePage"
+                    >
+                    </v-pagination>
+                  </v-container>
+                </v-col>
+              </v-row>
               </v-container>
             </v-card>
             <v-card
@@ -126,6 +144,24 @@
                     heigth="230"
                     width="140"
                   />
+                </v-col>
+              </v-row>
+                            <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
+                    >
+                    <v-pagination
+                      v-model="page"
+                      :length="total"
+                      @input="movePage"
+                    >
+                    </v-pagination>
+                  </v-container>
                 </v-col>
               </v-row>
             </v-container>
@@ -229,6 +265,24 @@
                      />
                   </v-col>
                 </v-row>
+                              <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
+                    >
+                    <v-pagination
+                      v-model="page"
+                      :length="total"
+                      @input="movePage"
+                    >
+                    </v-pagination>
+                  </v-container>
+                </v-col>
+              </v-row>
               </v-container>
             </v-card>
             <v-card
@@ -253,6 +307,24 @@
                     heigth="230"
                     width="140"
                   />
+                </v-col>
+              </v-row>
+                            <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
+                    >
+                    <v-pagination
+                      v-model="page"
+                      :length="total"
+                      @input="movePage"
+                    >
+                    </v-pagination>
+                  </v-container>
                 </v-col>
               </v-row>
             </v-container>
@@ -280,6 +352,7 @@ export default defineComponent({
   },
   data () {
     return {
+      page: 1,
       flag: false,
       followSnackbar: false,
       unfollowSnackbar: false,
@@ -295,12 +368,14 @@ export default defineComponent({
     console.log(user)
     ))
     let books = []
+    let total = null
     await $axios.$get(`/api/v1/books_shelves/user?id=${params.id}`).then(res => (
-    books = res,
+    books = res.books,
+    total = res.kaminari.pagenation.pages,
     console.log(books)))
     const bookKeys = Object.keys(books[0] || {})
     console.log(bookKeys)
-    return { user, books, bookKeys }
+    return { user, books, bookKeys, total }
   },
   mounted() {
     this.flag = this.user.followers.some(({id}) => id === this.$store.state.current.user.id)
@@ -377,7 +452,18 @@ export default defineComponent({
            console.log({error})
          }
        },
+      async movePage({number}) {
+      await this.$axios.$get(`/api/v1/books_shelves/user?id=${this.user.id}`, {
+        params: {
+          page: number, 
+        },
+      }).then(res => (
+      this.books = res.books,
+      console.log(res),
+      console.log(res.books)))
+    }
     },
+
   },
 );
 </script>
