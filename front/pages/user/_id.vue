@@ -95,12 +95,20 @@
                       cols="4"
                       class="d-flex align-end"
                   >
+                  <template v-if="book.book_image === null">
                     <v-img
-                      contain 
-                      :src="book.book_image"
-                      heigth="230"
-                      width="140"
-                     />
+                      max-height="230"
+                      max-width="140"
+                      :src="require('@/assets/img/20200505_noimage.jpg')"
+                    />
+                  </template>
+                  <template v-else>
+                  <v-img
+                    :src="book.book_image"
+                    max-heigth="230"
+                    max-width="140"
+                  />
+                  </template>
                   </v-col>
                 </v-row>
                 <v-row
@@ -138,15 +146,23 @@
                   cols="12" sm="3" md="2" lg="2" xl="2"
                   class="d-flex align-end"
                 >
+                  <template v-if="book.book_image === null">
+                    <v-img
+                      max-height="230"
+                      max-width="140"
+                      :src="require('@/assets/img/20200505_noimage.jpg')"
+                    />
+                  </template>
+                  <template v-else>
                   <v-img
-                    contain 
                     :src="book.book_image"
-                    heigth="230"
-                    width="140"
+                    max-heigth="230"
+                    max-width="140"
                   />
+                  </template>
                 </v-col>
               </v-row>
-                            <v-row
+              <v-row
                   justify="center"
                 >
                   <v-col
@@ -257,15 +273,23 @@
                       cols="4"
                       class="d-flex align-end"
                   >
+                  <template v-if="book.book_image === null">
                     <v-img
-                      contain 
-                      :src="book.book_image"
-                      heigth="230"
-                      width="140"
-                     />
+                      max-height="230"
+                      max-width="140"
+                      :src="require('@/assets/img/20200505_noimage.jpg')"
+                    />
+                  </template>
+                  <template v-else>
+                  <v-img
+                    :src="book.book_image"
+                    max-heigth="230"
+                    max-width="140"
+                  />
+                  </template>
                   </v-col>
                 </v-row>
-                              <v-row
+                <v-row
                   justify="center"
                 >
                   <v-col
@@ -287,7 +311,7 @@
             </v-card>
             <v-card
               v-else
-              color="brown lighten-5"
+              color="blue-grey lighten-5"
               max-width="599"
               min-height="70vh"
             >
@@ -301,15 +325,23 @@
                   cols="3"
                   class="d-flex align-end"
                 >
+                  <template v-if="book.book_image === null">
+                    <v-img
+                      max-height="230"
+                      max-width="140"
+                      :src="require('@/assets/img/20200505_noimage.jpg')"
+                    />
+                  </template>
+                  <template v-else>
                   <v-img
-                    contain 
                     :src="book.book_image"
-                    heigth="230"
-                    width="140"
+                    max-heigth="230"
+                    max-width="140"
                   />
+                  </template>
                 </v-col>
               </v-row>
-                            <v-row
+              <v-row
                   justify="center"
                 >
                   <v-col

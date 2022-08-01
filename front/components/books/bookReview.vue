@@ -10,7 +10,7 @@
   <v-container
     fluid
   >
-  <div>No.{{id}}</div>
+  <div>{{created_at}}前</div>
     <v-row
       no-gutters
     >
@@ -32,13 +32,7 @@
             {{user_name}}
           </v-list-item-title>
           </v-list-item>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col>
-          <v-list-item-title class="text-text-caption text--primary">
-            {{created_at}}前
-          </v-list-item-title>
-      </v-col>  
+      </v-col> 
     </v-row>
   </v-container>
   <v-container
@@ -59,7 +53,9 @@
           <v-list-item-subtitle
             class="text-body-2 text--primary wrap-text "
           >
-            {{comment}}
+            <perfect-scrollbar>
+              {{comment}}
+            </perfect-scrollbar>
           </v-list-item-subtitle>
           </v-list-item-content>
         </v-col>
@@ -67,16 +63,16 @@
           cols="4">
           <v-list-item class="justify-content-center">
             <template v-if="book_image === null">
-              <img
-                height="160"
-                width="120"
-                src="@/assets/img/20200505_noimage.jpg"
-              >
+              <v-img
+                max-height="160"
+                max-width="120"
+                :src="require('@/assets/img/20200505_noimage.jpg')"
+              />
             </template>
             <template v-else>
               <v-img
-                heigth="160"
-                width="120"
+                max-heigth="160"
+                max-width="120"
                 :src="book_image"
               />
             </template>
@@ -173,7 +169,10 @@
 </template>
 
 <script>
+import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
+  components: {PerfectScrollbar},
   props: {
     book_image: {
       type: String
@@ -285,5 +284,9 @@ export default {
 .wrap-text {
   word-break: break-all;
   white-space: normal;
+}
+.ps {
+  height: 150px;
+  border: 1px solid #212121;
 }
 </style>

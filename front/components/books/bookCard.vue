@@ -11,16 +11,16 @@
           <v-list-item-content>
             <v-list-item class="d-flex flex-column justify-content-start">
               <template v-if="image === null">
-                <img
-                  height="250"
-                  width="150"
-                  src="@/assets/img/20200505_noimage.jpg"
-                >
+                <v-img
+                  max-height="250"
+                  max-width="150"
+                  :src="require('@/assets/img/20200505_noimage.jpg')"
+                />
               </template>
               <template v-else>
                 <v-img
-                  heigth="250"
-                  width="150"
+                  max-heigth="250"
+                  max-width="150"
                   :src="image"
                 />
               </template>

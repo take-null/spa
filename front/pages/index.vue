@@ -246,7 +246,8 @@ export default {
             }
             $state.loaded()
           } else {
-            $state.complete()
+            this.page = 1
+            this.infiniteHandler($state)
           }
         }, 800)
       }).catch((err) => {
