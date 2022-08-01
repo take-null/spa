@@ -188,6 +188,7 @@ export default {
     const formattedBooks = books.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
         return { ...book, created_at: time }
     })
+    console.log(tags)
     const bookKeys = Object.keys(books.books || {}) // 追加
     const rankKeys = Object.keys(ranking || {}) // 追加
     const tagKeys = Object.keys(tags || {}) // 追加
@@ -246,7 +247,13 @@ export default {
             }
             $state.loaded()
           } else {
-            this.page = 1
+            this.goTo()
+            this.page = 1,
+            this.$axios.$get(`/api/v1/books_shelves/all?page=${this.page}`).then((res) => {
+            this.formattedBooks = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
+              return { ...book, created_at: time }
+            })})
+            this.page = 2
             this.infiniteHandler($state)
           }
         }, 800)
