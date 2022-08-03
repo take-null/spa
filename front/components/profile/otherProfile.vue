@@ -18,7 +18,7 @@
                 <v-card-title>
                   {{ name }}
                 </v-card-title>
-                <v-card-text>Following: {{following.length}}    Followers: {{followers.length}}</v-card-text>
+                <v-card-text>Following: {{following.length}}/Followers: {{followers.length}}</v-card-text>
               </v-img>
               </div>
               <div v-else>
@@ -32,14 +32,19 @@
                 <v-card-title>
                   {{ name }}
                 </v-card-title>
-                <v-card-text>Following: {{following.length}}    Followers: {{followers.length}}</v-card-text>
+                <v-card-text>Following: {{following.length}}/Followers: {{followers.length}}</v-card-text>
               </v-img>
               </div>
-              <v-card-text>自己紹介：{{profile}}</v-card-text>
+              <v-card-text>プロフィール：</v-card-text>
+              <v-card-text>{{profile}}</v-card-text>
               <v-divider></v-divider>
               <v-card-text>年齢：{{age}}</v-card-text>
               <v-divider></v-divider>
-              <v-card-text>住んでいる場所：{{locate}}</v-card-text>
+              <v-card-text>生息地：{{locate}}</v-card-text>
+              <v-divider></v-divider>
+              <v-card-text>レビュー数：{{review}}</v-card-text>
+              <v-divider></v-divider>
+              <v-card-text>評価されたレビュー数：{{good.length}}</v-card-text>
             </template>
           </v-card>
       </div>
@@ -71,6 +76,12 @@
         },
         followers: {
           type: Array
+        },
+        good: {
+          type:Array
+        },
+        review: {
+          type:Number
         }
       },
       data () {

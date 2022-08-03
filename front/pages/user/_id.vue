@@ -1,14 +1,12 @@
 <template>
-<v-app id="inspire">
-  <v-container
-    fluid
-  > 
-    <v-row
-      dense
-    >
+  <v-app id="inspire">
+    <v-container
+      fluid
+    > 
+      <v-row>
       <template v-if="width > 600">
       <v-col
-        cols="4"
+        cols="3"
       >
         <v-card
           color="blue-grey lighten-5"
@@ -56,7 +54,9 @@
               :age.sync="user.age" 
               :locate.sync="user.locate"
               :following.sync="user.following"
-              :followers.sync="user.followers"  
+              :followers.sync="user.followers"
+              :good.sync="user.goods"
+              :review.sync="review"
             />
             <b-container class="d-flex justify-content-end">
               <v-btn v-if="flag"
@@ -64,51 +64,64 @@
                 outlined
                 @click="unfollowUser"
               >
-                <v-icon>mdi-checkbox-marked-circle</v-icon>
-                unFollow
+                <div
+                  class="text-button"
+                >
+                  <v-icon>
+                    mdi-checkbox-marked-circle
+                  </v-icon>
+                  unFollow
+                </div>
               </v-btn>
               <v-btn v-else
                 color="cyan accent-3"
                 class="white--text"
                 @click="followUser"
               >
-                <v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>
-                Follow
+                <div
+                 class="text-button" 
+                >
+                  <v-icon>
+                    mdi-checkbox-marked-circle-plus-outline
+                  </v-icon>
+                  Follow
+                </div>
               </v-btn>
             </b-container>
           </v-card>
         </v-col>
         <v-col
-          cols="8">
-            <v-card
-              v-if="width > 600 && width <768"
-              color="blue-grey lighten-5"
-              max-width="960"
+          cols="9"
+        >
+          <v-card
+            v-if="width > 600 && width <768"
+            color="blue-grey lighten-5"
+            max-width="600"
             >
               <v-card-title>
                 {{user.name}}の本棚
               </v-card-title>
               <v-container fluid>
-                <v-row dense>
+                <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
                       cols="4"
                       class="d-flex align-end"
                   >
-                  <template v-if="book.book_image === null">
-                    <v-img
-                      max-height="230"
-                      max-width="140"
-                      :src="require('@/assets/img/20200505_noimage.jpg')"
+                    <bookDetail 
+                      :book_image.sync="book.book_image"
+                      :comment.sync="book.comment"
+                      :created_at.sync="book.created_at"
+                      :google_books_api_id.sync="book.google_books_api_id"
+                      :id.sync="book.id"
+                      :rating.sync="book.rating"
+                      :title.sync="book.title"
+                      :tags.sync="book.tags"
+                      :goodArray.sync="book.good"
+                      :authors.sync="book.authors"
+                      :publisher.sync="book.publisher"
+                      :published_at.sync="book.published_at"
                     />
-                  </template>
-                  <template v-else>
-                  <v-img
-                    :src="book.book_image"
-                    max-heigth="230"
-                    max-width="140"
-                  />
-                  </template>
                   </v-col>
                 </v-row>
                 <v-row
@@ -139,38 +152,38 @@
               <v-card-title>
                 {{user.name}}の本棚
               </v-card-title>
-            <v-container fluid>
-              <v-row dense>
-                <v-col
+              <v-container fluid>
+                <v-row>
+                  <v-col
                   v-for="book in books" :key="book.id"
-                  cols="12" sm="3" md="2" lg="2" xl="2"
+                  cols="12" sm="4" md="3" lg="3" xl="2"
                   class="d-flex align-end"
                 >
-                  <template v-if="book.book_image === null">
-                    <v-img
-                      max-height="230"
-                      max-width="140"
-                      :src="require('@/assets/img/20200505_noimage.jpg')"
-                    />
-                  </template>
-                  <template v-else>
-                  <v-img
-                    :src="book.book_image"
-                    max-heigth="230"
-                    max-width="140"
+                  <bookDetail 
+                    :book_image.sync="book.book_image"
+                    :comment.sync="book.comment"
+                    :created_at.sync="book.created_at"
+                    :google_books_api_id.sync="book.google_books_api_id"
+                    :id.sync="book.id"
+                    :rating.sync="book.rating"
+                    :title.sync="book.title"
+                    :tags.sync="book.tags"
+                    :goodArray.sync="book.good"
+                    :authors.sync="book.authors"
+                    :publisher.sync="book.publisher"
+                    :published_at.sync="book.published_at"
                   />
-                  </template>
                 </v-col>
               </v-row>
               <v-row
-                  justify="center"
+                justify="center"
+              >
+                <v-col
+                  cols="8"
                 >
-                  <v-col
-                    cols="8"
+                  <v-container
+                    class="max-width"
                   >
-                    <v-container
-                      class="max-width"
-                    >
                     <v-pagination
                       v-model="page"
                       :length="total"
@@ -233,7 +246,9 @@
               :age.sync="user.age" 
               :locate.sync="user.locate"
               :following.sync="user.following"
-              :followers.sync="user.followers"  
+              :followers.sync="user.followers"
+              :good.sync="user.goods"
+              :review.sync="review"
             />
             <b-container class="d-flex justify-content-end">
               <v-btn v-if="flag"
@@ -241,52 +256,65 @@
                 outlined
                 @click="unfollowUser"
               >
-                <v-icon>mdi-checkbox-marked-circle</v-icon>
-                unFollow
+                <div
+                  class="text-button"
+                >
+                  <v-icon>
+                    mdi-checkbox-marked-circle
+                  </v-icon>
+                  unFollow
+                </div>
               </v-btn>
               <v-btn v-else
                 color="cyan accent-3"
                 class="white--text"
                 @click="followUser"
               >
-                <v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>
-                Follow
+                <div
+                  class="text-button"
+                >
+                  <v-icon>
+                    mdi-checkbox-marked-circle-plus-outline
+                  </v-icon>
+                  Follow
+                </div>
+                
               </v-btn>
             </b-container>
           </v-card>
         </v-col>
         <v-col
-          cols="12">
-            <v-card
-              v-if="width < 429"
-              color="brown lighten-5"
-              max-width="599"
-              
-            >
-              <v-card-title>
-                {{user.name}}の本棚
-              </v-card-title>
+          cols="12"
+        >
+          <v-card
+            v-if="width > 518"
+              color="blue-grey lighten-5"
+              max-width="517"
+          >
+            <v-card-title>
+              {{user.name}}の本棚
+            </v-card-title>
               <v-container fluid>
-                <v-row dense>
+                <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
-                      cols="4"
+                      cols="6"
                       class="d-flex align-end"
                   >
-                  <template v-if="book.book_image === null">
-                    <v-img
-                      max-height="230"
-                      max-width="140"
-                      :src="require('@/assets/img/20200505_noimage.jpg')"
+                    <bookDetail 
+                      :book_image.sync="book.book_image"
+                      :comment.sync="book.comment"
+                      :created_at.sync="book.created_at"
+                      :google_books_api_id.sync="book.google_books_api_id"
+                      :id.sync="book.id"
+                      :rating.sync="book.rating"
+                      :title.sync="book.title"
+                      :tags.sync="book.tags"
+                      :goodArray.sync="book.good"
+                      :authors.sync="book.authors"
+                      :publisher.sync="book.publisher"
+                      :published_at.sync="book.published_at"
                     />
-                  </template>
-                  <template v-else>
-                  <v-img
-                    :src="book.book_image"
-                    max-heigth="230"
-                    max-width="140"
-                  />
-                  </template>
                   </v-col>
                 </v-row>
                 <v-row
@@ -298,50 +326,49 @@
                     <v-container
                       class="max-width"
                     >
-                    <v-pagination
-                      v-model="page"
-                      :length="total"
-                      @input="movePage"
-                    >
-                    </v-pagination>
-                  </v-container>
-                </v-col>
-              </v-row>
+                      <v-pagination
+                        v-model="page"
+                        :length="total"
+                        @input="movePage"
+                      >
+                      </v-pagination>
+                    </v-container>
+                  </v-col>
+                </v-row>
               </v-container>
             </v-card>
             <v-card
-              v-else
+              v-else-if="width < 518 && width > 340"
               color="blue-grey lighten-5"
-              max-width="599"
-              min-height="70vh"
+              max-width="517"
             >
-            <v-card-title>
-              {{user.name}}の本棚
-            </v-card-title>
-            <v-container fluid>
-              <v-row dense>
-                <v-col
-                  v-for="book in books" :key="book.id"
-                  cols="3"
-                  class="d-flex align-end"
-                >
-                  <template v-if="book.book_image === null">
-                    <v-img
-                      max-height="230"
-                      max-width="140"
-                      :src="require('@/assets/img/20200505_noimage.jpg')"
+              <v-card-title>
+                {{user.name}}の本棚
+              </v-card-title>
+              <v-container fluid>
+                <v-row>
+                  <v-col
+                    v-for="book in books" :key="book.id"
+                      cols="6"
+                      class="d-flex align-end"
+                  >
+                    <bookDetail 
+                      :book_image.sync="book.book_image"
+                      :comment.sync="book.comment"
+                      :created_at.sync="book.created_at"
+                      :google_books_api_id.sync="book.google_books_api_id"
+                      :id.sync="book.id"
+                      :rating.sync="book.rating"
+                      :title.sync="book.title"
+                      :tags.sync="book.tags"
+                      :goodArray.sync="book.good"
+                      :authors.sync="book.authors"
+                      :publisher.sync="book.publisher"
+                      :published_at.sync="book.published_at"
                     />
-                  </template>
-                  <template v-else>
-                  <v-img
-                    :src="book.book_image"
-                    max-heigth="230"
-                    max-width="140"
-                  />
-                  </template>
-                </v-col>
-              </v-row>
-              <v-row
+                  </v-col>
+                </v-row>
+                <v-row
                   justify="center"
                 >
                   <v-col
@@ -350,18 +377,70 @@
                     <v-container
                       class="max-width"
                     >
-                    <v-pagination
-                      v-model="page"
-                      :length="total"
-                      @input="movePage"
+                      <v-pagination
+                        v-model="page"
+                        :length="total"
+                        @input="movePage"
+                      >
+                      </v-pagination>
+                    </v-container>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+            <v-card
+              v-else
+              color="blue-grey lighten-5"
+              max-width="339"
+              min-height="70vh"
+            >
+              <v-card-title>
+                {{user.name}}の本棚
+              </v-card-title>
+              <v-container fluid>
+                <v-row>
+                  <v-col
+                    v-for="book in books" :key="book.id"
+                    cols="12"
+                    class="d-flex align-end"
+                  >
+                    <bookDetail 
+                      :book_image.sync="book.book_image"
+                      :comment.sync="book.comment"
+                      :created_at.sync="book.created_at"
+                      :google_books_api_id.sync="book.google_books_api_id"
+                      :id.sync="book.id"
+                      :rating.sync="book.rating"
+                      :title.sync="book.title"
+                      :tags.sync="book.tags"
+                      :goodArray.sync="book.good"
+                      :authors.sync="book.authors"
+                      :publisher.sync="book.publisher"
+                      :published_at.sync="book.published_at"
+                    />
+                  </v-col>
+                </v-row>
+                <v-row
+                  justify="center"
+                >
+                  <v-col
+                    cols="8"
+                  >
+                    <v-container
+                      class="max-width"
                     >
-                    </v-pagination>
-                  </v-container>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card>
-        </v-col>
+                      <v-pagination
+                        v-model="page"
+                        :length="total"
+                        @input="movePage"
+                      >
+                      </v-pagination>
+                    </v-container>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-col>
         </template>
       </v-row>
     </v-container>
@@ -369,10 +448,12 @@
 </template>
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
+import bookDetail from '~/components/books/bookDetail.vue'
 import otherProfile from '~/components/profile/otherProfile.vue'
 export default defineComponent({
   components: {
     otherProfile,
+    bookDetail
   },
   validate({ params }) {
     return /^\d+$/.test(params.id)
@@ -401,13 +482,15 @@ export default defineComponent({
     ))
     let books = []
     let total = null
+    let review = null
     await $axios.$get(`/api/v1/books_shelves/user?id=${params.id}`).then(res => (
     books = res.books,
     total = res.kaminari.pagenation.pages,
+    review = res.kaminari.pagenation.count,
     console.log(books)))
     const bookKeys = Object.keys(books[0] || {})
     console.log(bookKeys)
-    return { user, books, bookKeys, total }
+    return { user, books, bookKeys, total, review }
   },
   mounted() {
     this.flag = this.user.followers.some(({id}) => id === this.$store.state.current.user.id)

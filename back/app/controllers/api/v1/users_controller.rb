@@ -27,13 +27,13 @@ module Api
       end
 
       def show
-        @user = User.includes(:following, :followers).find(params[:id])
-        #@users = @user.following
-        #@user = correct_user
-        #@tweets = @user.tweets
-        #@tweets = @user.tweets.paginate(page: params[:page])
+        @user = User.includes(:following,
+                              :followers,
+                              :goods
+                             ).find(params[:id])
         render json: @user.as_json(include: [{following: {except: [:uid, :email]}},
-                                             {followers: {except: [:uid, :email]}}])
+                                             {followers: {except: [:uid, :email]}},
+                                             {goods: {}}])
       end
 
       def destroy

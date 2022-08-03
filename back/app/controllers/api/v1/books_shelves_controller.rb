@@ -4,7 +4,7 @@ module Api
       include Pagenation
       #マイページ用
       def index
-        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: current_api_v1_user).order("created_at DESC").page(params[:page]).per(12)
+        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: current_api_v1_user).order("created_at DESC").page(params[:page]).per(12)
         pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
@@ -20,6 +20,7 @@ module Api
            rating: booksShelf.rating,
            comment: booksShelf.comment,
            created_at: booksShelf.created_at,
+           tags: booksShelf.tags.select(:id, :name, :taggings_count).map,
            good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map 
           }
         end
@@ -28,7 +29,7 @@ module Api
       end
       #他人のページ用
       def user
-        @books_shelves = BooksShelf.includes(:book, :goods).where(user_id: params[:id]).order("created_at DESC").page(params[:page]).per(12)
+        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: params[:id]).order("created_at DESC").page(params[:page]).per(12)
         pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
@@ -44,6 +45,7 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
+            tags: booksShelf.tags.select(:id, :name, :taggings_count).map,
             good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
           }
         end

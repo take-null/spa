@@ -3,6 +3,7 @@
     v-model="setDrawer"
     app
     clipped
+    temporary
     mobile-breakpoint="420"
     :mini-variant.sync="mini"
   >

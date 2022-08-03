@@ -391,7 +391,7 @@ export default {
   data () {
     return {
       notification: this.$store.state.current.user.passive_notifications,
-      drawer: true,
+      drawer: false,
       accountMenus: [
         { name: 'account-settings', icon: 'mdi-book-open-page-variant-outline' },
         { name: 'account-password', icon: 'mdi-lock-outline' },
