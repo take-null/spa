@@ -123,7 +123,7 @@
                   </v-list-item-subtitle>
                   <template v-if="goodArray.length === 0">
                     <v-list-item-avatar
-                      size="50"
+                      size="60"
                     >
                       <v-icon
                         color="cyan"
@@ -139,7 +139,7 @@
                   </template>
                   <template v-else>
                     <v-list-item-avatar
-                      size="50"
+                      size="60"
                     >
                       <v-icon
                         color="cyan"

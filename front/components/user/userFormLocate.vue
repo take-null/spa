@@ -1,16 +1,23 @@
 <template>
-  <v-container fluid>
-    <v-row align="center">
-      <v-col cols="6">
+  <v-container 
+    fluid
+  >
+    <v-row 
+      align="center"
+    >
+      <v-col 
+        cols="6"
+      >
         <v-subheader>
-          住んでいる場所
+          生息地
         </v-subheader>
       </v-col>
 
-      <v-col cols="6">
+      <v-col 
+        cols="6"
+      >
         <v-select
           v-model="setLocate"
-
           :items="items"
           label="選択してください"
           single-line

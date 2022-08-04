@@ -21,15 +21,22 @@
     />
 
     <v-spacer />
+
+    <v-btn 
+      icon
+      @click.prevent="moveSearchPage()"
+    >
+      <v-icon>
+        mdi-magnify
+      </v-icon>
+    </v-btn>
     
     <template 
       v-if="notification.length === 0"
     >
-      <v-icon
-        Large
-      >
-          mdi-bell-outline
-        </v-icon>
+      <v-icon>
+        mdi-bell-outline
+      </v-icon>
     </template>
     <template
       v-else
@@ -46,7 +53,6 @@
           v-on="on"
         >
           <v-icon
-            Large
             color="red"
           >
             mdi-bell
@@ -397,6 +403,7 @@ export default {
         { name: 'account-password', icon: 'mdi-lock-outline' },
         { name: 'logout', icon: 'mdi-logout-variant', divider: true }
       ],
+      keyword: ""
     }
   },
   methods: {
@@ -414,6 +421,9 @@ export default {
         console.log(res)
         this.$store.commit('deleteNotice', id)
       })
+    },
+    moveSearchPage() {
+      this.$router.replace('/contents/1/books')
     }
   },
 };

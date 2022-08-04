@@ -52,9 +52,11 @@
     </v-card>
     <v-dialog
       v-model="postMessage"
+      max-width="600"
     >
       <v-card
         color="cyan lighten-4"
+        class="mx-auto"
       >
         <v-list-item-content>
           <v-list-item-title 
@@ -73,7 +75,7 @@
           <v-list-item-subtitle 
             class="cyan--text"
           >
-            本棚に追加されます。
+            タイムラインと本棚に追加されます
           </v-list-item-subtitle>
         </v-list-item-content>
       </v-card>
@@ -152,7 +154,7 @@
                 x-small
               ></v-rating>
               <v-card-subtitle>
-                タグを追加(５つまで)
+                タグを追加
               </v-card-subtitle>
                 <v-combobox
                   v-model="model"
@@ -161,7 +163,7 @@
                   :items="items"
                   :search-input.sync="search"
                   hide-selected
-                  label="先頭から最大５つまで、タグが登録されます"
+                  label="入力後Enterキーでタグが追加できます"
                   multiple
                   small-chips
                   solo
@@ -454,12 +456,28 @@ export default {
       editingIndex: -1,
       items: [
         {
-          text: 'Foo',
+          text: '小説',
           color: 'blue',
         },
         {
-          text: 'Bar',
+          text: 'エッセイ',
           color: 'red',
+        },
+        {
+          text: '芸術',
+          color: 'green',
+        },
+        {
+          text: '科学',
+          color: 'purple',
+        },
+        {
+          text: '文学',
+          color: 'cyan',
+        },
+        {
+          text: '歴史',
+          color: 'orange',
         },
       ],
       nonce: 1,
@@ -492,6 +510,6 @@ export default {
 <style>
 .ps {
   height: 150px;
-  border: 1px solid #212121;
+  border: 1px solid #ECEFF1;
 }
 </style>

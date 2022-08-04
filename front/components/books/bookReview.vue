@@ -15,20 +15,39 @@
       no-gutters
     >
       <v-col>
-        <v-list-item class="px-2">
-          <v-list-item-avatar size="45">
-            <v-btn icon outlined rounded @click.stop="toShowChild(user_id)">
-              <template v-if="user_image === null">
-                <v-icon x-large>
+        <v-list-item 
+          class="px-2"
+        >
+          <v-list-item-avatar 
+            size="45"
+          >
+            <v-btn 
+              icon 
+              outlined 
+              rounded @click.stop="toShowChild(user_id)"
+            >
+              <template 
+                v-if="user_image === null"
+              >
+                <v-icon 
+                  x-large
+                >
                   mdi-account-circle
                 </v-icon>
               </template>
-              <template v-else>
-                <v-img :src="`http://localhost:3000/${user_image}`" alt="avatar" />
+              <template 
+                v-else
+              >
+                <v-img 
+                  :src="`http://localhost:3000/${user_image}`" 
+                  alt="avatar" 
+                />
               </template>
             </v-btn>
           </v-list-item-avatar>
-          <v-list-item-title class="text-text-body-2 text--primary">
+          <v-list-item-title 
+            class="text-text-body-2 text--primary"
+          >
             {{user_name}}
           </v-list-item-title>
           </v-list-item>
@@ -39,54 +58,52 @@
     fluid
     mt-n2 pt-0
   >
-    <v-row
-        no-gutters
+    <v-list-item
+      class="text-caption text--primary wrap-text justify-content-center"
+    >
+      【{{title}}】
+    </v-list-item>
+    <v-list-item 
+      class="justify-content-center"
+    >
+      <template 
+        v-if="book_image === null"
       >
-      <v-col
-        cols="8">
-        <v-list-item-content>
-          <v-list-item-title
-            class="text-body-1 text--primary wrap-text"
-          >
-            【{{title}}】
-          </v-list-item-title>
-          <v-list-item-subtitle
-            class="text-body-2 text--primary wrap-text "
-          >
-            <perfect-scrollbar>
-              {{comment}}
-            </perfect-scrollbar>
-          </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-col>
-        <v-col
-          cols="4">
-          <v-list-item class="justify-content-center">
-            <template v-if="book_image === null">
-              <v-img
-                max-height="160"
-                max-width="120"
-                :src="require('@/assets/img/20200505_noimage.jpg')"
-              />
-            </template>
-            <template v-else>
-              <v-img
-                max-heigth="160"
-                max-width="120"
-                :src="book_image"
-              />
-            </template>
-          </v-list-item>
-          <v-list-item class="justify-content-start">
-            <v-rating
-              v-model="rating"
-              background-color="orange lighten-3"
-              color="orange"
-              x-small
-            ></v-rating>
-          </v-list-item>
-        </v-col>
-      </v-row>
+        <v-img
+          max-height="160"
+          max-width="120"
+          :src="require('@/assets/img/20200505_noimage.jpg')"
+        />
+      </template>
+      <template 
+        v-else
+      >
+        <v-img
+          max-heigth="160"
+          max-width="120"
+          :src="book_image"
+        />
+      </template>
+    </v-list-item>
+    <v-list-item 
+      class="justify-content-center"
+    >
+      <v-rating
+        v-model="rating"
+        background-color="orange lighten-3"
+        color="orange"
+        x-small
+      ></v-rating>
+    </v-list-item>
+    <v-list-item-content>
+      <v-list-item-title
+        class="text-body-2 text--primary wrap-text "
+      >
+        <perfect-scrollbar>
+          {{comment}}
+        </perfect-scrollbar>
+      </v-list-item-title>
+    </v-list-item-content>
     </v-container>
     <v-container
       fluid
@@ -101,7 +118,7 @@
           <v-btn
             text
             small
-          @click.stop="searchTagChild(tag.name)"
+            @click.stop="searchTagChild(tag.name)"
           >
             <p
               class="text-overline text--cyan"
@@ -172,7 +189,7 @@
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
-  components: {PerfectScrollbar},
+  components: { PerfectScrollbar },
   props: {
     book_image: {
       type: String
@@ -286,7 +303,7 @@ export default {
   white-space: normal;
 }
 .ps {
-  height: 150px;
-  border: 1px solid #212121;
+  height: 100px;
+  border: 1px solid #ECEFF1;
 }
 </style>

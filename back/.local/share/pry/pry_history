@@ -178,3 +178,8 @@ rails db:migrate status
 exit
 BooksShelf.all
 exit
+Good.all
+BooksShelf.includes(:goods).where.not(user_id: 19)
+Good.includes(:booksshelf).where.not(user_id: 19)
+Good.includes(:booksshelf).where(user_id: 19)
+BooksShelf.includes(:goods).where.(user_id: 19)

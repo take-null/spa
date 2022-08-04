@@ -1,39 +1,68 @@
 <template>
-  <v-form ref="form" lazy-validation class="ma-16">
-    <v-icon> mdi-account-box </v-icon>
-    <span>ユーザーイメージ</span>
-    <v-row justify="center" class="pt-6">
-        <template v-if="img !== null">
-          <v-avatar v-if="input_image === null" size="100">
-            <v-img  :src="`http://localhost:3000/${img}`" />
-          </v-avatar>
-          <v-avatar v-else size="100">
-            <v-img :src="input_image" />
-          </v-avatar>
-        </template>
-        <template v-else>
-          <v-avatar size="100">
-          <v-img v-if="input_image" :src="input_image" />
+  <v-form 
+    ref="form" 
+    lazy-validation 
+    class="ma-16"
+  >
+    <v-icon> 
+      mdi-account-box 
+    </v-icon>
+    <span>
+      ユーザーイメージ
+    </span>
+    <v-row 
+      justify="center" 
+      class="pt-6"
+    >
+      <template 
+        v-if="img !== null"
+      >
+        <v-avatar 
+          v-if="input_image === null" 
+          size="100"
+        >
+          <v-img  
+            :src="`http://localhost:3000/${img}`" 
+          />
         </v-avatar>
-        </template>
-    </v-row>
-
-    <v-file-input
-      v-model="editImage"
-      accept="image/png, image/jpeg, image/bmp image/gif"
-      prepend-icon="mdi-account-box"
-      label="左のアイコンをクリック"
-      class="pt-14"
-      @change="setImage"
-    />
-    <b-container class="d-flex justify-content-center">
+        <v-avatar 
+          v-else 
+          size="100"
+        >
+          <v-img 
+            :src="input_image" 
+          />
+        </v-avatar>
+      </template>
+      <template v-else>
+        <v-avatar 
+          size="100"
+        >
+          <v-img 
+            v-if="input_image" 
+            :src="input_image" 
+          />
+      </v-avatar>
+    </template>
+  </v-row>
+  <v-file-input
+    v-model="editImage"
+    accept="image/png, image/jpeg, image/bmp image/gif"
+    prepend-icon="mdi-account-box"
+    label="左のアイコンをクリック"
+    class="pt-14"
+    @change="setImage"
+  />
+    <b-container 
+      class="d-flex justify-content-center"
+    >
       <v-btn
         @click.stop="changeUserAvatar"
         dark
         class="white--text"
         :loading="loading"
-        >
-          イメージを更新
+      >
+        イメージを更新
       </v-btn>
     </b-container>
   </v-form>
@@ -87,8 +116,8 @@ export default {
         )
         } catch (error) {
           console.log({error})
-        }
-  },
-}
+      }
+    },
+  }
 };
 </script>

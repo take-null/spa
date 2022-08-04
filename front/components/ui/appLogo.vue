@@ -1,12 +1,11 @@
 <template>
   <v-avatar
-    color="cyan accent-3"
-    size="34"
+    size="40"
     class="my-app-log"
   >
-    <span class="white--text text-subtitle-2">
-      lib
-    </span>
+    <v-img
+      :src="require('@/assets/img/instagram_profile_image.png')"
+     />
   </v-avatar>
 </template>
 

@@ -4,7 +4,7 @@
     :value="profile"
     :rules="rules"
     :counter="max"  
-    label="自己紹介" 
+    label="プロフィールを入力" 
     placeholder="こんにちは"
     outlined
   >

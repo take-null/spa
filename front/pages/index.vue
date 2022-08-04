@@ -137,7 +137,7 @@
               class="pb-0"
             >
               <p class="text-h6 text--primary">
-                Ranking(top10)
+                Ranking
               </p>
             </v-card-title>
             <v-row
