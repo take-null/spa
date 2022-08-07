@@ -1,5 +1,7 @@
 <template>
-  <v-container fluid>
+  <v-container 
+    fluid
+  >
     <v-card
       flat
       tile
@@ -50,7 +52,7 @@
                   <template v-slot:default="{ item }">
                     <v-list-item :key="item.id">
                       <v-list-item-avatar
-                        size="45"
+                        size="40"
                       >
                         <template v-if="item.image.url === null">
                           <v-icon color="grey darken-4" x-large>
@@ -228,14 +230,6 @@ export default {
       fls: [ {title: "following", change: false } ,{title: "followers", change: true} ]
     }
   },
-  //computed: {
-    //items () {
-      //return Array.from({ length: this.length }, (k, v) => v + 1)
-    //},
-    //length () {
-      //return 20
-    //}
-  //},
   methods: {
     toShow(id) {
       this.$router.push(`/user/${id}`)

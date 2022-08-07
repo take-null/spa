@@ -24,6 +24,15 @@
 
     <v-btn 
       icon
+      @click.prevent="moveChatPage()"
+    >
+      <v-icon>
+        mdi-email-outline
+      </v-icon>
+    </v-btn>
+
+    <v-btn 
+      icon
       @click.prevent="moveSearchPage()"
     >
       <v-icon>
@@ -424,6 +433,9 @@ export default {
     },
     moveSearchPage() {
       this.$router.replace('/contents/1/books')
+    },
+    moveChatPage() {
+      this.$router.replace('/contents/1/chat')
     }
   },
 };

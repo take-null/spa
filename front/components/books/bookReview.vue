@@ -303,7 +303,7 @@ export default {
   white-space: normal;
 }
 .ps {
-  height: 100px;
+  height: 50px;
   border: 1px solid #ECEFF1;
 }
 </style>

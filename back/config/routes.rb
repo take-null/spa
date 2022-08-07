@@ -11,12 +11,16 @@ Rails.application.routes.draw do
           end
           member do
             get :following, :followers
+            resources :rooms, only: [:create]
           end
-        #resources :rooms, only: [:index, :show]
+        end
+      end
+      resources :rooms, only: [:index, :show] do
+        collection do
+          get 'messages'
         end
       end
       resources :relationships, only: [:create, :destroy]
-      resources :chat_messages, only: [:create]
       resources :books, only: [:create, :show], shallow: true do
         collection do
           get :search

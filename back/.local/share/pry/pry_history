@@ -183,3 +183,12 @@ BooksShelf.includes(:goods).where.not(user_id: 19)
 Good.includes(:booksshelf).where.not(user_id: 19)
 Good.includes(:booksshelf).where(user_id: 19)
 BooksShelf.includes(:goods).where.(user_id: 19)
+Room.all
+ChatMessage.all
+@user = User.find_by(1)
+User.find(1)
+User.find_by(1)
+User.find_by(id: 1)
+@user = User.find_by(id: 1)
+@room = @user.room.find_by(id: 4)
+@room = @user.rooms.find_by(id: 4)

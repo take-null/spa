@@ -59,15 +59,12 @@
           <v-card-text>
             年齢：{{age}}
           </v-card-text>
-          <v-divider></v-divider>
           <v-card-text>
             生息地：{{locate}}
           </v-card-text>
-          <v-divider></v-divider>
           <v-card-text>
             レビュー数：{{review}}
           </v-card-text>
-          <v-divider></v-divider>
           <v-card-text>
             評価したレビュー数：{{good.length}}
           </v-card-text>

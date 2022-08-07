@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_29_103444) do
+ActiveRecord::Schema.define(version: 2022_08_07_092059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,8 +118,6 @@ ActiveRecord::Schema.define(version: 2022_07_29_103444) do
     t.integer "visitor_id", null: false
     t.integer "visited_id", null: false
     t.integer "books_shelf_id"
-    t.integer "room_id"
-    t.integer "chat_message_id"
     t.string "action", default: "", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -127,8 +125,6 @@ ActiveRecord::Schema.define(version: 2022_07_29_103444) do
     t.string "user_name", default: "", null: false
     t.string "user_image"
     t.index ["books_shelf_id"], name: "index_notifications_on_books_shelf_id"
-    t.index ["chat_message_id"], name: "index_notifications_on_chat_message_id"
-    t.index ["room_id"], name: "index_notifications_on_room_id"
     t.index ["visited_id"], name: "index_notifications_on_visited_id"
     t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
   end

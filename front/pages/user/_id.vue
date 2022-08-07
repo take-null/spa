@@ -3,6 +3,28 @@
     <v-container
       fluid
     > 
+      <v-snackbar
+        v-model="followSnackbar"
+        max-width="600"
+        color="primary"
+        absolute
+        outlined
+        text
+        top
+      >
+        <p class="font-italic"><v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>{{user.name}}をフォローしました</p>
+      </v-snackbar>
+      <v-snackbar
+        v-model="unfollowSnackbar"
+        max-width="600"
+        color="primary"
+        absolute
+        outlined
+        text
+        top
+      >
+        <p class="font-italic"><v-icon>mdi-checkbox-marked-circle</v-icon>{{user.name}}のフォローを解除しました</p>
+      </v-snackbar>
       <v-row>
       <template v-if="width > 600">
       <v-col
@@ -14,28 +36,6 @@
           max-width="600"
           min-height="70vh"
         >
-          <v-snackbar
-            v-model="followSnackbar"
-            max-width="768"
-            color="primary"
-            absolute
-            outlined
-            text
-            top
-          >
-            <p class="font-italic"><v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>{{user.name}}をフォローしました</p>
-          </v-snackbar>
-          <v-snackbar
-            v-model="unfollowSnackbar"
-            max-width="768"
-            color="primary"
-            absolute
-            outlined
-            text
-            top
-          >
-            <p class="font-italic"><v-icon>mdi-checkbox-marked-circle</v-icon>{{user.name}}のフォローを解除しました</p>
-          </v-snackbar>
           <b-container class="d-flex justify-content-end" color="blue-grey lighten-5">
             <v-btn
               text
@@ -59,33 +59,35 @@
               :review.sync="review"
             />
             <b-container class="d-flex justify-content-end">
+              <v-btn
+                text
+                rounded
+                outlined
+                @click="createRoom"
+              >
+                <v-icon>
+                  mdi-email-outline
+                </v-icon>
+                send
+              </v-btn>
+            </b-container>
+            <b-container class="d-flex justify-content-end">
               <v-btn v-if="flag"
                 text
+                rounded
                 outlined
                 @click="unfollowUser"
               >
-                <div
-                  class="text-button"
-                >
-                  <v-icon>
-                    mdi-checkbox-marked-circle
-                  </v-icon>
-                  unFollow
-                </div>
+                unFollow
               </v-btn>
               <v-btn v-else
+                text
+                rounded
+                outlined
                 color="cyan accent-3"
-                class="white--text"
                 @click="followUser"
               >
-                <div
-                 class="text-button" 
-                >
-                  <v-icon>
-                    mdi-checkbox-marked-circle-plus-outline
-                  </v-icon>
-                  Follow
-                </div>
+                Follow
               </v-btn>
             </b-container>
           </v-card>
@@ -206,28 +208,6 @@
           rounded="lg"
           max-width="599"
         >
-          <v-snackbar
-            v-model="followSnackbar"
-            max-width="426"
-            color="primary"
-            absolute
-            outlined
-            text
-            top
-          >
-            <p class="font-italic"><v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>{{user.name}}をフォローしました</p>
-          </v-snackbar>
-          <v-snackbar
-            v-model="unfollowSnackbar"
-            max-width="426"
-            color="primary"
-            absolute
-            outlined
-            text
-            top
-          >
-            <p class="font-italic"><v-icon>mdi-checkbox-marked-circle</v-icon>{{user.name}}のフォローを解除しました</p>
-          </v-snackbar>
           <b-container class="d-flex justify-content-end" color="blue-grey lighten-5">
             <v-btn
               text
@@ -251,34 +231,35 @@
               :review.sync="review"
             />
             <b-container class="d-flex justify-content-end">
+              <v-btn
+                text
+                rounded
+                outlined
+                @click="createRoom"
+              >
+                <v-icon>
+                  mdi-email-outline
+                </v-icon>
+                send
+              </v-btn>
+            </b-container>
+            <b-container class="d-flex justify-content-end">
               <v-btn v-if="flag"
                 text
+                rounded
                 outlined
                 @click="unfollowUser"
               >
-                <div
-                  class="text-button"
-                >
-                  <v-icon>
-                    mdi-checkbox-marked-circle
-                  </v-icon>
-                  unFollow
-                </div>
+                unFollow
               </v-btn>
               <v-btn v-else
+                text
+                rounded
+                outlined
                 color="cyan accent-3"
-                class="white--text"
                 @click="followUser"
               >
-                <div
-                  class="text-button"
-                >
-                  <v-icon>
-                    mdi-checkbox-marked-circle-plus-outline
-                  </v-icon>
-                  Follow
-                </div>
-                
+                Follow
               </v-btn>
             </b-container>
           </v-card>
@@ -508,77 +489,72 @@ export default defineComponent({
       this.height = window.innerHeight;
     },
     async followUser () {
-    try {
-      await this.$axios.$post('/api/v1/relationships', {
-        user_id: this.$store.state.current.user.id, 
-        followed_id: this.user.id
-      })
-      .then(
+      try {
+        await this.$axios.$post('/api/v1/relationships', {
+          params: {
+            user_id: this.$store.state.current.user.id, 
+            followed_id: this.user.id
+          }
+        })
+        .then(
         (res) => {
         this.flag = true
         this.followSnackbar = true
         setTimeout(() => {
-        this.followSnackbar = false
-        }, 1500)
-        console.log(res)
-        this.user.followers.push(this.$store.state.current.user);
-        console.log(this.user)
+          this.followSnackbar = false
+          }, 1500)
+          console.log(res)
+          this.user.followers.push(this.$store.state.current.user);
+          console.log(this.user)
+        })
+      } catch (error) {
+        console.log({error})
       }
-    )
-    //いらないかも
-    await this.$axios.$get(`/api/v1/users/${this.user.id}`)
-    .then(
-      (res) => {
-        console.log(res)
-      }
-    )
-    } catch (error) {
-      console.log({error})
-    }
-  },
-  async unfollowUser () {
-    try {
-      await this.$axios.$delete('/api/v1/relationships/delete', {
-        params: {
-          user_id: this.$store.state.current.user.id, 
-          followed_id: this.user.id,
-        },
-      })
-      .then(
+    },
+    async unfollowUser () {
+      try {
+        await this.$axios.$delete('/api/v1/relationships/delete', {
+          params: {
+            user_id: this.$store.state.current.user.id, 
+            followed_id: this.user.id,
+          }
+        })
+        .then(
         (res) => {
         this.flag = false
         this.unfollowSnackbar = true
         setTimeout(() => {
-        this.unfollowSnackbar = false
-        }, 1500)
-        console.log(res)
-        this.user.followers.pop(this.$store.state.current.user);
-        console.log(this.user)
-      }
-    )
-    //いらないかも
-    await this.$axios.$get(`/api/v1/users/${this.user.id}`)
-    .then(
-      (res) => {
+          this.unfollowSnackbar = false
+          }, 1500)
           console.log(res)
-        }
-      )
-         } catch (error) {
-           console.log({error})
-         }
-       },
-      async movePage({number}) {
+          this.user.followers.pop(this.$store.state.current.user);
+          console.log(this.user)
+        })
+      } catch (error) {
+        console.log({error})
+      }
+    },
+    async movePage({number}) {
       await this.$axios.$get(`/api/v1/books_shelves/user?id=${this.user.id}`, {
         params: {
           page: number, 
         },
       }).then(res => (
-      this.books = res.books,
-      console.log(res),
-      console.log(res.books)))
+        this.books = res.books,
+        console.log(res),
+        console.log(res.books)))
+      },
+      async createRoom() {
+        await this.$axios.$post(`/api/v1/users/${this.user.id}/rooms`, {
+          params: {
+            id: this.user.id, 
+          },
+        }).then(res => (
+          this.$router.push(`/room/${res.id}`),
+          console.log(res)
+        ))
+      }
     }
-    },
-
   },
 );
 </script>
