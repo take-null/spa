@@ -120,14 +120,14 @@ module Api
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
             tags: booksShelf.tags.select(:id, :name, :taggings_count).map,
-            good: booksShelf.goods
+            good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
           }
         end
         render json: booksShelves_array, status: 200
       end
       #ランキング検索用
       def view
-        @books_shelves = BooksShelf.includes(:book, :user).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user, :goods).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
             id: booksShelf.id,
@@ -140,6 +140,8 @@ module Api
             rating: booksShelf.rating,
             comment: booksShelf.comment,
             created_at: booksShelf.created_at,
+            tags: booksShelf.tags.select(:id, :name, :taggings_count).map,
+            good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
           }
         end
         render json: booksShelves_array, status: 200

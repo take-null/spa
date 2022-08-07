@@ -1,84 +1,214 @@
 <template>
   <v-app>
     <v-main>
-      <v-container>
-        <v-row class="text-center">
-          <v-col cols="12">
-            <v-card
-              class="mx-auto my-12"
-              elevation="2"
-              max-width="500"
-              color="blue-grey lighten-5"
+      <v-card
+        class="mx-auto"
+        elevation="0"
+        max-width="600"
+        color="grey lighten-2"
+      >
+        <v-card-title
+          class="pb-0"
+        >
+          <p 
+            class="text-h6 text--primary"
+          >
+            ChatRoom
+          </p>
+        </v-card-title>
+        <v-list-item>
+          <v-list-item-avatar
+            size="40"
+          >
+            <template 
+              v-if="room.current_user.image.url === null"
             >
-              {{room}} 
-              <v-divider></v-divider>
-              <v-card-text
-                ><v-row>
-                  <v-col cols="12">
-                    <v-container
-                      ref="scrollTarget"
-                      style="height: 450px"
-                      class="overflow-y-auto"
-                    >
-                      <v-row v-for="(msg, i) in messages" :key="i" dense>
-                          <div class="balloon_l">
-                            <div class="face_icon">
-                              <v-avatar>
-                                <span class="white--text">
-                                  {{ msg }}
-                                </span>
-                              </v-avatar>
-                            </div>
-                            <p class="says">
-                              {{ msg }}
-                            </p>
-                          </div>
-                      </v-row>
-                    </v-container>
+              <v-icon 
+                color="grey darken-4" 
+                x-large
+              >
+                mdi-account-circle
+              </v-icon>
+            </template>
+            <template 
+              v-else
+            >
+              <v-img
+                :src="`http://localhost:3000/${room.current_user.image.thumb.url}`"
+              />
+            </template>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>
+              <strong>
+                {{ room.current_user.name }}
+              </strong>
+            </v-list-item-title> 
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-avatar
+            size="40"
+          >
+            <template 
+              v-if="room.other_user.image.url === null"
+            >
+              <v-icon 
+                color="grey darken-4" 
+                x-large
+              >
+                mdi-account-circle
+              </v-icon>
+            </template>
+            <template 
+              v-else
+            >
+              <v-img
+                :src="`http://localhost:3000/${room.other_user.image.thumb.url}`"
+              />
+            </template>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>
+              <strong>
+                {{ room.other_user.name }}
+              </strong>
+            </v-list-item-title> 
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-row>
+            <v-col 
+              cols="12"
+            >
+              <v-container
+                ref="scrollTarget"
+                style="height: 400px"
+                class="overflow-y-auto"
+              >
+                <v-row 
+                  v-for="(msg, i) in formattedMessages" 
+                  :key="i" 
+                  dense
+                >
+                  <v-col
+                    v-if="msg.user_id === room.current_user.id"
+                  >
+                    <v-list-item>
+                      <v-list-item-avatar
+                        size="40"
+                      >
+                        <template 
+                          v-if="room.current_user.image.url === null"
+                        >
+                          <v-icon 
+                            color="grey darken-4" 
+                            x-large
+                          >
+                            mdi-account-circle
+                          </v-icon>
+                        </template>
+                        <template 
+                          v-else
+                        >
+                          <v-img
+                            :src="`http://localhost:3000/${room.current_user.image.thumb.url}`"
+                          />
+                        </template>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ msg.message }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                          {{ msg.created_at }}前
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-col>
+                  <v-col 
+                    v-else
+                  >
+                    <v-list-item>
+                      <v-list-item-avatar
+                        size="40"
+                      >
+                        <template 
+                          v-if="room.other_user.image.url === null"
+                        >
+                          <v-icon 
+                            color="grey darken-4" 
+                            x-large
+                          >
+                            mdi-account-circle
+                          </v-icon>
+                        </template>
+                        <template v-else>
+                          <v-img
+                            :src="`http://localhost:3000/${room.other_user.image.thumb.url}`"
+                          />
+                        </template>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ msg.message }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                          {{ msg.created_at }}前
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
                   </v-col>
                 </v-row>
-              </v-card-text>
-              <v-divider></v-divider>
-              <v-card-text>
-                    <v-text-field
-                      autofocus
-                      label="メッセージを入力"
-                      v-model="message"
-                      clearable
-                      @keyup.enter="send_onClick"
-                    >
-                    <template v-slot:append>
-                                      <v-col
+              </v-container>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-text-field
+            autofocus
+            label="メッセージを入力"
+            v-model="message"
+            clearable
+            @keyup.enter="send_onClick"
+          >
+            <template 
+              v-slot:append
+            >
+              <v-col
                 cols="12"
-                sm="3"
               >
-                      <v-btn icon color="grey darken-4" small @click="send_onClick()">
-                  <v-icon>mdi-send</v-icon>
-                </v-btn></v-col></template>
-                    </v-text-field>
-
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
+                <v-btn 
+                  icon 
+                  color="blue" 
+                  @click="send_onClick()"
+                >
+                  <v-icon>
+                    mdi-send
+                  </v-icon>
+                </v-btn>
+              </v-col>
+            </template>
+          </v-text-field>
+        </v-card-text>
+      </v-card>
     </v-main>
   </v-app>
 </template>
 <script>
+import { formatDistanceToNow } from 'date-fns'
+import { ja } from 'date-fns/locale'
 import { defineComponent } from '@nuxtjs/composition-api'
 import ActionCable from 'actioncable'
 export default defineComponent({
-  components: {
-  },
   validate({ params }) {
     return /^\d+$/.test(params.id)
   },
   data () {
     return {
       error: null,
-      width: window.innerWidth,
-      height: window.innerHeight,
       messages: [],
       message: ""
     }
@@ -91,55 +221,60 @@ export default defineComponent({
     room = res,
     console.log(room)
     ))
-    const roomKeys = Object.keys(room[0] || {})
-    console.log(roomKeys)
-    return { room, roomKeys, id }
+    return { room, id }
   },
   mounted() {
     this.getMessages()
-    window.addEventListener('resize', this.handleResize)
     const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
       this.messageChannel = cable.subscriptions.create({ channel: "RoomChannel", room: `${this.id}`}, {
       connected: () => {
-      this.getMessages()
-    },
-      received: () => {
-      this.getMessages()
-    }
+        this.getMessages()
+        .then(() => this.scrollToEnd()) 
+      },
+        received: () => {
+        this.getMessages()
+        .then(() => this.scrollToEnd())
+      }
     })
   },
-  beforeUnmount () { 
+  beforeDestroy: function () {
     this.messageChannel.unsubscribe()
   },
-  beforeDestroy: function () {
-    window.removeEventListener('resize', this.handleResize)
-  },
+  computed: {
+    formattedMessages () {
+      if (!this.messages.length) { return [] }
+      return this.messages.map(message => {
+        let time = formatDistanceToNow(new Date(message.created_at), { locale: ja })
+        return { ...message, created_at: time }
+      })
+    }
+  }, 
   methods: {
     async getMessages () {
-      try {
-        const res = await this.$axios.$get(`api/v1/rooms/messages?id=${this.id}`)
-        if (!res) {
-          new Error('メッセージ一覧を取得できませんでした')
+        try {
+          const res = await this.$axios.$get(`api/v1/rooms/messages?id=${this.id}`)
+          if (!res) {
+            new Error('メッセージ一覧を取得できませんでした')
+          }
+          this.messages = res
+        } catch (err) {
+          console.log(err)
         }
-        this.messages = res
-      } catch (err) {
-        console.log(err)
-      }
-    },
-    toTop() {
-      this.$router.back()
-    },
-    handleResize: function() {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
-    },
-    send_onClick () {
-      this.messageChannel.perform('receive', {
+      },
+      scrollToEnd() {
+        this.$nextTick(() => {
+          const chatLog = this.$refs.scrollTarget;
+          if (!chatLog) return;
+          chatLog.scrollTop = chatLog.scrollHeight;
+        });
+      },
+      send_onClick () {
+        this.messageChannel.perform('receive', {
             user_id: this.$store.state.current.user.id,
             id: this.id,
             message: this.message
         })
-        this.message = ''
+        this.message = ""
       }
     }
   },

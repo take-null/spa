@@ -6,12 +6,14 @@
       flat
       tile
       color="blue-grey lighten-5"
-      max-width="768"
+      max-width="600"
     >
       <v-card-title>
         ChatRoomList
       </v-card-title>
-      <template v-if="!rooms.length">
+      <template 
+        v-if="!rooms.length"
+      >
         <v-card
           elevation="0"
           width="max-width"
@@ -21,8 +23,9 @@
           <p>チャットルームはありません</p>
         </v-card>
       </template>
-      <template v-else>
-      <div>
+      <template 
+        v-else
+      >
         <v-card
           elevation="0"
           width="max-width"
@@ -32,37 +35,41 @@
           <v-virtual-scroll
             :items="rooms"
             height="600"
-            item-height="150"
+            item-height="100"
           >
-            <template v-slot:default="{ item }">
-              <v-list-item :key="item.id">
+            <template 
+              v-slot:default="{ item }"
+            >
+              <v-list-item 
+                :key="item.id"
+              >
                 <v-list-item-avatar
                   size="40"
                 >
-                  <template v-if="item.other_user.image.url === null">
-                    <v-icon color="grey darken-4" x-large>
+                  <template 
+                    v-if="item.other_user.image.url === null"
+                  >
+                    <v-icon 
+                      color="grey darken-4" 
+                      x-large
+                    >
                       mdi-account-circle
                     </v-icon>
                   </template>
-                  <template v-else>
+                  <template 
+                    v-else
+                  >
                     <v-img
                       :src="`http://localhost:3000/${item.other_user.image.url}`"
-                      max-height="100%"
-                      max-width="100%"
                     />
                   </template>
                 </v-list-item-avatar>
-                <v-list-item-content
-                  two-line
-                >
+                <v-list-item-content>
                   <v-list-item-title>
-                    <strong>{{ item.other_user.name }}</strong>
+                    <strong>
+                      {{ item.other_user.name }}
+                    </strong>
                   </v-list-item-title> 
-                  <v-list-item-subtitle
-                    class="text-sm-h6 mb-4"
-                  >
-                    {{item.last_message}}
-                  </v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
                   <v-btn
@@ -72,7 +79,9 @@
                     rounded
                     @click="toShowRoom(item.id)"
                   >
-                    <v-icon small>
+                    <v-icon 
+                      small
+                    >
                       mdi-open-in-new
                     </v-icon>
                       Enter
@@ -83,7 +92,6 @@
             </template>
           </v-virtual-scroll>
         </v-card>
-        </div>
       </template>
     </v-card>
   </v-container>
@@ -91,7 +99,6 @@
 
 <script>
 export default {
-  components: {},
   async asyncData ({$axios}) {
     let rooms = []
     await $axios.$get('/api/v1/rooms/')

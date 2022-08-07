@@ -38,7 +38,7 @@
         no-gutters
       >
         <v-col
-          cols="9"
+          cols="6"
         >
           <template
             v-if="searchFlag === false"
@@ -87,12 +87,12 @@
                 <v-card
                   class="mx-auto"
                   max-width="600"
-                  dark
+                  color="grey lighten-2"
                   elevation="0"
                   @click="searchFlag=false"
                 >
                   <p
-                    class="text-subtitle-1 white--text"
+                    class="text-subtitle-1"
                   >
                     <v-icon>
                       mdi-refresh
@@ -117,6 +117,7 @@
                     :user_image.sync="book.user_image"
                     :user_name.sync="book.user_name"
                     :tags.sync="book.tags"
+                    :goodArray.sync="book.good"
                     @toShowParent="toShow"
                     @searchTagParent="searchTag"
                   />
@@ -126,12 +127,12 @@
           </template>
         </v-col>
         <v-col
-          cols="3"
+          cols="6"
         >
           <v-card
-            color="blue-grey lighten-5"
+            color="grey lighten-2"
             elevation="0"
-            max-width="370"
+            max-width="500"
           >
             <v-card-title
               class="pb-0"
@@ -192,7 +193,7 @@ export default {
     const bookKeys = Object.keys(books.books || {}) // 追加
     const rankKeys = Object.keys(ranking || {}) // 追加
     const tagKeys = Object.keys(tags || {}) // 追加
-    
+    console.log(formattedBooks)
     return { formattedBooks, bookKeys, ranking, rankKeys, tags, tagKeys }
   },
   methods: {

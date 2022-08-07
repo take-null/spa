@@ -1,8 +1,8 @@
 <template>
   <v-card 
-    color="blue-grey lighten-5"
+    color="grey lighten-2"
     class="mx-auto"
-    max-width="350"
+    max-width="400"
     elevation="0"
   >
     <v-container>
@@ -13,10 +13,12 @@
           <div 
             class="text-sm-subtitle-1 mb-4"
           >
-              {{rank}}
+            {{rank}}
           </div>
         </v-list-item>
-        <v-list-item>
+        <v-list-item
+          class="d-flex flex-column justify-content-center"
+        >
           <div 
             class="text-sm-body-2 mb-4"
           >
@@ -33,8 +35,11 @@
               max-width="110"
               @click="searchRankChild(google_books_api_id)"
             >
-              <v-img :src="require('@/assets/img/20200505_noimage.jpg')" max-height="180" max-width="105">
-              </v-img>
+              <v-img 
+                :src="require('@/assets/img/20200505_noimage.jpg')" 
+                max-height="180" 
+                max-width="105"
+              />
             </v-card>
           </template>
           <template 
@@ -44,8 +49,11 @@
               max-width="110"
               @click="searchRankChild(google_books_api_id)"
             >
-            <v-img :src="image" max-height="180" max-width="105">
-            </v-img>
+              <v-img 
+                :src="image" 
+                max-height="180" 
+                max-width="105"
+              />
             </v-card>
           </template>  
         </v-list-item>
@@ -71,7 +79,7 @@ export default {
       type: String
     }
   },
-    methods: {
+  methods: {
     searchRankChild(google_books_api_id) {
       this.$emit(
         'searchRankParent', 

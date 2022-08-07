@@ -10,7 +10,9 @@
   <v-container
     fluid
   >
-  <div>{{created_at}}前</div>
+  <div>
+    {{created_at}}前
+  </div>
     <v-row
       no-gutters
     >
@@ -46,7 +48,7 @@
             </v-btn>
           </v-list-item-avatar>
           <v-list-item-title 
-            class="text-text-body-2 text--primary"
+            class="text-body-2 text--primary"
           >
             {{user_name}}
           </v-list-item-title>
@@ -59,7 +61,7 @@
     mt-n2 pt-0
   >
     <v-list-item
-      class="text-caption text--primary wrap-text justify-content-center"
+      class="text-body-2  text--primary wrap-text justify-content-center"
     >
       【{{title}}】
     </v-list-item>
@@ -231,15 +233,14 @@ export default {
   data () {
     return {
       dialog: false,
-      goodList: this.goodArray
     }
   },
   computed: {
     count() {
-      return this.goodList.length
+      return this.goodArray.length
     },
     isGood() {
-      if (this.goodList.lenght === 0) { return false }
+      if (this.goodArray.lenght === 0) { return false }
         return Boolean(this.findGoodId())
     }
   },
@@ -269,7 +270,7 @@ export default {
         console.log(res)
       }
       this.fetchGoodByBooksShelfId().then(result => {
-        this.goodList = result
+        this.goodArray = result
       })
     },
     deleteGood: async function() {
@@ -278,10 +279,10 @@ export default {
       if (res.status !== 200) {
         console.log(res)
       }
-      this.goodList = this.goodList.filter(n => n.id !== goodId)
+      this.goodArray = this.goodList.filter(n => n.id !== goodId)
     },
     findGoodId: function() {
-      const good = this.goodList.find((good) => {
+      const good = this.goodArray.find((good) => {
         return (good.user_id === this.$store.state.current.user.id)
       })
       if (good) { return good.id }
@@ -297,7 +298,6 @@ export default {
   position: absolute;
   width: 100%;
 }
-
 .wrap-text {
   word-break: break-all;
   white-space: normal;
