@@ -1,7 +1,7 @@
 <template>
   <v-sheet
     class="mx-auto"
-    max-width="600"
+    max-width="768"
     color="blue-grey lighten-5"
     title
     rounded-0
@@ -99,7 +99,7 @@
     </v-list-item>
     <v-list-item-content>
       <v-list-item-title
-        class="text-body-2 text--primary wrap-text "
+        class="text-body-2 text--primary wrap-text"
       >
         <perfect-scrollbar>
           {{comment}}
@@ -300,10 +300,10 @@ export default {
 }
 .wrap-text {
   word-break: break-all;
-  white-space: normal;
+  white-space: pre-line;
 }
 .ps {
-  height: 50px;
+  height: 80px;
   border: 1px solid #ECEFF1;
 }
 </style>

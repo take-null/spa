@@ -98,7 +98,7 @@ module Api
         end
         books_array = booksShelves_array.group_by { |e| e }.sort_by { |e| -e[1].length }.map(&:first)
         new_books_array = []
-        10.times do |i|
+        20.times do |i|
           books_array[i][:rank] = "#{i + 1}位"
           new_books_array << books_array[i]
         end

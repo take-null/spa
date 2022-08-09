@@ -85,7 +85,7 @@
               <v-container
                 ref="scrollTarget"
                 style="height: 400px"
-                class="overflow-y-auto"
+                class="container overflow-y-auto"
               >
                 <v-row 
                   v-for="(msg, i) in formattedMessages" 
@@ -96,6 +96,17 @@
                     v-if="msg.user_id === room.current_user.id"
                   >
                     <v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title
+                          class="text-right text--primary wrap-text"
+                        >
+                            {{ msg.message }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle
+                          class="text-right">
+                          {{ msg.created_at }}前
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
                       <v-list-item-avatar
                         size="40"
                       >
@@ -117,14 +128,6 @@
                           />
                         </template>
                       </v-list-item-avatar>
-                      <v-list-item-content>
-                        <v-list-item-title>
-                          {{ msg.message }}
-                        </v-list-item-title>
-                        <v-list-item-subtitle>
-                          {{ msg.created_at }}前
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
                     </v-list-item>
                   </v-col>
                   <v-col 
@@ -151,7 +154,9 @@
                         </template>
                       </v-list-item-avatar>
                       <v-list-item-content>
-                        <v-list-item-title>
+                        <v-list-item-title
+                          class="text--primary wrap-text"
+                        >
                           {{ msg.message }}
                         </v-list-item-title>
                         <v-list-item-subtitle>
@@ -167,12 +172,12 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-text>
-          <v-text-field
+          <v-textarea
+            rows="2"
             autofocus
             label="メッセージを入力"
             v-model="message"
             clearable
-            @keyup.enter="send_onClick"
           >
             <template 
               v-slot:append
@@ -191,7 +196,7 @@
                 </v-btn>
               </v-col>
             </template>
-          </v-text-field>
+          </v-textarea>
         </v-card-text>
       </v-card>
     </v-main>
@@ -280,3 +285,18 @@ export default defineComponent({
   },
 );
 </script>
+
+<style>
+.wrap-text {
+  word-break: break-all;
+  white-space: pre-line;
+}
+
+.container::-webkit-scrollbar { 
+  display: none;
+}
+
+.container {
+  scrollbar-width: none;
+}
+</style>

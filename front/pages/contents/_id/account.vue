@@ -1,10 +1,14 @@
 <template>
-  <v-app id="inspire">
+  <v-app 
+    id="inspire"
+  >
     <v-container
       fluid
     >
       <v-row>
-        <template v-if="width > 600">
+        <template 
+          v-if="width > 600"
+        >
           <v-col
             cols="3"
           >
@@ -37,9 +41,11 @@
               max-width="600"
             >
               <v-card-title>
-                私の本棚
+                MyBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
@@ -84,13 +90,15 @@
             </v-card>
             <v-card
               v-else
-            color="blue-grey lighten-5"
+              color="blue-grey lighten-5"
               max-width="960"
             >
               <v-card-title>
-                私の本棚
+                MyBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
@@ -135,7 +143,9 @@
             </v-card>
           </v-col>
         </template>
-        <template v-else>
+        <template 
+          v-else
+        >
           <v-col
             cols="12"
           >
@@ -167,9 +177,11 @@
             max-width="517"  
           >
             <v-card-title>
-              私の本棚
+              MyBooks
             </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
@@ -218,9 +230,11 @@
               max-width="517"  
             >
               <v-card-title>
-                私の本棚
+                MyBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
@@ -270,9 +284,11 @@
               min-height="70vh"
             >
               <v-card-title>
-                私の本棚
+                MyBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"

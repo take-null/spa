@@ -19,7 +19,7 @@
         <v-select
           v-model="setLocate"
           :items="items"
-          label="選択してください"
+          label="選択する"
           single-line
         ></v-select>
       </v-col>

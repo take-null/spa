@@ -1,5 +1,7 @@
 <template>
-  <v-row justify="center">
+  <v-row 
+    justify="center"
+  >
     <v-dialog
       v-model="dialog"
       fullscreen
@@ -15,13 +17,17 @@
           v-on="on"
           elevation="0"
         >
-          <template v-if="book_image === null">
+          <template 
+            v-if="book_image === null"
+          >
             <v-img
               max-height="230"
-             :src="require('@/assets/img/20200505_noimage.jpg')"
+              :src="require('@/assets/img/20200505_noimage.jpg')"
             />
           </template>
-          <template v-else>
+          <template 
+            v-else
+          >
             <v-img 
               :src="book_image"
               max-heigth="230"
@@ -67,14 +73,18 @@
                 <v-list-item 
                   class="justify-content-start"
                 >
-                  <template v-if="book_image === null">
+                  <template 
+                    v-if="book_image === null"
+                  >
                     <v-img
                       max-height="160"
                       max-width="120"
                       :src="require('@/assets/img/20200505_noimage.jpg')"
                     />
                   </template>
-                  <template v-else>
+                  <template 
+                    v-else
+                  >
                     <v-img
                       max-heigth="160"
                       max-width="120"
@@ -105,10 +115,15 @@
                   >
                     {{title}}
                   </div>
-                  <v-list-item-subtitle v-if="authors === null" class="mb-2">
+                  <v-list-item-subtitle 
+                    v-if="authors === null" 
+                    class="mb-2"
+                  >
                     作者:{{authors}}
                   </v-list-item-subtitle>
-                  <v-list-item-subtitle v-else class="mb-2">
+                  <v-list-item-subtitle 
+                    v-else class="mb-2"
+                  >
                     作者:{{authors.name}}
                   </v-list-item-subtitle>
                   <v-list-item-subtitle 
@@ -121,7 +136,9 @@
                   >
                     出版年月日:{{published_at}}
                   </v-list-item-subtitle>
-                  <template v-if="goodArray.length === 0">
+                  <template 
+                    v-if="goodArray.length === 0"
+                  >
                     <v-list-item-avatar
                       size="60"
                     >
@@ -137,7 +154,9 @@
                       </p>
                     </v-list-item-avatar>
                   </template>
-                  <template v-else>
+                  <template 
+                    v-else
+                  >
                     <v-list-item-avatar
                       size="60"
                     >
@@ -166,7 +185,7 @@
             <v-list-item-title
               class="text-body-2 text--primary wrap-text" 
             >
-              YourReview
+              UserReview
             </v-list-item-title>
             <v-list-item-subtitle
               class="text-body-2 text--primary wrap-text"
@@ -187,9 +206,11 @@
             <div 
               class="text-body-2 text--primary"
             >
-              YourTags
+              Tags
             </div>
-            <template v-if="tags.length">
+            <template 
+              v-if="tags.length"
+            >
               <v-col
                 v-for="tag in tags" :key="tag.id"
                 cols="2"
@@ -201,7 +222,9 @@
                 </p>
               </v-col>
             </template>
-            <template v-else>
+            <template 
+              v-else
+            >
               <p
                 class="text-overline text--cyan"
               >
@@ -221,7 +244,7 @@ import { ja } from 'date-fns/locale'
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
-  components: {PerfectScrollbar},
+  components: { PerfectScrollbar },
   props: {
     book_image: {
       type: String
@@ -279,7 +302,7 @@ export default {
 
 .wrap-text {
   word-break: break-all;
-  white-space: normal;
+  white-space: pre-line;
 }
 .ps {
   height: 200px;

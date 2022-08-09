@@ -12,7 +12,12 @@
         text
         top
       >
-        <p class="font-italic"><v-icon>mdi-checkbox-marked-circle-plus-outline</v-icon>{{user.name}}をフォローしました</p>
+        <p class="font-italic">
+          <v-icon>
+            mdi-checkbox-marked-circle-plus-outline
+          </v-icon>
+          {{user.name}}をフォローしました
+        </p>
       </v-snackbar>
       <v-snackbar
         v-model="unfollowSnackbar"
@@ -23,56 +28,71 @@
         text
         top
       >
-        <p class="font-italic"><v-icon>mdi-checkbox-marked-circle</v-icon>{{user.name}}のフォローを解除しました</p>
+        <p class="font-italic">
+          <v-icon>
+            mdi-checkbox-marked-circle
+          </v-icon>
+          {{user.name}}のフォローを解除しました
+        </p>
       </v-snackbar>
       <v-row>
-      <template v-if="width > 600">
-      <v-col
-        cols="3"
-      >
-        <v-card
-          color="blue-grey lighten-5"
-          rounded="lg"
-          max-width="600"
-          min-height="70vh"
+        <template 
+          v-if="width > 600"
         >
-          <b-container class="d-flex justify-content-end" color="blue-grey lighten-5">
-            <v-btn
-              text
-              rounded
-              outlined
-              @click="toTop()"
+          <v-col
+            cols="3"
+          >
+            <v-card
+              color="blue-grey lighten-5"
+              rounded="lg"
+              max-width="600"
+              min-height="70vh"
             >
-              close
-            </v-btn>
-            </b-container>
-            <otherProfile 
-              :id.sync="user.id"
-              :name.sync="user.name" 
-              :image.sync="user.image.url"
-              :profile.sync="user.profile" 
-              :age.sync="user.age" 
-              :locate.sync="user.locate"
-              :following.sync="user.following"
-              :followers.sync="user.followers"
-              :good.sync="user.goods"
-              :review.sync="review"
-            />
-            <b-container class="d-flex justify-content-end">
-              <v-btn
-                text
-                rounded
-                outlined
-                @click="createRoom"
+              <b-container 
+                class="d-flex justify-content-end" 
+                color="blue-grey lighten-5"
               >
-                <v-icon>
-                  mdi-email-outline
-                </v-icon>
-                send
-              </v-btn>
-            </b-container>
-            <b-container class="d-flex justify-content-end">
-              <v-btn v-if="flag"
+                <v-btn
+                  text
+                  rounded
+                  outlined
+                  @click="toTop()"
+                >
+                  close
+                </v-btn>
+              </b-container>
+              <otherProfile 
+                :id.sync="user.id"
+                :name.sync="user.name" 
+                :image.sync="user.image.url"
+                :profile.sync="user.profile" 
+                :age.sync="user.age" 
+                :locate.sync="user.locate"
+                :following.sync="user.following"
+                :followers.sync="user.followers"
+                :good.sync="user.goods"
+                :review.sync="review"
+              />
+              <b-container 
+                class="d-flex justify-content-end"
+              >
+                <v-btn
+                  text
+                  rounded
+                  outlined
+                  @click="createRoom"
+                >
+                  <v-icon>
+                    mdi-email-outline
+                  </v-icon>
+                    Chat
+                </v-btn>
+              </b-container>
+              <b-container 
+                class="d-flex justify-content-end"
+              >
+              <v-btn 
+                v-if="flag"
                 text
                 rounded
                 outlined
@@ -80,7 +100,8 @@
               >
                 unFollow
               </v-btn>
-              <v-btn v-else
+              <v-btn 
+                v-else
                 text
                 rounded
                 outlined
@@ -101,9 +122,11 @@
             max-width="600"
             >
               <v-card-title>
-                {{user.name}}の本棚
+                {{user.name}}'sBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
@@ -152,7 +175,7 @@
               max-width="960"
             >
               <v-card-title>
-                {{user.name}}の本棚
+                {{user.name}}'sBooks
               </v-card-title>
               <v-container fluid>
                 <v-row>
@@ -199,24 +222,29 @@
           </v-card>
         </v-col>
         </template>
-        <template v-else>
-        <v-col
-          cols="12"
+        <template 
+          v-else
         >
-        <v-card
-          color="blue-grey lighten-5"
-          rounded="lg"
-          max-width="599"
-        >
-          <b-container class="d-flex justify-content-end" color="blue-grey lighten-5">
-            <v-btn
-              text
-              rounded
-              outlined
-              @click="toTop()"
+          <v-col
+            cols="12"
+          >
+          <v-card
+            color="blue-grey lighten-5"
+            rounded="lg"
+            max-width="599"
+          >
+            <b-container 
+              class="d-flex justify-content-end" 
+              color="blue-grey lighten-5"
             >
-              close
-            </v-btn>
+              <v-btn
+                text
+                rounded
+                outlined
+                @click="toTop()"
+              >
+                close
+              </v-btn>
             </b-container>
             <otherProfile 
               :id.sync="user.id"
@@ -230,7 +258,9 @@
               :good.sync="user.goods"
               :review.sync="review"
             />
-            <b-container class="d-flex justify-content-end">
+            <b-container 
+              class="d-flex justify-content-end"
+            >
               <v-btn
                 text
                 rounded
@@ -240,11 +270,14 @@
                 <v-icon>
                   mdi-email-outline
                 </v-icon>
-                send
+                Chat
               </v-btn>
             </b-container>
-            <b-container class="d-flex justify-content-end">
-              <v-btn v-if="flag"
+            <b-container 
+              class="d-flex justify-content-end"
+            >
+              <v-btn 
+                v-if="flag"
                 text
                 rounded
                 outlined
@@ -252,7 +285,8 @@
               >
                 unFollow
               </v-btn>
-              <v-btn v-else
+              <v-btn 
+                v-else
                 text
                 rounded
                 outlined
@@ -273,7 +307,7 @@
               max-width="517"
           >
             <v-card-title>
-              {{user.name}}の本棚
+              {{user.name}}'sBooks
             </v-card-title>
               <v-container fluid>
                 <v-row>
@@ -324,7 +358,7 @@
               max-width="517"
             >
               <v-card-title>
-                {{user.name}}の本棚
+                {{user.name}}'sBooks
               </v-card-title>
               <v-container fluid>
                 <v-row>
@@ -376,7 +410,7 @@
               min-height="70vh"
             >
               <v-card-title>
-                {{user.name}}の本棚
+                {{user.name}}'sBooks
               </v-card-title>
               <v-container fluid>
                 <v-row>

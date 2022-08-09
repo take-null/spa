@@ -2,13 +2,16 @@
   <v-app id="inspire">
     <v-container
       class="py-8 px-6"
-      fill-height
-      fluid
       id="top"
     >
       <v-row
-        no-gutters
+        dense
       >
+        <div 
+          class="text-sm-subtitle-1 mb-4"
+        >
+          Tags
+        </div>
         <v-sheet 
           elevation="0"
           color="blue-grey lighten-5" 
@@ -36,9 +39,45 @@
       </v-row>
       <v-row
         no-gutters
+        justify="center" 
       >
         <v-col
-          cols="6"
+          cols="12"
+          sm="4"
+          md="4"
+          lg="2"
+          xl="2"
+        >
+          <div 
+            class="text-sm-subtitle-1 mb-4"
+          >
+            Ranking
+          </div>
+          <v-carousel
+            cycle
+            height="300"
+            hide-delimiter-background
+            show-arrows-on-hover
+          >
+            <v-carousel-item
+              v-for="(rank, i) in ranking"
+              :key="i"
+            >
+              <bookRank
+                :image.sync="rank.book_image"
+                :rank.sync="rank.rank"
+                :google_books_api_id.sync="rank.google_books_api_id"
+                @searchRankParent="searchRank"
+              />
+            </v-carousel-item>
+          </v-carousel>
+        </v-col>
+        <v-col
+          cols="12"
+          sm="8"
+          md="8"
+          lg="10"
+          xl="10"
         >
           <template
             v-if="searchFlag === false"
@@ -86,7 +125,7 @@
               >
                 <v-card
                   class="mx-auto"
-                  max-width="600"
+                  max-width="768"
                   color="grey lighten-2"
                   elevation="0"
                   @click="searchFlag=false"
@@ -125,41 +164,7 @@
               </v-row>
             </v-container>
           </template>
-        </v-col>
-        <v-col
-          cols="6"
-        >
-          <v-card
-            color="grey lighten-2"
-            elevation="0"
-            max-width="500"
-          >
-            <v-card-title
-              class="pb-0"
-            >
-              <p class="text-h6 text--primary">
-                Ranking
-              </p>
-            </v-card-title>
-            <v-row
-              no-gutters
-            >
-              <v-col
-                v-for="rank in ranking"
-                :key="rank.google_books_api_id"
-                cols="12"
-              >
-                <bookRank
-                  :image.sync="rank.book_image"
-                  :title.sync="rank.title"
-                  :rank.sync="rank.rank"
-                  :google_books_api_id.sync="rank.google_books_api_id"
-                  @searchRankParent="searchRank"
-                />
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+        </v-col> 
       </v-row>
     </v-container>
   </v-app>
@@ -222,7 +227,6 @@ export default {
       const formattedShelves = shelves.map(shelf => {let time = formatDistanceToNow(new Date(shelf.created_at), { locale: ja })
         return { ...shelf, created_at: time }
       })
-      this.goTo()
       const shelfKeys = Object.keys(shelves || {}) // 追加
       console.log(formattedShelves)
       this.formattedShelves = formattedShelves
