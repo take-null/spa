@@ -525,10 +525,8 @@ export default defineComponent({
     async followUser () {
       try {
         await this.$axios.$post('/api/v1/relationships', {
-          params: {
             user_id: this.$store.state.current.user.id, 
             followed_id: this.user.id
-          }
         })
         .then(
         (res) => {
@@ -568,11 +566,12 @@ export default defineComponent({
         console.log({error})
       }
     },
-    async movePage({number}) {
-      await this.$axios.$get(`/api/v1/books_shelves/user?id=${this.user.id}`, {
+    async movePage(number) {
+      await this.$axios.$get('/api/v1/books_shelves/user/', {
         params: {
-          page: number, 
-        },
+          id: this.user.id,
+          page: number,
+        }, 
       }).then(res => (
         this.books = res.books,
         console.log(res),

@@ -100,10 +100,11 @@
                         <v-list-item-title
                           class="text-right text--primary wrap-text"
                         >
-                            {{ msg.message }}
+                          {{ msg.message }}
                         </v-list-item-title>
                         <v-list-item-subtitle
-                          class="text-right">
+                          class="text-right"
+                        >
                           {{ msg.created_at }}前
                         </v-list-item-subtitle>
                       </v-list-item-content>

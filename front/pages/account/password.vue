@@ -44,34 +44,32 @@ export default {
   },
   methods: {
     async change () {
-      try {
-        this.loading = true
-        const formData = new FormData()
-        formData.append('password', this.params.password)
-        formData.append('password_confirmation', this.params.password_confirmation)
-        await this.$axios.put('/api/v1/auth/password', formData, {
-          'content-type': 'multipart/form-data',
-        })
-        .then(
-          (res) => {
-          //const user = res.data.data
-          //const expiry = res.headers.expiry 
-          //this.$nxauth.setData(user)
-          //this.$nxauth.setStorage(expiry)
-          //vuexにセットされたユーザーデータを出力
-          console.log(this.$store.state.current.user)
+      if ( this.$store.state.current.user.id === 1 ) {
+          this.error = 'ゲストユーザーはパスワードの変更ができません。'
+          this.formReset()
+        } else {
+        try {
+          this.loading = true
+          const formData = new FormData()
+          formData.append('password', this.params.password)
+          formData.append('password_confirmation', this.params.password_confirmation)
+          await this.$axios.put('/api/v1/auth/password', formData, {
+            'content-type': 'multipart/form-data',
+          })
+          .then(
+            (res) => {
+            console.log(this.$store.state.current.user)
+            this.loading = false
+            this.$router.replace('/')
+            return res
+          }
+        )
+        } catch (error) {
+          console.log({error})
           this.loading = false
-          this.$router.replace('/')
-          return res
+          this.error = 'パスワードの不一致、または入力内容が間違っています。'
+          this.formReset()
         }
-      )
-      //responseを表示
-      //console.log({res})
-      } catch (error) {
-        console.log({error})
-        this.loading = false
-        this.error = 'パスワードの不一致、または入力内容が間違っています。'
-        this.formReset()
       }
     },
     formReset () {

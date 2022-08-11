@@ -1,9 +1,7 @@
 {   
   "menus": {
-    "about": "サイトについて",
-    "content-one": "コンテンツ1",
-    "content-two": "コンテンツ2",
-    "content-three": "コンテンツ3"
+    "about": "about",
+    "content-one": "functions"
   },
   "fls": {
     "following": "フォロー中",

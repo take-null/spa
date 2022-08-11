@@ -192,3 +192,7 @@ User.find_by(id: 1)
 @user = User.find_by(id: 1)
 @room = @user.room.find_by(id: 4)
 @room = @user.rooms.find_by(id: 4)
+User.find(1)
+@user = User.find(1)
+@user.id
+exit

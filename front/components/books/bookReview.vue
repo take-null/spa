@@ -233,14 +233,15 @@ export default {
   data () {
     return {
       dialog: false,
+      goodList: this.goodArray
     }
   },
   computed: {
     count() {
-      return this.goodArray.length
+      return this.goodList.length
     },
     isGood() {
-      if (this.goodArray.lenght === 0) { return false }
+      if (this.goodList.lenght === 0) { return false }
         return Boolean(this.findGoodId())
     }
   },
@@ -270,7 +271,7 @@ export default {
         console.log(res)
       }
       this.fetchGoodByBooksShelfId().then(result => {
-        this.goodArray = result
+        this.goodList = result
       })
     },
     deleteGood: async function() {
@@ -279,10 +280,10 @@ export default {
       if (res.status !== 200) {
         console.log(res)
       }
-      this.goodArray = this.goodList.filter(n => n.id !== goodId)
+      this.goodList = this.goodList.filter(n => n.id !== goodId)
     },
     findGoodId: function() {
-      const good = this.goodArray.find((good) => {
+      const good = this.goodList.find((good) => {
         return (good.user_id === this.$store.state.current.user.id)
       })
       if (good) { return good.id }
