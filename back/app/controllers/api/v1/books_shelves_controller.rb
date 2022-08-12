@@ -86,6 +86,14 @@ module Api
         @tags = @books_shelf.tag_counts_on(:tags)
         render json: @books_shelf, status: 200
       end
+
+      #検証用
+      def destroy
+        @books_shelf = BooksShelf.find(params[:id])
+        if @books_shelf.destroy
+          render json: @books_shelf, status: 200
+        end
+      end
       #タイムラインのランキング用
       def rank
         @books_shelves = BooksShelf.includes(:book)

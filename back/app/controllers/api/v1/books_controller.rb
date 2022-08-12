@@ -2,7 +2,6 @@ module Api
   module V1
     class BooksController < ApplicationController
       def search
-        #@q = GoogleBook.ransack(params[:q])
         books = GoogleBook.search(params[:keyword])
         books_array = books.map do |book|
           { 

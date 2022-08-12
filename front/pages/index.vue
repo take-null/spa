@@ -3,6 +3,7 @@
     id="inspire"
   >
     <v-container
+      :style="{ maxWidth: '1300px' }"
       class="py-8 px-6"
       id="top"
     >
@@ -168,6 +169,24 @@
           </template>
         </v-col> 
       </v-row>
+      <transition>
+        <v-btn 
+          fixed 
+          fab 
+          bottom 
+          right 
+          color="primary" 
+          style="bottom: 50px"
+          @click.prevent="moveSearchPage()"
+        >
+          <v-icon 
+            color="white"
+          >
+            mdi-book-open-page-variant-outline
+          </v-icon>
+          +
+        </v-btn>
+      </transition>
     </v-container>
   </v-app>
 </template>
@@ -206,6 +225,9 @@ export default {
         if (id !== this.$nxauth.user.id) {
         this.$router.push(`/user/${id}`)
       }
+    },
+    moveSearchPage() {
+      this.$router.replace('/contents/1/books')
     },
     goTo () {
       this.$vuetify.goTo(`#top`)

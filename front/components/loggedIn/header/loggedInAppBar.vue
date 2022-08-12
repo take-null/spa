@@ -32,15 +32,6 @@
         mdi-email-outline
       </v-icon>
     </v-btn>
-
-    <v-btn 
-      icon
-      @click.prevent="moveSearchPage()"
-    >
-      <v-icon>
-        mdi-magnify
-      </v-icon>
-    </v-btn>
     
     <template 
       v-if="notification.length === 0"
@@ -378,7 +369,7 @@ export default {
       notification: this.$store.state.current.user.passive_notifications,
       drawer: false,
       accountMenus: [
-        { name: 'account-settings', icon: 'mdi-book-open-page-variant-outline' },
+        { name: 'account-settings', icon: 'mdi-account-circle' },
         { name: 'account-password', icon: 'mdi-lock-outline' },
         { name: 'logout', icon: 'mdi-logout-variant', divider: true }
       ],
@@ -399,9 +390,6 @@ export default {
       .then((res) => {
         this.$store.commit('deleteNotice', id)
       })
-    },
-    moveSearchPage() {
-      this.$router.replace('/contents/1/books')
     },
     moveChatPage() {
       this.$router.replace('/contents/1/chat')

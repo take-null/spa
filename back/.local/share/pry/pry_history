@@ -196,3 +196,5 @@ User.find(1)
 @user = User.find(1)
 @user.id
 exit
+BooksShelf.all
+exit

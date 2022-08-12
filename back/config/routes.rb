@@ -26,7 +26,7 @@ Rails.application.routes.draw do
           get :search
         end
       end
-      resources :books_shelves, only: [:index, :show, :create] do
+      resources :books_shelves, only: [:index, :show, :create, :destroy] do
         collection do
           get :all
           get :user

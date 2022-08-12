@@ -41,7 +41,9 @@
         text
         top
       >
-        <p class="font-italic">
+        <p 
+          class="font-italic"
+        >
           <v-icon>
             mdi-checkbox-marked-circle-plus-outline
           </v-icon>
@@ -127,16 +129,15 @@
                 text
                 rounded
                 outlined
+                small
                 @click="unfollowUser"
               >
                 unFollow
               </v-btn>
               <v-btn 
                 v-else
-                text
                 rounded
-                outlined
-                color="cyan accent-3"
+                color="primary"
                 @click="followUser"
               >
                 Follow
@@ -314,16 +315,15 @@
                 text
                 rounded
                 outlined
+                small
                 @click="unfollowUser"
               >
                 unFollow
               </v-btn>
               <v-btn 
                 v-else
-                text
                 rounded
-                outlined
-                color="cyan accent-3"
+                color="primary"
                 @click="followUser"
               >
                 Follow

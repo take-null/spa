@@ -6,6 +6,7 @@
       flat
       tile
       color="transparent"
+      class="mx-auto"
       max-width="768"
     >
       <v-card-title>

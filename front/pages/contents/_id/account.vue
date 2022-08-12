@@ -65,6 +65,7 @@
                       :authors.sync="book.authors"
                       :publisher.sync="book.publisher"
                       :published_at.sync="book.published_at"
+                      @checkParent="redirectPage"
                     />
                   </v-col>
                 </v-row>
@@ -118,6 +119,7 @@
                       :authors.sync="book.authors"
                       :publisher.sync="book.publisher"
                       :published_at.sync="book.published_at"
+                      @checkParent="redirectPage"
                     />
                   </v-col>
                 </v-row>
@@ -201,6 +203,7 @@
                       :authors.sync="book.authors"
                       :publisher.sync="book.publisher"
                       :published_at.sync="book.published_at"
+                      @checkParent="redirectPage"
                     />
                   </v-col>
                 </v-row>
@@ -254,6 +257,7 @@
                       :authors.sync="book.authors"
                       :publisher.sync="book.publisher"
                       :published_at.sync="book.published_at"
+                      @checkParent="redirectPage"
                     />
                   </v-col>
                 </v-row>
@@ -308,6 +312,7 @@
                       :authors.sync="book.authors"
                       :publisher.sync="book.publisher"
                       :published_at.sync="book.published_at"
+                      @checkParent="redirectPage"
                     />
                   </v-col>
                 </v-row>
@@ -391,6 +396,9 @@ export default {
         this.books = res.books
       ))
     },
+    redirectPage() {
+      this.$router.go({path: this.$router.currentRoute.path, force: true})
+    }
   },
 };
 </script>

@@ -58,7 +58,45 @@
           </v-btn>
           <v-toolbar-title>
             BookDetail
-          </v-toolbar-title>    
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            rounded
+            outlined
+            small
+            @click="modal = true"
+          >
+            delete
+          </v-btn>
+          <v-snackbar
+            v-model="modal"
+            max-width="400"
+            absolute
+            outlined
+            text
+            top
+          >
+            <p
+              class="text-body-2 white--text" 
+            >
+              このレビューを削除しますか？
+            </p>
+            <template 
+              v-slot:action="{ attrs }"
+            >
+              <v-btn
+                text
+                rounded
+                outlined
+                small
+                v-bind="attrs"
+                @click.stop="deleteContent(id)"
+              >
+                yes
+            </v-btn>
+          </template>  
+          </v-snackbar>
         </v-toolbar>
           <v-container
             fluid
@@ -285,14 +323,25 @@ export default {
     },
     published_at: {
       type: String
-    }
+    },
   },
   data () {
     return {
+      modal: false,
       dialog: false,
       day: formatDistanceToNow(new Date(this.created_at), { locale: ja })
     }
   },
+  methods: {
+    async deleteContent(id) {
+      await this.$axios.$delete(`/api/v1/books_shelves/${id}`)
+      .then(() => {
+        this.modal = false
+        this.dialog = false
+        this.$emit('checkParent')
+      })
+    }
+  }
 }
 </script>
 
