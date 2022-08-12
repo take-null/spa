@@ -1,6 +1,8 @@
 <template>
   <before-login-form-card>
-    <template #form-card-content>
+    <template 
+      #form-card-content
+    >
       <v-form
         ref="form"
         v-model="isValid"

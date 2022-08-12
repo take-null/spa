@@ -39,7 +39,6 @@ export const actions = {
   logout ({ commit }) {
     commit('setLoggedIn', false)
   },
-  //uidは暫定処置
   getCurrentUser ({ commit }, user ) {
     commit('setCurrentUser', user)
   },

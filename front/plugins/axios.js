@@ -1,4 +1,3 @@
-//本番環境用の設定
 import axios from "axios"
 
 //export default axios.create({
@@ -6,27 +5,9 @@ import axios from "axios"
   //baseURL: "https://referer-hub-api.net" 
 //})
 
-
-/*デバッグ用
-  export default ({ $axios }) => {
-  // リクエストログ
-  $axios.onRequest((config) => {
-    console.log(config)
-  })
-  // レスポンスログ
-  $axios.onResponse((config) => {
-    console.log(config)
-  })
-  // エラーログ
-  $axios.onError((e) => {
-    console.log(e.response)
-  })
-}*/
-
 export default function ({ $axios }) {
   $axios.onRequest((config) => {
     // Devise Token Auth
-    //if (localStorage.getItem('token-type') === 'Bearer' && localStorage.getItem('access-token'))
     if (localStorage.getItem('access-token')) {
       config.headers.uid = localStorage.getItem('uid')
       config.headers.client = localStorage.getItem('client')
@@ -41,9 +22,6 @@ export default function ({ $axios }) {
       localStorage.setItem('uid', response.headers.uid)
       localStorage.setItem('client', response.headers.client)
       localStorage.setItem('access-token', response.headers['access-token'])
-      //localStorage.setItem('id', response.data.data.id)
-      //オブジェクトにユーザーidを含ませる時に使う
-      //localStorage.setItem('id', response.data.id)
       }
     }
   )

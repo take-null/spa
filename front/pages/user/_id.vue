@@ -1,6 +1,35 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-container
+      v-if="presense"
+    >
+      <v-card
+        color="blue-grey lighten-5"
+        rounded="lg"
+        max-width="600"
+      >
+        <v-card-title
+          class="text-h6 center"
+        >
+          ログインユーザーはこのページにアクセスできません
+        </v-card-title>
+        <b-container 
+          class="d-flex justify-content-center" 
+          color="blue-grey lighten-5"
+        >
+          <v-btn
+            text
+            rounded
+            outlined
+            @click="toTop()"
+          >
+            close
+          </v-btn>
+        </b-container> 
+      </v-card>
+    </v-container>
+    <v-container
+      v-else
       fluid
     > 
       <v-snackbar
@@ -482,6 +511,7 @@ export default defineComponent({
     return {
       page: 1,
       flag: false,
+      presense: null,
       followSnackbar: false,
       unfollowSnackbar: false,
       error: null,
@@ -491,23 +521,23 @@ export default defineComponent({
   },
   async asyncData ({ $axios, params }) {
     let user = []
-    await $axios.$get(`/api/v1/users/${params.id}`).then((res) => (
-    user = res,
-    console.log(user)
+    await $axios.$get(`/api/v1/users/${params.id}`)
+    .then((res) => (
+      user = res
     ))
     let books = []
     let total = null
     let review = null
-    await $axios.$get(`/api/v1/books_shelves/user?id=${params.id}`).then(res => (
-    books = res.books,
-    total = res.kaminari.pagenation.pages,
-    review = res.kaminari.pagenation.count,
-    console.log(books)))
-    const bookKeys = Object.keys(books[0] || {})
-    console.log(bookKeys)
-    return { user, books, bookKeys, total, review }
+    await $axios.$get(`/api/v1/books_shelves/user?id=${params.id}`)
+    .then((res) => (
+      books = res.books,
+      total = res.kaminari.pagenation.pages,
+      review = res.kaminari.pagenation.count
+    ))
+    return { user, books, total, review }
   },
   mounted() {
+    this.presense = this.user.id === this.$store.state.current.user.id,
     this.flag = this.user.followers.some(({id}) => id === this.$store.state.current.user.id)
     window.addEventListener('resize', this.handleResize)
   },
@@ -515,76 +545,70 @@ export default defineComponent({
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    toTop() {
-      this.$router.back()
-    },
-    handleResize: function() {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
-    },
-    async followUser () {
-      try {
-        await this.$axios.$post('/api/v1/relationships', {
+      toTop() {
+        this.$router.back()
+      },
+      handleResize: function() {
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+      },
+      async followUser () {
+        try {
+          await this.$axios.$post('/api/v1/relationships', {
             user_id: this.$store.state.current.user.id, 
             followed_id: this.user.id
-        })
-        .then(
-        (res) => {
-        this.flag = true
-        this.followSnackbar = true
-        setTimeout(() => {
-          this.followSnackbar = false
-          }, 1500)
-          console.log(res)
-          this.user.followers.push(this.$store.state.current.user);
-          console.log(this.user)
-        })
-      } catch (error) {
-        console.log({error})
-      }
-    },
-    async unfollowUser () {
-      try {
-        await this.$axios.$delete('/api/v1/relationships/delete', {
+          })
+          .then(() => {
+            this.flag = true
+            this.followSnackbar = true
+            setTimeout(() => {
+              this.followSnackbar = false
+            }, 1500)
+            this.user.followers.push(this.$store.state.current.user);
+          })
+        } catch (error) {
+          console.log({error})
+        }
+      },
+      async unfollowUser () {
+        try {
+          await this.$axios.$delete('/api/v1/relationships/delete', {
+            params: {
+              user_id: this.$store.state.current.user.id, 
+              followed_id: this.user.id,
+            }
+          })
+          .then(() => {
+            this.flag = false
+            this.unfollowSnackbar = true
+            setTimeout(() => {
+            this.unfollowSnackbar = false
+            }, 1500)
+            this.user.followers.pop(this.$store.state.current.user);
+          })
+        } catch (error) {
+          console.log({error})
+        }
+      },
+      async movePage(number) {
+        await this.$axios.$get('/api/v1/books_shelves/user/', {
           params: {
-            user_id: this.$store.state.current.user.id, 
-            followed_id: this.user.id,
-          }
+            id: this.user.id,
+            page: number,
+          }, 
         })
-        .then(
-        (res) => {
-        this.flag = false
-        this.unfollowSnackbar = true
-        setTimeout(() => {
-          this.unfollowSnackbar = false
-          }, 1500)
-          console.log(res)
-          this.user.followers.pop(this.$store.state.current.user);
-          console.log(this.user)
-        })
-      } catch (error) {
-        console.log({error})
-      }
-    },
-    async movePage(number) {
-      await this.$axios.$get('/api/v1/books_shelves/user/', {
-        params: {
-          id: this.user.id,
-          page: number,
-        }, 
-      }).then(res => (
-        this.books = res.books,
-        console.log(res),
-        console.log(res.books)))
+        .then((res) => (
+          this.books = res.books
+        ))
       },
       async createRoom() {
         await this.$axios.$post(`/api/v1/users/${this.user.id}/rooms`, {
           params: {
             id: this.user.id, 
           },
-        }).then(res => (
-          this.$router.push(`/room/${res.id}`),
-          console.log(res)
+        })
+        .then((res) => (
+          this.$router.push(`/room/${res.id}`)
         ))
       }
     }
