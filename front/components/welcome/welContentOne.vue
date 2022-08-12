@@ -34,7 +34,7 @@
               <v-img
                 contain
                 :src="item.src"
-                max-height="1032"
+                max-height="max-height"
               />
             </v-col>
           </v-row>

@@ -7,32 +7,48 @@
     mobile-breakpoint="420"
     :mini-variant.sync="mini"
   >
-    <template v-if="mini === true">
-      <b-container class="d-flex justify-content-end">
+    <template 
+      v-if="mini === true"
+    >
+      <b-container 
+        class="d-flex justify-content-end"
+      >
         <v-btn
           icon
           outrined
           rounded
           @click.stop="closeDrawerChild"
         >
-          <v-icon>mdi-chevron-left</v-icon>
+          <v-icon>
+            mdi-chevron-left
+          </v-icon>
         </v-btn>
       </b-container>
     </template>
-    <template v-else>
-      <b-container class="d-flex justify-content-end">
+    <template 
+      v-else
+    >
+      <b-container 
+        class="d-flex justify-content-end"
+      >
         <v-btn
           icon
           outrined
           rounded
           @click.stop="mini = !mini"
         >
-          <v-icon>mdi-chevron-left</v-icon>
+          <v-icon>
+            mdi-chevron-left
+          </v-icon>
         </v-btn>
       </b-container>
     </template>
-    <template v-if="img === null">
-      <v-list-item class="px-2">
+    <template 
+      v-if="img === null"
+    >
+      <v-list-item 
+        class="px-2"
+      >
         <v-list-item-avatar
           size="45"
         >
@@ -42,7 +58,9 @@
             rounded
             @click.stop="mini = !mini"
           >
-            <v-icon x-large>
+            <v-icon 
+              x-large
+            >
               mdi-account-circle
             </v-icon>
           </v-btn>
@@ -52,8 +70,12 @@
         </v-list-item-title>
       </v-list-item>
     </template>
-    <template v-else>
-      <v-list-item class="px-2">
+    <template 
+      v-else
+    >
+      <v-list-item 
+        class="px-2"
+      >
         <v-list-item-avatar
           size="45"
         >
@@ -63,7 +85,10 @@
             rounded
             @click.stop="mini = !mini"
           >
-            <v-img :src="`http://localhost:3000/${img}`" alt="avatar" />
+            <v-img 
+              :src="`http://localhost:3000/${img}`" 
+              alt="avatar" 
+            />
           </v-btn>
         </v-list-item-avatar>
         <v-list-item-title>
@@ -79,7 +104,9 @@
         :to="$my.contentsLinkTo($route.params.id, nav.name)"
       >
         <v-list-item-icon>
-          <v-icon v-text="nav.icon" />
+          <v-icon 
+            v-text="nav.icon" 
+          />
         </v-list-item-icon>
 
         <v-list-item-content>

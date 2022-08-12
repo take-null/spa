@@ -111,7 +111,6 @@ export default {
           (res) => {
           this.$router.go({path: this.$router.currentRoute.path, force: true})
           this.loading = false
-          console.log(res)
           }
         )
         } catch (error) {

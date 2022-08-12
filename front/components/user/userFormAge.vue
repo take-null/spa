@@ -1,7 +1,13 @@
 <template>
-  <v-container fluid>
-    <v-row align="center">
-      <v-col cols="6">
+  <v-container 
+    fluid
+  >
+    <v-row 
+      align="center"
+    >
+      <v-col 
+        cols="6"
+      >
         <v-subheader>
           年齢
         </v-subheader>

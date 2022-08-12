@@ -1,6 +1,8 @@
 <template>
   <before-login-form-card>
-    <template #form-card-content>
+    <template 
+      #form-card-content
+    >
       <v-form
         ref="form"
         v-model="isValid"
@@ -21,8 +23,12 @@
           パスワードを忘れた？
           </nuxt-link>
         </v-card-actions>
-        <v-card-text class="px-0">
-          <div>{{error}}</div>
+        <v-card-text 
+          class="px-0"
+        >
+          <div>
+            {{error}}
+          </div>
           <v-btn
             :disabled="!isValid || loading"
             :loading="loading"

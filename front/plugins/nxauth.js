@@ -35,7 +35,6 @@ class Authentication {
   getExpire () {
     const expire = storage.getItem(keys.expiry)
     return expire ? this.decrypt(expire) : null
-    //return storage.getItem(keys.expiry)
   }
   isAuthenticated () {
     return new Date().getTime() < this.getExpire()
@@ -49,11 +48,9 @@ class Authentication {
   get loggedIn () {
     return this.isUserPresent() && this.isAuthenticated()
   }
-  //uidは暫定処置。nameに変更予定。
   setData (user) {
     this.store.dispatch('getCurrentUser', user)
   }
-  //logout pageは改良の必要性あり？
   deleteData () {
     localStorage.removeItem("access-token")
     localStorage.removeItem("client")

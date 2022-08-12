@@ -1,5 +1,7 @@
 <template>
-  <v-app id="inspire">
+  <v-app 
+    id="inspire"
+  >
     <v-container
       class="py-8 px-6"
       id="top"
@@ -61,8 +63,7 @@
             show-arrows-on-hover
           >
             <v-carousel-item
-              v-for="(rank, i) in ranking"
-              :key="i"
+              v-for="(rank, i) in ranking" :key="i"
             >
               <bookRank
                 :image.sync="rank.book_image"
@@ -90,8 +91,7 @@
                 no-gutters
               >
                 <v-col
-                  v-for="book in formattedBooks"
-                  :key="book.id"
+                  v-for="book in formattedBooks" :key="book.id"
                   cols="12"
                 >
                   <bookReview
@@ -113,7 +113,9 @@
                 </v-col>
               </v-row>
             </v-container>
-            <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+            <infinite-loading 
+              @infinite="infiniteHandler"
+            ></infinite-loading>
           </template>
           <template
             v-else
@@ -141,8 +143,7 @@
                   </p>
                 </v-card>
                 <v-col
-                  v-for="book in formattedShelves"
-                  :key="book.id"
+                  v-for="book in formattedShelves" :key="book.id"
                   cols="12"
                 >
                   <bookReview
@@ -181,7 +182,10 @@ export default {
   layout ({ $nxauth }) {
     return $nxauth.loggedIn ? 'loggedIn' : 'welcome'
   },
-  components: { bookReview, bookRank },
+  components: { 
+    bookReview, 
+    bookRank 
+  },
   data: () => ({
     reveal: false,
     searchFlag: false,
@@ -195,12 +199,7 @@ export default {
     const formattedBooks = books.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
         return { ...book, created_at: time }
     })
-    console.log(tags)
-    const bookKeys = Object.keys(books.books || {}) // 追加
-    const rankKeys = Object.keys(ranking || {}) // 追加
-    const tagKeys = Object.keys(tags || {}) // 追加
-    console.log(formattedBooks)
-    return { formattedBooks, bookKeys, ranking, rankKeys, tags, tagKeys }
+    return { formattedBooks, ranking, tags }
   },
   methods: {
     toShow(id) {
@@ -217,29 +216,26 @@ export default {
         return { ...shelf, created_at: time }
       })
       this.goTo()
-      const shelfKeys = Object.keys(shelves || {}) // 追加
-      console.log(formattedShelves)
       this.formattedShelves = formattedShelves
       this.searchFlag = true
-      return { formattedShelves, shelfKeys }
+      return { formattedShelves }
     },
     async searchRank (google_books_api_id) {
       let shelves = await this.$axios.$get(`/api/v1/books_shelves/view?google_books_api_id=${google_books_api_id}`)
       const formattedShelves = shelves.map(shelf => {let time = formatDistanceToNow(new Date(shelf.created_at), { locale: ja })
         return { ...shelf, created_at: time }
       })
-      const shelfKeys = Object.keys(shelves || {}) // 追加
-      console.log(formattedShelves)
       this.formattedShelves = formattedShelves
       this.searchFlag = true
-      return { formattedShelves, shelfKeys }
+      return { formattedShelves }
     },
     infiniteHandler($state) {
       this.$axios.$get(`/api/v1/books_shelves/all`, {
-          params: {
-              page: this.page , 
-          },
-      }).then((res) => {
+        params: {
+          page: this.page , 
+        },
+      })
+      .then((res) => {
         const books = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
           return { ...book, created_at: time }
         })
@@ -255,8 +251,9 @@ export default {
           } else {
             this.goTo()
             this.page = 1,
-            this.$axios.$get(`/api/v1/books_shelves/all?page=${this.page}`).then((res) => {
-            this.formattedBooks = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
+            this.$axios.$get(`/api/v1/books_shelves/all?page=${this.page}`)
+            .then((res) => {
+              this.formattedBooks = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
               return { ...book, created_at: time }
             })})
             this.page = 2

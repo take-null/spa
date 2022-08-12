@@ -7,7 +7,9 @@
       elevation="0"
     >
       <template>
-        <b-container class="d-flex justify-content-end">
+        <b-container 
+          class="d-flex justify-content-end"
+        >
           <v-btn
             text
             outlined
@@ -17,7 +19,9 @@
             edit user
           </v-btn>
         </b-container>
-          <div v-if="image === null">
+          <div 
+            v-if="image === null"
+          >
             <v-img
               :src="cards.src"
               class="white--text align-end"
@@ -33,7 +37,9 @@
               </v-card-text>
             </v-img>
           </div>
-          <div v-else>
+          <div 
+            v-else
+          >
             <v-img
               :src="`http://localhost:3000/${image}`"
               class="white--text align-end"
@@ -219,6 +225,3 @@ export default {
     },
   };
 </script>
-
-<style>
-</style>

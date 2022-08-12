@@ -5,10 +5,14 @@
     width="600px"
   >
     <v-card-title>
-      <h1>{{ title }}</h1>
+      <h1>
+        {{ title }}
+      </h1>
     </v-card-title>
     <v-card-text>
-      <p>{{ message }}</p>
+      <p>
+        {{ message }}
+      </p>
     </v-card-text>
   </v-card>
 </template>

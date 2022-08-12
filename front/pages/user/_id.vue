@@ -57,7 +57,9 @@
         text
         top
       >
-        <p class="font-italic">
+        <p 
+          class="font-italic"
+        >
           <v-icon>
             mdi-checkbox-marked-circle
           </v-icon>
@@ -206,7 +208,9 @@
               <v-card-title>
                 {{user.name}}'sBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                   v-for="book in books" :key="book.id"
@@ -338,7 +342,9 @@
             <v-card-title>
               {{user.name}}'sBooks
             </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
@@ -389,7 +395,9 @@
               <v-card-title>
                 {{user.name}}'sBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"
@@ -441,7 +449,9 @@
               <v-card-title>
                 {{user.name}}'sBooks
               </v-card-title>
-              <v-container fluid>
+              <v-container 
+                fluid
+              >
                 <v-row>
                   <v-col
                     v-for="book in books" :key="book.id"

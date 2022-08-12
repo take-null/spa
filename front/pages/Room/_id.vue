@@ -223,9 +223,9 @@ export default defineComponent({
     let room = []
     let id = null
     id = params.id
-    await $axios.$get(`/api/v1/rooms/${params.id}`).then((res) => (
-    room = res,
-    console.log(room)
+    await $axios.$get(`/api/v1/rooms/${params.id}`)
+    .then((res) => (
+      room = res
     ))
     return { room, id }
   },
@@ -235,11 +235,15 @@ export default defineComponent({
       this.messageChannel = cable.subscriptions.create({ channel: "RoomChannel", room: `${this.id}`}, {
       connected: () => {
         this.getMessages()
-        .then(() => this.scrollToEnd()) 
+        .then(() => 
+          this.scrollToEnd()
+        ) 
       },
         received: () => {
         this.getMessages()
-        .then(() => this.scrollToEnd())
+        .then(() => 
+          this.scrollToEnd()
+        )
       }
     })
   },

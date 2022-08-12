@@ -1,6 +1,6 @@
 <template>
   <v-avatar
-    size="40"
+    size="45"
     class="my-app-log"
   >
     <v-img

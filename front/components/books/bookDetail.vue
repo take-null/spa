@@ -64,7 +64,9 @@
             fluid
           >
             <div
-              class="text-sm-h7 mb-4" >{{day}}前
+              class="text-sm-h7 mb-4"
+            >
+              {{day}}前
             </div>
             <v-row
               no-gutters
@@ -244,7 +246,9 @@ import { ja } from 'date-fns/locale'
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
-  components: { PerfectScrollbar },
+  components: { 
+    PerfectScrollbar 
+  },
   props: {
     book_image: {
       type: String

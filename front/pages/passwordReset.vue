@@ -1,6 +1,8 @@
 <template>
   <before-login-form-card>
-    <template #form-card-content>
+    <template 
+      #form-card-content
+    >
       <v-form
         ref="form"
         v-model="isValid"
@@ -11,8 +13,12 @@
         <user-frorm-password-confirmation 
           :password_confirmation.sync="params.password_confirmation"
         />
-        <v-card-text class="px-0">
-          <div>{{error}}</div>
+        <v-card-text 
+          class="px-0"
+        >
+          <div>
+            {{error}}
+          </div>
             <v-btn
               :disabled="!isValid || loading"
               :loading="loading"
@@ -48,7 +54,7 @@ export default {
   methods: {
     async change () {
       if ( this.$store.state.current.user.id === 1 ) {
-          this.error = 'よくこのページにたどり着きましたね！しかし、残念。ゲストユーザーはパスワードの変更ができないんです...。'
+          this.error = 'ゲストユーザーはパスワードの変更ができません！'
           this.formReset()
         } else {
         try {

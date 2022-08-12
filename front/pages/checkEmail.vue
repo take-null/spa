@@ -1,6 +1,8 @@
 <template>
   <before-login-form-card>
-    <template #form-card-content>
+    <template 
+      #form-card-content
+    >
       <v-form
         ref="form"
         v-model="isValid"
@@ -9,8 +11,12 @@
           :email.sync="params.email"
           no-validation
         />
-        <v-card-text class="px-0">
-          <div>{{error}}</div>
+        <v-card-text 
+          class="px-0"
+        >
+          <div>
+            {{error}}
+          </div>
             <v-btn
               :disabled="!isValid || loading"
               :loading="loading"
@@ -48,18 +54,10 @@ export default {
         })
         .then(
           (res) => {
-          //const user = res.data.data
-          //const expiry = res.headers.expiry 
-          //this.$nxauth.setData(user)
-          //this.$nxauth.setStorage(expiry)
-          //vuexにセットされたユーザーデータを出力
-          console.log(res)
           this.loading = false
           return res
         }
       )
-      //responseを表示
-      //console.log({res})
       } catch (error) {
         console.log({error})
         this.loading = false

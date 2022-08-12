@@ -355,22 +355,20 @@ export default {
   },
   async asyncData ({ $axios, $nxauth }) {
     let user = []
-    await $axios.$get(`/api/v1/users/${$nxauth.user.id}`).then((res) => (
-    user = res,
-    console.log(user)
+    await $axios.$get(`/api/v1/users/${$nxauth.user.id}`)
+    .then((res) => (
+      user = res
     ))
     let books = []
     let total = null
     let review = null
-    await $axios.$get('/api/v1/books_shelves/').then(res => (
-    books = res.books,
-    total = res.kaminari.pagenation.pages,
-    review = res.kaminari.pagenation.count,
-    console.log(res),
-    console.log(books)))
-    const bookKeys = Object.keys(books[0] || {})
-    console.log(bookKeys)
-    return { user, books, bookKeys, total, review }
+    await $axios.$get('/api/v1/books_shelves/')
+    .then(res => (
+      books = res.books,
+      total = res.kaminari.pagenation.pages,
+      review = res.kaminari.pagenation.count
+    ))
+    return { user, books, total, review }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
@@ -388,10 +386,10 @@ export default {
         params: {
           page: number, 
         },
-      }).then(res => (
-      this.books = res.books,
-      console.log(res),
-      console.log(res.books)))
+      })
+      .then((res) => (
+        this.books = res.books
+      ))
     },
   },
 };

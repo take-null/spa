@@ -191,7 +191,9 @@
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
-  components: { PerfectScrollbar },
+  components: { 
+    PerfectScrollbar 
+  },
   props: {
     book_image: {
       type: String
@@ -261,14 +263,12 @@ export default {
     fetchGoodByBooksShelfId: async function() {
       const res = await this.$axios.get(`/api/v1/goods/?books_shelf_id=${this.id}`)
       if (res.status !== 200) {
-        console.log(res)
       }
       return res.data
     },
     createGood: async function() {
       const res = await this.$axios.$post('/api/v1/goods', { books_shelf_id: this.id })
       if (res.status !== 201) {
-        console.log(res)
       }
       this.fetchGoodByBooksShelfId().then(result => {
         this.goodList = result
@@ -278,7 +278,6 @@ export default {
       const goodId = this.findGoodId()
       const res = await this.$axios.$delete(`/api/v1/goods/${goodId}`)
       if (res.status !== 200) {
-        console.log(res)
       }
       this.goodList = this.goodList.filter(n => n.id !== goodId)
     },

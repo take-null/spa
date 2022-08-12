@@ -28,7 +28,9 @@
             :rules="rules"
             @keypress.enter.prevent="eventReady ? setBooks() : null"
           >
-            <template v-slot:append>
+            <template 
+              v-slot:append
+            >
               <v-col
                 cols="12"
                 sm="3"
@@ -97,14 +99,18 @@
               <v-list-item 
                 class="d-flex flex-column justify-content-start"
               >
-                <template v-if="image === null">
+                <template 
+                  v-if="image === null"
+                >
                   <img
                     height="250"
                     width="150"
                     src="@/assets/img/20200505_noimage.jpg"
                   >
                 </template>
-                <template v-else>
+                <template 
+                  v-else
+                >
                   <v-img
                     heigth="250"
                     width="150"
@@ -238,7 +244,9 @@
                     icon
                     @click.stop.prevent="edit(index, item)"
                   >
-                  <v-icon>{{ editing !== item ? 'mdi-pencil' : 'mdi-check' }}</v-icon>
+                  <v-icon>
+                    {{ editing !== item ? 'mdi-pencil' : 'mdi-check' }}
+                  </v-icon>
                   </v-btn>
                   </v-list-item-action>
                 </template>
@@ -312,21 +320,17 @@ import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
 import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
   components: { 
-                bookCard,
-                PerfectScrollbar
-              },
+    bookCard,
+    PerfectScrollbar
+  },
   methods: {
     async setBooks () {
       try {
+        this.books = []
         await this.$axios.get(`/api/v1/books/search?keyword=${this.keyword}`)
-          .then(
-            (res) => {
-            this.books = []
+        .then(
+          (res) => {
             this.books = res.data
-            console.log(res)
-            const bookKeys = Object.keys(books[0] || {}) // 追加
-            console.log(bookKeys)
-            return { books, bookKeys }
           }
         )
         } catch (error) {
@@ -350,7 +354,7 @@ export default {
         this.authors = authors
         this.published_at = published_at
         this.image = image
-      },
+    },
     async postBook () {
       try {
         this.loading = true
@@ -359,7 +363,6 @@ export default {
         })
         .then(
           (res) => {
-          console.log(res)
           this.createParams ()
         }
       )
@@ -380,7 +383,6 @@ export default {
           setTimeout(() => {
           this.postMessage = false
           }, 4000)
-          console.log(res)
         }
       )
       } catch (error) {
@@ -393,7 +395,6 @@ export default {
       for(var i = 0; i <= this.model.length - 1; i++ ) {
       this.params.push(this.model[i].text)
       if(count > 4) break;
-      console.log(this.params)
       }
     },
     edit (index, item) {
@@ -427,6 +428,7 @@ export default {
   data () {
     const min = 1
     return {
+      books: [],
       params: [],
       rating: 5,
       comment: "",
@@ -440,7 +442,6 @@ export default {
       isValid: false,
       dialog: false,
       postMessage: false,
-      books: null,
       keyword: "",
       min,
       rules: [

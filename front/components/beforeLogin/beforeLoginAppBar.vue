@@ -2,7 +2,7 @@
     <v-app-bar
       app
       :height="appBarHeight"
-      color="grey darken-4"
+      dark
     >
       <nuxt-link
         to="/"
@@ -30,7 +30,12 @@ import signupLink from '~/components/beforeLogin/signupLink.vue'
 import loginLink from '~/components/beforeLogin/loginLink.vue'
 
 export default {
-  components: { appLogo, appTitle, signupLink, loginLink },
+  components: { 
+    appLogo, 
+    appTitle, 
+    signupLink, 
+    loginLink 
+  },
   data ({ $store }) {
     return {
       appBarHeight: $store.state.styles.beforeLogin.appBarHeight

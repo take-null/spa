@@ -242,13 +242,11 @@ export default {
     let userFollowers = []
     await $axios.$get(`/api/v1/users/${$nxauth.user.id}`)
     .then((res) => (
-    user = res,
-    userFollowing = res.following,
-    userFollowers = res.followers
+      user = res,
+      userFollowing = res.following,
+      userFollowers = res.followers
     ))
-    const followingKeys = Object.keys(userFollowing[0] || {})
-    const followerKeys = Object.keys(userFollowers[0] || {}) 
-    return { user, userFollowing, userFollowers, followingKeys, followerKeys }
+    return { user, userFollowing, userFollowers }
   },
   data () {
     return {

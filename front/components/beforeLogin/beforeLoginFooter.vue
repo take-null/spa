@@ -1,5 +1,7 @@
 <template>
-  <div :style="{ marginTop: '${height}px' }">
+  <div 
+    :style="{ marginTop: '${height}px' }"
+  >
     <v-footer
       absolute
       dark
@@ -9,9 +11,13 @@
         cols="12"
         class="py-0"
       >
-        <div class="text-center text-body-2">
+        <div 
+          class="text-center text-body-2"
+        >
           &copy;{{ copyRightYear }}
-          <strong>{{ appName }}</strong>
+          <strong>
+            {{ appName }}
+          </strong>
         </div>
       </v-col>
     </v-footer>

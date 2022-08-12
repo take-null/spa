@@ -5,7 +5,6 @@
 </template>
 
 <script>
-//ツールバーとヘッダーを呼び出す
 export default {
 }
 </script>
