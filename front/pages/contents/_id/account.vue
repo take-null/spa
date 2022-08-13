@@ -53,6 +53,7 @@
                     class="d-flex align-end"
                   >
                     <bookDetail 
+                      :user_id.sync="book.user_id" 
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -106,7 +107,8 @@
                     cols="12" sm="4" md="3" lg="3" xl="2"
                     class="d-flex align-end"
                   >
-                    <bookDetail 
+                    <bookDetail
+                      :user_id.sync="book.user_id" 
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -190,7 +192,8 @@
                       cols="6"
                       class="d-flex align-end"
                   >
-                    <bookDetail 
+                    <bookDetail
+                      :user_id.sync="book.user_id" 
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -244,7 +247,8 @@
                     cols="6"
                     class="d-flex align-end"
                   >
-                    <bookDetail 
+                    <bookDetail
+                      :user_id.sync="book.user_id" 
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -299,7 +303,8 @@
                     cols="12"
                     class="d-flex align-end"
                   >
-                    <bookDetail 
+                    <bookDetail
+                      :user_id.sync="book.user_id" 
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"

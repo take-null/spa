@@ -60,43 +60,47 @@
             BookDetail
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn
-            text
-            rounded
-            outlined
-            small
-            @click="modal = true"
+          <template
+            v-if="$store.state.current.user.id === user_id"
           >
-            delete
-          </v-btn>
-          <v-snackbar
-            v-model="modal"
-            max-width="400"
-            absolute
-            outlined
-            text
-            top
-          >
-            <p
-              class="text-body-2 white--text" 
+            <v-btn
+              text
+              rounded
+              outlined
+              small
+              @click="modal = true"
             >
-              このレビューを削除しますか？
-            </p>
-            <template 
-              v-slot:action="{ attrs }"
-            >
-              <v-btn
-                text
-                rounded
-                outlined
-                small
-                v-bind="attrs"
-                @click.stop="deleteContent(id)"
-              >
-                yes
+              delete
             </v-btn>
-          </template>  
-          </v-snackbar>
+              <v-snackbar
+                v-model="modal"
+                max-width="400"
+                absolute
+                outlined
+                text
+                top
+              >
+                <p
+                  class="text-body-2 white--text" 
+                >
+                  この投稿データを削除しますか？
+                </p>
+              <template 
+                v-slot:action="{ attrs }"
+              >
+                <v-btn
+                  text
+                  rounded
+                  outlined
+                  small
+                  v-bind="attrs"
+                  @click.stop="deleteContent(id)"
+                >
+                  yes
+                </v-btn>
+              </template>  
+            </v-snackbar>
+          </template>
         </v-toolbar>
           <v-container
             fluid
@@ -288,6 +292,9 @@ export default {
     PerfectScrollbar 
   },
   props: {
+    user_id: {
+      tupe: Number
+    },
     book_image: {
       type: String
     },

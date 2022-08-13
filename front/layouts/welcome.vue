@@ -38,7 +38,7 @@
 
       <v-container
         fluid
-        :style="{ maxWidth: '1216px' }"
+        :style="{ maxWidth: '640px' }"
       >
         <v-row
           v-for="(menu, i) in menus"
