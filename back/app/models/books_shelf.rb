@@ -17,7 +17,6 @@ class BooksShelf < ApplicationRecord
         visited_id: user_id,
         action: 'good'
       )
-      # 自分の投稿に対するいいねの場合は、通知済みとする
       if notification.visitor_id == notification.visited_id
         notification.checked = true
       end

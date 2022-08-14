@@ -1,29 +1,29 @@
 module Api
   module V1
     class GoodsController < ApplicationController
-      #before_action :authenticate_api_v1_user!, only: [:create, :destroy]
+      before_action :authenticate_api_v1_user!, only: [:index, :create, :destroy]
       before_action :set_good, only: [:create]
 
       def index
-        render json: Good.filter_by_books_self(params[:books_shelf_id]).select(:id, :user_id, :books_shelf_id)
+        render json: Good.filter_by_books_self(params[:books_shelf_id]).select(:id, :user_id, :books_shelf_id), status: 200
       end
 
       def create
         @good = current_api_v1_user.goods.create!(goods_params)
         if @good.save
           @books_shelf.create_notification_good!(current_api_v1_user)
-          render json: { status: 'SUCCESS', data: @good }
+          render json: @good, status: 200
         else
-          render json: { status: 'ERROR', data: @good.errors }
+          render json: @good.errors, status: 500
         end
       end
   
       def destroy
         @good = Good.find(params[:id])
         if @good.destroy
-          render json: { status: 'SUCCESS', message: 'Delete the good', data: @good }
+          render json: @good, status: 200
         else
-          render json: { status: 'ERROR', data: @good.errors }
+          render json: @good.errors, status: 500
         end
       end
   

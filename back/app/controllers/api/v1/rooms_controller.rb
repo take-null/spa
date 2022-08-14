@@ -1,8 +1,7 @@
 module Api
   module V1
     class RoomsController < ApplicationController
-    #before_action :authenticate_api_v1_user!, only: [:index, :show]
-    #before_action :set_user, only: [:index, :show]
+      before_action :authenticate_api_v1_user!, only: [:index, :show, :create, :messages]
 
       def index
         rooms = current_api_v1_user.rooms.order(created_at: :desc)
@@ -14,7 +13,14 @@ module Api
             last_message: room.chat_messages[-1]
           }
         end
-        render json: rooms_array
+        render json: rooms_array, status: 200
+      end
+
+      def show
+        room = Room.find_by(id: params[:id])
+        current_user = room.users.where(id: current_api_v1_user.id)[0]
+        other_user = room.users.where.not(id: current_api_v1_user.id)[0]
+        render json: { room_id: room.id, current_user: current_user, other_user: other_user, status: 200 }
       end
 
       def create
@@ -35,7 +41,7 @@ module Api
             other_entry.each do |oe|
               if me.room_id == oe.room_id
                 room = Room.find_by(id: me.room_id)
-                render json: room
+                render json: room, status: 200
               end
             end
           end
@@ -44,23 +50,14 @@ module Api
           UserRoom.create(room_id: room.id, user_id: current_api_v1_user.id)
           UserRoom.create(room_id: room.id, user_id: params[:id])
           room = Room.find_by(id: room.id)
-          render json: room
+          render json: room, status: 200
         end
-      end
-
-      def show
-        room = Room.find_by(id: params[:id])
-        current_user = room.users.where(id: current_api_v1_user.id)[0]
-        other_user = room.users.where.not(id: current_api_v1_user.id)[0]
-        #messages = room.chat_messages.order(created_at: :asc)
-        #render json: { room_id: room.id, current_user: current_user, other_user: other_user, messages: messages }
-        render json: { room_id: room.id, current_user: current_user, other_user: other_user }
       end
 
       def messages
         room = Room.find_by(id: params[:id])
         messages = room.chat_messages.order(created_at: :asc)
-        render json: messages
+        render json: messages, status: 200
       end
 
     end

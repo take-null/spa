@@ -198,3 +198,24 @@ User.find(1)
 exit
 BooksShelf.all
 exit
+Like.all
+Likes.all
+exit
+Tweet.all
+exit
+rails c
+exit
+ActiveRecord::Base.connection.tables
+exit
+ActiveRecord::Base.connection.tables
+exit
+ActiveRecord::Base.connection.tables
+exit
+ActiveRecord::Base.connection.tables
+exit
+ActiveRecord::Base.connection.tables
+exit
+ActiveRecord::Base.connection.tables
+exit
+ActiveRecord::Base.connection.tables
+exit
