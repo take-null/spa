@@ -10,5 +10,7 @@ class DropTables < ActiveRecord::Migration[6.1]
     end
     drop_table :likes do
     end
+    drop_table :tweets do
+    end
   end
 end

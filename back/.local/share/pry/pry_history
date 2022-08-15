@@ -200,3 +200,4 @@ BooksShelf.all
 exit
 BooksShelf.all
 User.all
+ActiveRecord::Base.connection.tables

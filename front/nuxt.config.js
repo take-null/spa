@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - sample_front',
-    title: 'sample_front',
+    titleTemplate: 'libra',
+    title: 'libra',
     htmlAttrs: {
       lang: 'en',
     },

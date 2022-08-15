@@ -1,9 +1,7 @@
-module Render
+module CreateArray
   extend ActiveSupport::Concern
-
-  def render_user_page
-    pagenation = resources_with_pagenation(@books_shelves)
-    booksShelves_array = @books_shelves.map do |booksShelf|
+  def create_user_page_array(resource)
+    resource.map do |booksShelf|
       {
         id: booksShelf.id,
         user_id: booksShelf.user_id,
@@ -21,12 +19,10 @@ module Render
         good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map 
       }
     end
-    object = { books: booksShelves_array, kaminari: pagenation }
-    render json: object, status: 200
   end
 
-  def render_search_results
-    booksShelves_array = @books_shelves.map do |booksShelf|
+  def create_search_result_array(resource)
+    resource.map do |booksShelf|
       {
         id: booksShelf.id,
         user_id: booksShelf.user_id,
@@ -42,6 +38,6 @@ module Render
         good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
       }
     end
-    render json: booksShelves_array, status: 200
   end
+  
 end
