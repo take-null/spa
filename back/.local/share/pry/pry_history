@@ -198,3 +198,5 @@ User.find(1)
 exit
 BooksShelf.all
 exit
+BooksShelf.all
+User.all

@@ -53,37 +53,31 @@ export default {
   },
   methods: {
     async change () {
-      if ( this.$store.state.current.user.id === 1 ) {
-          this.error = 'ゲストユーザーはパスワードの変更ができません！'
-          this.formReset()
-        } else {
-        try {
-          this.loading = true
-          const formData = new FormData()
-          formData.append('password', this.params.password)
-          formData.append('password_confirmation', this.params.password_confirmation)
-          await this.$axios.put('/api/v1/auth/password', formData, {
-            'content-type': 'multipart/form-data',
-          })
-          .then(
-            (res) => {
-            this.loading = false
-            this.$router.replace('/')
-            return res
-          }
-        )
-        } catch (error) {
-          console.log({error})
+      try {
+        this.loading = true
+        const formData = new FormData()
+        formData.append('password', this.params.password)
+        formData.append('password_confirmation', this.params.password_confirmation)
+        await this.$axios.put('/api/v1/auth/password', formData, {
+          'content-type': 'multipart/form-data',
+        })
+        .then(
+        (res) => {
           this.loading = false
-          this.error = 'パスワードの不一致、または入力内容が間違っています。'
-          this.formReset()
-        }
+          this.$router.replace('/')
+          return res
+      })
+      } catch (error) {
+        console.log({error})
+        this.loading = false
+        this.error = 'パスワードの不一致、または入力内容が間違っています。'
+        this.formReset()
       }
     },
     formReset () {
       this.$refs.form.reset()
       this.params = { password: '', password_confirmation: '' }
     }
-  },
+  }
 };
 </script>

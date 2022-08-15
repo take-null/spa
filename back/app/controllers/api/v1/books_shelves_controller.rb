@@ -4,7 +4,7 @@ module Api
       include Pagenation
       #マイページ用
       def index
-        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: current_api_v1_user).order("created_at DESC").page(params[:page]).per(12)
+        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: current_api_v1_user.id).order("created_at DESC").page(params[:page]).per(12)
         pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
          {
