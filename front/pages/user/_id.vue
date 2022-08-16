@@ -30,7 +30,6 @@
     </v-container>
     <v-container
       v-else
-      fluid
     > 
       <v-snackbar
         v-model="followSnackbar"
@@ -79,7 +78,6 @@
               color="blue-grey lighten-5"
               rounded="lg"
               max-width="600"
-              min-height="70vh"
             >
               <b-container 
                 class="d-flex justify-content-end" 

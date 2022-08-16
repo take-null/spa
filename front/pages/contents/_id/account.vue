@@ -2,9 +2,7 @@
   <v-app 
     id="inspire"
   >
-    <v-container
-      fluid
-    >
+    <v-container>
       <v-row>
         <template 
           v-if="width > 600"
@@ -16,7 +14,6 @@
               color="blue-grey lighten-5"
               rounded="lg"
               max-width="600"
-              min-height="70vh"
             >
               <myProfile
                 :name.sync="user.name"

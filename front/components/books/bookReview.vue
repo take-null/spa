@@ -98,13 +98,20 @@
       ></v-rating>
     </v-list-item>
     <v-list-item-content>
-      <v-list-item-title
-        class="text-body-2 text--primary wrap-text"
+      <v-chip
+        v-if="chip"
+        class="chip"
+        label
+        @click="chip = false"
       >
-        <perfect-scrollbar>
-          {{comment}}
-        </perfect-scrollbar>
-      </v-list-item-title>
+        review
+      </v-chip>
+      <v-list
+        class="list overflow-y-auto text-body-2 text--primary wrap-text mt-n5"
+        style="max-height: 150px"
+      >
+        {{comment}}
+      </v-list>
     </v-list-item-content>
     </v-container>
     <v-container
@@ -188,12 +195,9 @@
 </template>
 
 <script>
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+
 export default {
-  components: { 
-    PerfectScrollbar 
-  },
+  components: {},
   props: {
     book_image: {
       type: String
@@ -234,6 +238,7 @@ export default {
   },
   data () {
     return {
+      chip: true,
       dialog: false,
       goodList: this.goodArray
     }
@@ -292,18 +297,21 @@ export default {
 </script>
 
 <style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
 .wrap-text {
   word-break: break-all;
   white-space: pre-line;
 }
-.ps {
-  height: 80px;
-  border: 1px solid #ECEFF1;
+.list::-webkit-scrollbar { 
+  display: none;
+}
+
+.list {
+  scrollbar-width: none;
+  position: relative;
+  z-index: 0;
+}
+.chip {
+  position: absolute;
+  z-index: 1;
 }
 </style>

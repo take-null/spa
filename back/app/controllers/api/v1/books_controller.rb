@@ -24,9 +24,9 @@ module Api
       def create
         google_book = GoogleBook.new_from_id(create_book_params[:google_books_api_id])
         if (@book = google_book.find_book_or_save)
-          render json: { status: 200, data: google_book }
+          render json: google_book, status: 200
         else
-          render json: { status: 500, data: google_book.errors }
+          render json: google_book.errors, status: 500
         end
       end
 

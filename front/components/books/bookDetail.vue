@@ -104,6 +104,7 @@
         </v-toolbar>
           <v-container
             fluid
+            :style="{ maxWidth: '1000px' }"
           >
             <div
               class="text-sm-h7 mb-4"
@@ -222,25 +223,7 @@
           </v-row>
         </v-container>
         <v-container
-          fluid
-          mt-n2 pt-0
-        >
-          <v-list-item-content>
-            <v-list-item-title
-              class="text-body-2 text--primary wrap-text" 
-            >
-              UserReview
-            </v-list-item-title>
-            <v-list-item-subtitle
-              class="text-body-2 text--primary wrap-text"
-            >
-              <perfect-scrollbar>
-                {{comment}}
-              </perfect-scrollbar>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-container>
-        <v-container
+          :style="{ maxWidth: '1000px' }"
           fluid
           mt-n2 pt-0
         >
@@ -276,6 +259,26 @@
               </p>
             </template>
           </v-row>
+        </v-container>
+        <v-container
+          :style="{ maxWidth: '1200px' }"
+          fluid
+          mt-n2 pt-0
+        >
+          <v-list-item-content>
+            <v-list-item-title
+              class="text-body-2 text--primary wrap-text" 
+            >
+              UserReview
+            </v-list-item-title>
+            <v-list-item-subtitle
+              class="text-body-2 text--primary wrap-text"
+            >
+              <perfect-scrollbar>
+                {{comment}}
+              </perfect-scrollbar>
+            </v-list-item-subtitle>
+          </v-list-item-content>
         </v-container>
       </v-sheet>
     </v-dialog>
@@ -365,7 +368,7 @@ export default {
   white-space: pre-line;
 }
 .ps {
-  height: 200px;
+  height: 400px;
   border: 1px solid #212121;
 }
 </style>

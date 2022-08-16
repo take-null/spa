@@ -16,7 +16,7 @@
             rounded
             @click.stop="dialog = true"
           >
-            edit user
+            edit
           </v-btn>
         </b-container>
           <div 
@@ -80,66 +80,71 @@
         v-model="dialog"
         fullscreen
       >
-        <v-card 
+        <v-sheet 
           color="blue-grey lighten-5"
           class="mx-auto"
         >
-          <template>
-            <b-container 
-              class="d-flex justify-content-end"
-            >
-              <v-btn
-                text
-                outlined
-                rounded
-                @click="dialog = false"
+          <v-container
+            fluid
+            :style="{ maxWidth: '768px' }"
+          >
+            <template>
+              <b-container 
+                class="d-flex justify-content-end"
               >
-                close
-              </v-btn>
-            </b-container>
-            <userFormImage />
-            <v-form
-              ref="form"
-              v-model="isValid"
-            >
-              <v-card-text>
+                <v-btn
+                  text
+                  outlined
+                  rounded
+                  @click="dialog = false"
+                >
+                  close
+                </v-btn>
+              </b-container>
+              <userFormImage />
+              <v-form
+                ref="form"
+                v-model="isValid"
+              >
                 <v-card-text>
-                  <v-icon> 
-                    mdi-badge-account-horizontal 
-                  </v-icon>
-                  <span>
-                    プロフィール
-                  </span>
+                  <v-card-text>
+                    <v-icon> 
+                      mdi-badge-account-horizontal 
+                    </v-icon>
+                    <span>
+                      プロフィール
+                    </span>
+                  </v-card-text>
+                  <userFormProfile
+                    :profile.sync="params.profile" 
+                  />
+                  <userFormAge
+                    :age.sync="params.age" 
+                  />
+                  <userFormLocate
+                    :locate.sync="params.locate" 
+                  />
                 </v-card-text>
-                <userFormProfile
-                  :profile.sync="params.profile" 
-                />
-                <userFormAge
-                  :age.sync="params.age" 
-                />
-                <userFormLocate
-                  :locate.sync="params.locate" 
-                />
+                <v-card-text 
+                  class="px-0"
+                >
+                  <div>
+                    {{error}}
+                  </div>
+                <v-btn
+                  :loading="loading"
+                  block
+                  dark
+                  class="white--text"
+                  @click.stop="change"
+                >
+                  プロフィールを更新
+                </v-btn>
               </v-card-text>
-              <v-card-text 
-                class="px-0"
-              >
-                <div>
-                  {{error}}
-                </div>
-              <v-btn
-                :loading="loading"
-                block
-                dark
-                class="white--text"
-                @click.stop="change"
-              >
-                プロフィールを更新
-              </v-btn>
-            </v-card-text>
-          </v-form>
-        </template>
-      </v-card>
+            </v-form>
+          </template>
+        </v-container>
+      </v-sheet>
     </v-dialog>
   </div>
 </template>

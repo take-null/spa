@@ -5,11 +5,11 @@ module Api
       #before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
       
       def index
-        users = User.includes(:following, 
+        @users = User.includes(:following, 
                               :followers, 
                               ).where.not(id: current_api_v1_user.id).order(:id)
-        render json: users.as_json(include: [{following: {except: [:uid, :email]}},
-                                             {followers: {except: [:uid, :email]}}])
+        render json: @users.as_json(include: [{following: {except: [:uid, :email]}},
+                                              {followers: {except: [:uid, :email]}}]), status: 200
       end
 
       def search
@@ -23,7 +23,7 @@ module Api
                                              {followers: {except: [:uid, :email]}}, 
                                              {active_notifications: {}}, 
                                              {passive_notifications: {}},
-                                             {goods: {}}])
+                                             {goods: {}}]), status: 200
       end
 
       def show
@@ -33,13 +33,13 @@ module Api
                              ).find(params[:id])
         render json: @user.as_json(include: [{following: {except: [:uid, :email]}},
                                              {followers: {except: [:uid, :email]}},
-                                             {goods: {}}])
+                                             {goods: {}}]), status: 200
       end
 
       def destroy
         @user = correct_user
         if @user.destroy
-          render json: user
+          render json: user, status: 200
         else
           render json: { status: 400 }
         end

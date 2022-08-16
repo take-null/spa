@@ -5,7 +5,6 @@
     <v-container
       :style="{ maxWidth: '1300px' }"
       class="py-8 px-6"
-      id="top"
     >
       <v-row
         dense
@@ -117,6 +116,7 @@
             <infinite-loading 
               @infinite="infiniteHandler"
             ></infinite-loading>
+
           </template>
           <template
             v-else
@@ -164,6 +164,22 @@
                     @searchTagParent="searchTag"
                   />
                 </v-col>
+                <v-card
+                  class="mx-auto"
+                  max-width="768"
+                  color="grey lighten-2"
+                  elevation="0"
+                  @click="goTo ()"
+                >
+                  <p
+                    class="text-subtitle-1"
+                  >
+                    <v-icon>
+                      mdi-arrow-up-circle-outline
+                    </v-icon>
+                      goTo
+                  </p>
+                </v-card>
               </v-row>
             </v-container>
           </template>
@@ -212,9 +228,9 @@ export default {
     page: 2
   }),
   async asyncData ({ $axios }) {
-    let books = await $axios.$get(`/api/v1/books_shelves/all`)
-    let ranking = await $axios.$get(`/api/v1/books_shelves/rank`)
-    let tags = await $axios.$get(`/api/v1/books_shelves/tag`)
+    let books = await $axios.$get('/api/v1/books_shelves/all')
+    let ranking = await $axios.$get('/api/v1/books_shelves/rank')
+    let tags = await $axios.$get('/api/v1/books_shelves/tag')
     const formattedBooks = books.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
         return { ...book, created_at: time }
     })
@@ -230,7 +246,7 @@ export default {
       this.$router.replace('/contents/1/books')
     },
     goTo () {
-      this.$vuetify.goTo(`#top`)
+      this.$vuetify.goTo('#inspire')
     },
     async searchTag (tag) {
       let shelves = await this.$axios.$get(`/api/v1/books_shelves/search?tag=${tag}`)
@@ -252,39 +268,42 @@ export default {
       return { formattedShelves }
     },
     infiniteHandler($state) {
-      this.$axios.$get(`/api/v1/books_shelves/all`, {
-        params: {
-          page: this.page , 
-        },
-      })
-      .then((res) => {
-        const books = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
-          return { ...book, created_at: time }
+      if ( this.formattedBooks.length ) {
+        this.$axios.$get('/api/v1/books_shelves/all', {
+          params: {
+            page: this.page , 
+          },
         })
-        setTimeout(() => {
-          if (this.page <= res.kaminari.pagenation.pages) {
-            this.page += 1
-            let num = 0;
-            while(num <= books.length - 1) {
-              this.formattedBooks.push(books[num]);
-              num++;
+        .then((res) => {
+          const books = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
+            return { ...book, created_at: time }
+          })
+          setTimeout(() => {
+            if (this.page <= res.kaminari.pagenation.pages) {
+              this.page += 1
+              let num = 0;
+              while(num <= books.length - 1) {
+                this.formattedBooks.push(books[num]);
+                num++;
+              }
+              $state.loaded()
+            } else {
+              this.goTo()
+              this.page = 1,
+              this.$axios.$get(`/api/v1/books_shelves/all?page=${this.page}`)
+              .then((res) => {
+                this.formattedBooks = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
+                return { ...book, created_at: time }
+              })})
+              this.page = 2
+              this.infiniteHandler($state)
             }
-            $state.loaded()
-          } else {
-            this.goTo()
-            this.page = 1,
-            this.$axios.$get(`/api/v1/books_shelves/all?page=${this.page}`)
-            .then((res) => {
-              this.formattedBooks = res.books.map(book => {let time = formatDistanceToNow(new Date(book.created_at), { locale: ja })
-              return { ...book, created_at: time }
-            })})
-            this.page = 2
-            this.infiniteHandler($state)
-          }
-        }, 800)
-      }).catch((err) => {
-        $state.complete()
-      })
+          }, 800)
+        }).catch((err) => {
+          console.log(err)
+          $state.complete()
+        })
+      }
     }
   }
 };
