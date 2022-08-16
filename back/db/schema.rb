@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_14_110454) do
+ActiveRecord::Schema.define(version: 2022_08_16_161836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_08_14_110454) do
     t.integer "rating", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "google_books_api_id"
+    t.string "google_books_api_id", null: false
     t.index ["book_id"], name: "index_books_shelves_on_book_id"
     t.index ["user_id", "book_id", "created_at"], name: "index_books_shelves_on_user_id_and_book_id_and_created_at"
     t.index ["user_id"], name: "index_books_shelves_on_user_id"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2022_08_14_110454) do
 
   create_table "chat_messages", force: :cascade do |t|
     t.integer "user_id"
-    t.text "message"
+    t.text "message", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
@@ -98,7 +98,6 @@ ActiveRecord::Schema.define(version: 2022_08_14_110454) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.text "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

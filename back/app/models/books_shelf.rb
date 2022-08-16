@@ -4,6 +4,11 @@ class BooksShelf < ApplicationRecord
   belongs_to :book
   has_many :goods, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  
+  validates :rating, presence: true
+  validates :comment, presence: true
+  validates :google_books_api_id, presence: true
+  validates :comment, length: { maximum: 400 }
 
   def create_notification_good!(current_api_v1_user)
     # すでに「いいね」されているか検索
