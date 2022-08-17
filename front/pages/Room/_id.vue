@@ -172,33 +172,42 @@
           </v-row>
         </v-card-text>
         <v-divider></v-divider>
-        <v-card-text>
-          <v-textarea
-            rows="2"
-            autofocus
-            label="メッセージを入力"
-            v-model="message"
-            clearable
-          >
-            <template 
-              v-slot:append
+        <v-form
+          ref="form"
+          v-model="isValid"
+        >
+          <v-card-text>
+            <v-textarea
+              rows="2"
+              autofocus
+              :rules="rules"
+              :counter="max"
+              label="メッセージを入力"
+              v-model="message"
+              clearable
             >
-              <v-col
-                cols="12"
+              <template 
+                v-slot:append
               >
-                <v-btn 
-                  icon 
-                  color="blue" 
-                  @click="send_onClick()"
+                <v-col
+                  cols="12"
                 >
-                  <v-icon>
-                    mdi-send
-                  </v-icon>
-                </v-btn>
-              </v-col>
-            </template>
-          </v-textarea>
-        </v-card-text>
+                  <v-btn
+                    :disabled="!isValid || loading"
+                    :loading="loading"
+                    icon 
+                    color="blue" 
+                    @click="send_onClick()"
+                  >
+                    <v-icon>
+                      mdi-send
+                    </v-icon>
+                  </v-btn>
+                </v-col>
+              </template>
+            </v-textarea>
+          </v-card-text>
+        </v-form>
       </v-card>
     </v-main>
   </v-app>
@@ -213,7 +222,15 @@ export default defineComponent({
     return /^\d+$/.test(params.id)
   },
   data () {
+    const max = 140
     return {
+      isValid: false,
+      loading: false,
+      max,
+      rules: [
+        v => !!v || '',
+        v => (!!v && max >= v.length) || `${max}文字以内で入力してください`
+      ],
       error: null,
       messages: [],
       message: ""
@@ -284,6 +301,7 @@ export default defineComponent({
             id: this.id,
             message: this.message
         })
+        this.loading = false
         this.message = ""
       }
     }
