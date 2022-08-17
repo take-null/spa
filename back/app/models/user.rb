@@ -7,10 +7,15 @@ class User < ActiveRecord::Base
   has_many :chat_messages, dependent: :destroy
   has_many :user_rooms, dependent: :destroy
   has_many :rooms, through: :user_rooms
-  
-  has_many :books, through: :books_shelves
   has_many :books_shelves, dependent: :destroy
+  has_many :books, through: :books_shelves
   has_many :goods, dependent: :destroy
+
+  validates :uid, presence: true
+  validates :name, presence: true, length: { maximum: 30 }
+  validates :email, presence: true, uniqueness: true
+  validates :profile, length: { maximum: 140 }
+
   #通知機能
   has_many :active_notifications, class_name: 'Notification', 
                                   foreign_key: 'visitor_id', 

@@ -1,5 +1,7 @@
 FactoryBot.define do
-  factory :chat_messages do
-    message { Faker::String.random(length: 1..140)}
+  factory :chat_message do
+    user
+    room
+    message { Faker::Lorem.characters(number: 140) }
   end
 end

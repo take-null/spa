@@ -21,7 +21,7 @@ export default {
     }    
   },
   data () {
-    const max = 255
+    const max = 140
     return {
       max,
       rules: [

@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'アソシエーションテスト' do
+    subject(:room) { create(:room) }
+    
+    it { is_expected.to have_many(:chat_messages) }
+    it { is_expected.to have_many(:user_rooms) }
+    it { is_expected.to have_many(:users) }
+  end 
 end

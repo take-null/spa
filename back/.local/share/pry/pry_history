@@ -201,3 +201,42 @@ exit
 BooksShelf.all
 User.all
 ActiveRecord::Base.connection.tables
+Faker::Internet.email
+Faker::Artist.name
+Faker::Name.first_name
+Faker::Lorem.characters(number:20)
+Faker::Lorem.characters(number:400)
+BooksShelf.find(1)
+BooksShelf.find(id: 1)
+BooksShelf.find(25)
+BooksShelf.al
+BooksShelf.all
+BooksShelf.find(48)
+BooksShelf.find(47)
+BooksShelf.find(46)
+BooksShelf.find(49)
+Faker::Lorem.characters(number:12)
+Faker::Book.title
+Book.all
+Faker::Date.forward(days: 23)
+Faker::Internet.password(length: 10)
+Faker::Internet.password(min_length: 12, max_length: 12)
+Faker::Internet.url
+Authors.all
+Author.all
+Faker::Name.name
+User.all
+User.find(1)
+Faker::Twitter.status(include_photo: true)~
+Faker::Twitter.status(include_photo: true)
+User.find(1)
+Faker::String.random
+Faker::Number.between(from: 1, to: 120)
+Notification.all
+Faker::Internet.domain_name(domain: "example")
+Faker::String.random(length: 3..140)
+Faker::String.random(length: [0, 6])
+Faker::String.random(length: [3, 6])
+exit
+User.find(1)
+exit

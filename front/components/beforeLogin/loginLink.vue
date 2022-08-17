@@ -1,5 +1,6 @@
 <template>
   <v-btn
+    small
     outlined
     class="ml-2 font-weight-bold"
     color="white"

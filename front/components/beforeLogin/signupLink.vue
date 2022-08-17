@@ -1,5 +1,6 @@
 <template>
   <v-btn
+    small
     outlined
     dark
     color="myblue"
