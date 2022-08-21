@@ -13,8 +13,6 @@ module Api
         end
       end
       
-
-
       def destroy
         if  @current_user.id == current_api_v1_user.id
           user = current_api_v1_user.unfollow(@other_user)

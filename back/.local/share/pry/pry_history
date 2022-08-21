@@ -240,3 +240,53 @@ Faker::String.random(length: [3, 6])
 exit
 User.find(1)
 exit
+ChatMessage.all
+GoogleBook.all
+Book.all
+Author.all
+Goods.all
+Good.all
+BooksShelf.all
+Book.find_by(google_books_api_id: "jfApAQAAMAAJ")
+BooksShelf.all
+Book.all
+@book
+@books_shelf
+@books_shelf.google_books_api_id
+params[:google_books_api_id]
+book = Book.find_by(google_books_api_id: params[:google_books_api_id])
+book = Book.find_by(google_books_api_id: "jfApAQAAMAAJ")
+book = Book.find_by(1)
+book = Book.find(1)
+Book.all
+BooksShelf.all
+@books_shelf.google_books_api_id
+@books_shelf
+exit
+exit
+@book
+@books_shelves
+@books_shelf
+current_api_v1_user
+exit
+current_user
+current_api_v1_user
+@book
+exit
+@book
+exit
+@book
+exit
+@book
+exit
+@book
+exit
+@book
+Book.all
+User.all
+exit
+exit
+@book
+exit
+@book
+exit

@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :book do
-    google_books_api_id { Faker::Lorem.characters(number:12) }
+    sequence(:id) { |n| "#{n}".to_i }
+    google_books_api_id { "jfApAQAAMAAJ" }
     title { Faker::Book.title }
     image { Faker::Internet.url }
     publisher { Faker::Book.publisher }

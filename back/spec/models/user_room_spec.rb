@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UserRoom, type: :model do
+  
   describe "アソシエーションテスト" do
     subject(:user_room) { create(:user_room) }
     

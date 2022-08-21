@@ -52,7 +52,7 @@ RSpec.describe User, type: :model do
 
   describe 'アソシエーションテスト' do
     subject(:user) { create(:user) }
-    
+
     it { is_expected.to have_many(:active_relationships) }
     it { is_expected.to have_many(:following) }
     it { is_expected.to have_many(:passive_relationships) }
@@ -66,5 +66,4 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:books) }
     it { is_expected.to have_many(:goods) }
   end
-
 end

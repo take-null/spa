@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :notification do
     books_shelf
+    sequence(:id) { |n| "#{n}".to_i }
     visitor_id { FactoryBot.create(:user).id }
     visited_id { FactoryBot.create(:user).id }
     action { Faker::Lorem.characters(number:6) }

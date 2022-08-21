@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Good, type: :model do
+  
   describe "アソシエーションテスト" do
     subject(:good) { create(:good) }
     

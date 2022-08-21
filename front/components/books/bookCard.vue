@@ -11,7 +11,9 @@
       <v-row 
         no-gutters
       >
-        <v-col>
+        <v-col
+          cols="12"
+        >
           <v-list-item-content>
             <v-list-item 
               class="d-flex flex-column justify-content-start"
@@ -37,7 +39,9 @@
             </v-list-item>
           </v-list-item-content>
         </v-col>
-        <v-col>
+        <v-col
+          cols="12"
+        >
           <v-list-item 
             three-line
           >
@@ -45,17 +49,23 @@
               class="d-flex justify-content-end"
             >
               <div 
-                class="text-body-1 mb-4"
+                class="text-body-2 mb-4"
               >
                 {{title}}
               </div>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle
+                class="text-caption mb-4"
+              >
                 作者:{{authors}}
               </v-list-item-subtitle>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle
+                class="text-caption mb-4"
+              >
                 出版社:{{publisher}}
               </v-list-item-subtitle>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle
+                class="text-caption mb-4"
+              >
                 出版年月日:{{published_at}}
               </v-list-item-subtitle>
             </v-list-item-content>
@@ -67,7 +77,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     publisher: {

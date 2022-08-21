@@ -50,10 +50,10 @@ ActiveRecord::Schema.define(version: 2022_08_17_070316) do
 
   create_table "chat_messages", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "room_id"
     t.text "message", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "room_id"
     t.index ["room_id"], name: "index_chat_messages_on_room_id"
     t.index ["user_id"], name: "index_chat_messages_on_user_id"
   end
@@ -147,9 +147,9 @@ ActiveRecord::Schema.define(version: 2022_08_17_070316) do
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: 6
+    t.datetime "reset_password_sent_at"
     t.boolean "allow_password_change", default: false
-    t.datetime "remember_created_at", precision: 6
+    t.datetime "remember_created_at"
     t.string "name", null: false
     t.string "image"
     t.string "email"

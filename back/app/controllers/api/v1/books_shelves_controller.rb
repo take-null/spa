@@ -5,7 +5,7 @@ module Api
       include CreateArray
       #マイページ用
       def index
-        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: current_api_v1_user.id).order("created_at DESC").page(params[:page]).per(12)
+        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: current_api_v1_user).order(created_at: :desc).page(params[:page]).per(12)
         pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = create_user_page_array(@books_shelves)
         object = { books: booksShelves_array, kaminari: pagenation }
@@ -21,7 +21,7 @@ module Api
       end
       #他人のページ用
       def user
-        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: params[:id]).order("created_at DESC").page(params[:page]).per(12)
+        @books_shelves = BooksShelf.includes(:book, :tags, :goods).where(user_id: params[:id]).order(created_at: :desc).page(params[:page]).per(12)
         pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = create_user_page_array(@books_shelves)
         object = { books: booksShelves_array, kaminari: pagenation }
@@ -29,7 +29,7 @@ module Api
       end
       #タイムライン用
       def all
-        @books_shelves = BooksShelf.includes(:book, :user, :tags, :goods).order("created_at DESC").page(params[:page]).per(5)
+        @books_shelves = BooksShelf.includes(:book, :user, :tags, :goods).order(created_at: :desc).page(params[:page]).per(5)
         pagenation = resources_with_pagenation(@books_shelves)
         booksShelves_array = @books_shelves.map do |booksShelf|
           {
@@ -83,21 +83,20 @@ module Api
       end
       #タグ検索用
       def search
-        @books_shelves = BooksShelf.includes(:book, :user, :goods).tagged_with(params[:tag]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user, :goods).tagged_with(params[:tag]).order(created_at: :desc)
         booksShelves_array = create_search_result_array(@books_shelves)
         render json: booksShelves_array, status: 200
       end
       #ランキング検索用
       def view
-        @books_shelves = BooksShelf.includes(:book, :user, :goods).where(google_books_api_id: params[:google_books_api_id]).order("created_at DESC")
+        @books_shelves = BooksShelf.includes(:book, :user, :goods).where(google_books_api_id: params[:google_books_api_id]).order(created_at: :desc)
         booksShelves_array = create_search_result_array(@books_shelves)
         render json: booksShelves_array, status: 200
       end
       
       #レビュー作成用
       def create
-        @books_shelf = BooksShelf.new(books_shelf_params)
-        @books_shelf.user_id = current_api_v1_user.id
+        @books_shelf = current_api_v1_user.books_shelves.new(books_shelf_params)
         @book = Book.find_by(google_books_api_id: params[:google_books_api_id])
         @books_shelf.book_id = @book.id
         if @books_shelf.save
