@@ -61,7 +61,7 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <template
-            v-if="$store.state.current.user.id === user_id"
+            v-if="owner_id === user_id"
           >
             <v-btn
               text
@@ -271,12 +271,13 @@
             >
               UserReview
             </v-list-item-title>
-            <v-list-item-subtitle
-              class="text-body-2 text--primary wrap-text"
-            >
-              <perfect-scrollbar>
+            <v-list-item-subtitle>
+              <v-list
+                class="list overflow-y-auto text-body-2 text--primary wrap-text mt-n5"
+                style="max-height: 400px"
+              >
                 {{comment}}
-              </perfect-scrollbar>
+              </v-list>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-container>
@@ -288,12 +289,8 @@
 <script>
 import { formatDistanceToNow } from 'date-fns'
 import { ja } from 'date-fns/locale'
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
-  components: { 
-    PerfectScrollbar 
-  },
+  components: {},
   props: {
     user_id: {
       tupe: Number
@@ -337,6 +334,7 @@ export default {
   },
   data () {
     return {
+      owner_id: this.$store.state.current.user.id,
       modal: false,
       dialog: false,
       day: formatDistanceToNow(new Date(this.created_at), { locale: ja })
@@ -356,19 +354,16 @@ export default {
 </script>
 
 <style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
-
 .wrap-text {
   word-break: break-all;
   white-space: pre-line;
 }
-.ps {
-  height: 400px;
-  border: 1px solid #212121;
+.list::-webkit-scrollbar { 
+  display: none;
+}
+.list {
+  scrollbar-width: none;
+  position: relative;
+  z-index: 0;
 }
 </style>

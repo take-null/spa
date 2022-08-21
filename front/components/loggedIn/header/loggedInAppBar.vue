@@ -310,7 +310,7 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-subtitle>
-              {{ $nxauth.user.name }}
+              {{ $store.state.current.user.name }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
