@@ -515,11 +515,11 @@ export default defineComponent({
   validate({ params }) {
     return /^\d+$/.test(params.id)
   },
-  computed: {
-    isPerson () {
-      return this.$store.state.current.user
-    }
-  },
+  //computed: {
+    //isPerson () {
+      //return this.$store.state.current.user
+    //}
+  //},
   data () {
     return {
       page: 1,

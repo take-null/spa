@@ -3,7 +3,6 @@ import { strategies } from "@nuxtjs/auth/lib/module/defaults"
 const cryptoJs = require('crypto-js')
 const storage = window.localStorage
 const keys = { expiry: 'expiry' }
-
 class Authentication {
   constructor (ctx) {
     this.store = ctx.store

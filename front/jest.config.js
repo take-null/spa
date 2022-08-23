@@ -6,7 +6,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'vue', 'json'],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
     '.*\\.(vue)$': 'vue-jest',
   },
   collectCoverage: true,
@@ -15,4 +15,5 @@ module.exports = {
     '<rootDir>/pages/**/*.vue',
   ],
   testEnvironment: 'jsdom',
+  setupFiles: ['./test/unit/setup.js']
 }

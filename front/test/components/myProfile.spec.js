@@ -25,7 +25,7 @@ describe('myProfile.vue', () => {
     const props = {
       name: 'admin',
       profile: 'サンプルユーザーです',
-      age: '1',
+      age: 1,
       locate: '北海道',
       following: [
         {
