@@ -22,7 +22,7 @@
           size="100"
         >
           <v-img  
-            :src="`http://localhost:3000/${img}`" 
+            :src="`${$config.defaultUrl}${img}`" 
           />
         </v-avatar>
         <v-avatar 

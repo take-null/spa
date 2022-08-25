@@ -1,10 +1,5 @@
 import axios from "axios"
 
-//export default axios.create({
-  //baseURL: "http://localhost:3000"
-  //baseURL: "https://referer-hub-api.net" 
-//})
-
 //認証機能が正常に作動しないときはブラウザのキャッシュが溜まっているためクリアする事
 export default function ({ $axios }) {
   $axios.onRequest((config) => {

@@ -34,7 +34,7 @@
               v-else
             >
               <v-img
-                :src="`http://localhost:3000/${room.current_user.image.thumb.url}`"
+                :src="`${$config.defaultUrl}${room.current_user.image.thumb.url}`"
               />
             </template>
           </v-list-item-avatar>
@@ -64,7 +64,7 @@
               v-else
             >
               <v-img
-                :src="`http://localhost:3000/${room.other_user.image.thumb.url}`"
+                :src="`${$config.defaultUrl}${room.other_user.image.thumb.url}`"
               />
             </template>
           </v-list-item-avatar>
@@ -125,7 +125,7 @@
                           v-else
                         >
                           <v-img
-                            :src="`http://localhost:3000/${room.current_user.image.thumb.url}`"
+                            :src="`${$config.defaultUrl}${room.current_user.image.thumb.url}`"
                           />
                         </template>
                       </v-list-item-avatar>
@@ -150,7 +150,7 @@
                         </template>
                         <template v-else>
                           <v-img
-                            :src="`http://localhost:3000/${room.other_user.image.thumb.url}`"
+                            :src="`${$config.defaultUrl}${room.other_user.image.thumb.url}`"
                           />
                         </template>
                       </v-list-item-avatar>
@@ -248,7 +248,7 @@ export default defineComponent({
   },
   mounted() {
     this.getMessages()
-    const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
+    const cable = ActionCable.createConsumer(`ws://localhost:3000/cable`)
       this.messageChannel = cable.subscriptions.create({ channel: "RoomChannel", room: `${this.id}`}, {
       connected: () => {
         this.getMessages()

@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'libra',
-    title: 'libra',
+    titleTemplate: `${process.env.APP_NAME}`,
+    title: `${process.env.APP_NAME}`,
     htmlAttrs: {
       lang: 'en',
     },
@@ -59,7 +59,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'localhost:3000',
+    baseURL: `${process.env.DEFAULT_URL}`,
   },
 
   auth: {
@@ -119,7 +119,11 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   publicRuntimeConfig: {
-    appName: process.env.APP_NAME, // 追加
-    cryptoKey: process.env.CRYPTO_KEY
-  },
+    appName: process.env.APP_NAME,
+    guestEmail: process.env.GUEST_EMAIL,
+    guestPass: process.env.GUEST_PASS,
+    cryptoKey: process.env.CRYPTO_KEY,
+    defaultUrl: process.env.DEFAULT_URL,
+    redirectUrl: process.env.REDIRECT_URL
+  }
 }

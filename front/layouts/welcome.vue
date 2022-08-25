@@ -24,7 +24,7 @@
             <h1
               class="display-1 mb-4 font-italic"
             >
-              libra
+              {{$config.appName}}
             </h1>
             <h6
               class="subheading"
@@ -86,14 +86,14 @@ export default {
   components: {
     welAbout, welAppBar, welContentOne
   },
-  data () {
+  data ({ $config }) {
     return {
-      params: { email: 'admin@gmail.com', password: 'adminpassword' },
+      params: { email: `${$config.guestEmail}`, password: `${$config.guestPass}` },
       imgHeight: 500,
       menus: [
-        { title: 'about', subtitle: '"libra"は本の情報共有サイトです' },
+        { title: 'about', subtitle: `${$config.appName}は本の情報共有サイトです` },
         { title: 'content-one', subtitle: '本を検索し、書いたレビューをユーザー間で共有できます' },
-      ]
+      ],
     }
   },
   methods: {

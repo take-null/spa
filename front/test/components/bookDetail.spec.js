@@ -1,7 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
-//state.current.userはデフォルトがnullなので以下はコメントアウトし、直接定義する
-//import { state } from '@/store/index.js'
 import bookDetail from '~/components/books/bookDetail'
 
 const localVue = createLocalVue()

@@ -290,3 +290,5 @@ exit
 exit
 @book
 exit
+User.all
+exit

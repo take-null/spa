@@ -63,8 +63,7 @@ export default {
         this.loading = true
         const res = await this.$auth.loginWith('local', { data: this.params })
         .then(
-          (res) => {
-          console.log(res)  
+          (res) => { 
           this.$store.dispatch('login')
           const user = res.data.data
           const expiry = res.headers.expiry 

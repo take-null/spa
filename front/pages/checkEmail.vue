@@ -50,7 +50,7 @@ export default {
         this.loading = true
         await this.$axios.$post('/api/v1/auth/password/',{
             email: this.params.email,
-            redirect_url: `http://localhost:8080/passwordReset`
+            redirect_url: `${this.$config.redirectUrl}`
         })
         .then(
           (res) => {

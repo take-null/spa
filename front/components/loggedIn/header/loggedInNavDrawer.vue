@@ -86,7 +86,7 @@
             @click.stop="mini = !mini"
           >
             <v-img 
-              :src="`http://localhost:3000/${img}`" 
+              :src="`${$config.defaultUrl}${img}`" 
               alt="avatar" 
             />
           </v-btn>

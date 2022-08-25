@@ -77,7 +77,7 @@
                               v-else
                             >
                               <v-img
-                                :src="`http://localhost:3000/${item.image.url}`"
+                                :src="`${$config.defaultUrl}${item.image.url}`"
                               />
                             </template>
                           </v-list-item-avatar>
@@ -177,7 +177,7 @@
                             v-else
                           >
                             <v-img
-                              :src="`http://localhost:3000/${item.image.url}`"
+                              :src="`${$config.defaultUrl}${item.image.url}`"
                             />
                           </template>
                         </v-list-item-avatar>

@@ -41,7 +41,7 @@
                 v-else
               >
                 <v-img 
-                  :src="`http://localhost:3000/${user_image}`" 
+                  :src="`${$config.defaultUrl}${user_image}`" 
                   alt="avatar" 
                 />
               </template>

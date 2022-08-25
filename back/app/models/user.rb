@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :books, through: :books_shelves
   has_many :goods, dependent: :destroy
 
-  validates :uid, presence: true
+  #validates :uid, presence: true
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: true
   validates :profile, length: { maximum: 140 }

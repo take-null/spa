@@ -29,7 +29,7 @@
           v-else
         >
           <v-img
-            :src="`http://localhost:3000/${image}`"
+            :src="`${$config.defaultUrl}${image}`"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             max-height="100%"

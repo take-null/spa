@@ -142,7 +142,7 @@
                             class="user-image"
                           >
                             <v-img 
-                              :src="`http://localhost:3000/${notice.user_image}`" 
+                              :src="`${$config.defaultUrl}${notice.user_image}`" 
                               alt="avatar" 
                             />
                           </v-avatar>
@@ -242,7 +242,7 @@
                             class="user-image"
                           >
                             <v-img 
-                              :src="`http://localhost:3000/${notice.user_image}`" 
+                              :src="`${$config.defaultUrl}${notice.user_image}`" 
                               alt="avatar" 
                             />
                           </v-avatar>

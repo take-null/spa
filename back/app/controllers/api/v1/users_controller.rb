@@ -4,13 +4,13 @@ module Api
       #before_action :authenticate_api_v1_user!
       #before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
       
-      #def index
-      # @users = User.includes(:following, 
-      #                        :followers, 
-      #                        ).where.not(id: current_api_v1_user.id).order(:id)
-      #  render json: @users.as_json(include: [{following: {except: [:uid, :email]}},
-      #                                        {followers: {except: [:uid, :email]}}]), status: 200
-      #end
+      def index
+       @users = User.all.includes(:following, 
+                                  :followers, 
+                                 ).where.not(id: current_api_v1_user.id).order(:id)
+        render json: @users.as_json(include: [{following: {except: [:uid, :email]}},
+                                              {followers: {except: [:uid, :email]}}]), status: 200
+      end
 
       def search
         @user = User.includes(:following,
