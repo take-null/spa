@@ -36,9 +36,9 @@ end
 
 # logger(不要な場合は以下をコメントアウト)
 #クエリを見る
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+#ActiveRecord::Base.logger = Logger.new(STDOUT)
 #リクエストを見る
-Rails.logger = Logger.new(STDOUT)
+#Rails.logger = Logger.new(STDOUT)
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
