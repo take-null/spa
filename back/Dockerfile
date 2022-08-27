@@ -1,6 +1,6 @@
 # gem 'rails', '~> 7' はRuby2.7.0以上が必須で3.0以上が望ましい
 # 軽量なalpineを選択(バージョンも固定した方が安定性は増す)
-FROM ruby:2.7.6-alpine3.15
+FROM ruby:3.0.2-alpine3.13
 
 # docker-compose.ymlで具体的に指定(./back)
 ARG WORKDIR

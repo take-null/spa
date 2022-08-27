@@ -68,12 +68,16 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       let(:params) { { email: current_user.email, password: current_user.password } }
       it "ログアウトできる" do
         post(api_v1_user_session_path, params: params)
-        delete(destroy_api_v1_user_session_path, { headers: {
-          uid: response.headers["uid"],
-          client: response.headers["client"],
-          "access-token": response.headers["access-token"]
-        }})
+        headers = response.headers
+        delete(destroy_api_v1_user_session_path, headers: {
+          uid: headers["uid"],
+          client: headers["client"],
+          "access-token": headers["access-token"]
+        })
+        puts '------------------'
         res = JSON.parse(response.body)
+        puts res
+        puts '------------------'
         expect(res["success"]).to be_truthy
         expect(response).to have_http_status(200)
       end
