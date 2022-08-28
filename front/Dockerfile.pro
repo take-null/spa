@@ -25,12 +25,12 @@ WORKDIR ${HOME}
 
 COPY package*.json ./
 RUN yarn install
-RUN  apk add --update coreutils && \
-     echo ${ENV_FILE} | base64 --decode > .env 
+RUN apk add --update coreutils && \
+    echo ${ENV_FILE} | base64 --decode > .env 
 COPY . ./
-#RUN yarn run 
+RUN yarn run 
 
-RUN yarn run build
+#RUN yarn run build
 
 #EXPOSE 3000
 
