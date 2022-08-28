@@ -132,7 +132,9 @@ workflows:
           repo: '${MY_APP_PREFIX}-front'   
           region: AWS_DEFAULT_REGION  
           tag: '${CIRCLE_SHA1}'    
-          path: ./front  
+          path: ./front
+          dockerfile: 'Dockerfile.pro'
+          extra-build-args: '--build-arg ENV_FILE=$ENV_FILE'
           requires:  
             - build_test_frontend  
           filters:  
