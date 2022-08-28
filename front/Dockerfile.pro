@@ -22,11 +22,10 @@ ENV HOME=/${WORKDIR} \
     ENV_FILE=${ENV_FILE}
 
 WORKDIR ${HOME}
-
+RUN apk add --update coreutils && \
+    echo ${ENV_FILE} | base64 --decode > .env
 COPY package*.json ./
 RUN yarn install
-RUN apk add --update coreutils && \
-    echo ${ENV_FILE} | base64 --decode > .env 
 COPY . ./
 RUN yarn run 
 
