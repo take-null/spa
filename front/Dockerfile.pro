@@ -25,7 +25,8 @@ WORKDIR ${HOME}
 
 COPY package*.json ./
 RUN yarn install
-RUN echo ${ENV_FILE} | base64 --decode > .env 
+RUN  apk add --update coreutils && \
+     echo ${ENV_FILE} | base64 --decode > .env 
 COPY . ./
 RUN yarn run 
 

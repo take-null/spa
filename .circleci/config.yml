@@ -118,8 +118,8 @@ workflows:
           region: AWS_DEFAULT_REGION 
           tag: '${CIRCLE_SHA1}'      
           path: ./back
-          dockerfile: 'Dockerfile.pro'
-          extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'  
+          dockerfile: 'Dockerfile.pro'  
+          extra-build-args: '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'   
           requires:  
             - build_test_backend     
           filters:  
@@ -133,8 +133,8 @@ workflows:
           region: AWS_DEFAULT_REGION  
           tag: '${CIRCLE_SHA1}'    
           path: ./front
-          dockerfile: 'Dockerfile.pro'
-          extra-build-args: '--build-arg ENV_FILE=$ENV_FILE'
+          dockerfile: 'Dockerfile.pro'  
+          extra-build-args: '--build-arg ENV_FILE=$ENV_FILE'  
           requires:  
             - build_test_frontend  
           filters:  
