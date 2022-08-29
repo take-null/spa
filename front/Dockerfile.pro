@@ -29,4 +29,6 @@ RUN yarn install
 
 COPY . ./
 
-RUN yarn run 
+RUN yarn run build
+EXPOSE 3000
+CMD ["yarn", "start"]
