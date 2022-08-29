@@ -298,3 +298,7 @@ User.all
 exit
 User.all
 exit
+Rails.application.credentials.database.present?
+Rails.application.credentials.rds[:host]
+Rails.application.credentials.rds.present?
+exit
