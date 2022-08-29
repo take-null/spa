@@ -7,11 +7,12 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    if Rails.env.production?
-      origins 'https://referer-hub.com'
-    else  
-      origins 'http://localhost:8080'
-    end
+    #if Rails.env.production?
+      #origins 'https://referer-hub.com'
+    #else  
+      #origins 'http://localhost:8080'
+    #end
+    origins '*'
 
      resource "*",
        headers: :any,
