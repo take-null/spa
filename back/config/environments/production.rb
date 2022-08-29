@@ -84,7 +84,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.hosts << ENV['CLIENT_NAME']
+  #config.hosts << ENV['CLIENT_NAME']
 
   # パスワードリセット用
   config.action_mailer.default_url_options = { host: ENV['DOMAIN_NAME'] }
