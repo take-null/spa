@@ -99,5 +99,5 @@ Rails.application.configure do
     authentication: :plain,
   }
 
-  Rails.application.config.hosts << "referer-hub.com"
+  config.hosts << "referer-hub.com"
 end
