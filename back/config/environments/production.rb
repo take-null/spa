@@ -85,7 +85,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   #config.hosts << ENV['CLIENT_NAME']
-  #Rails.application.config.hosts << "referer-hub.com"
   # パスワードリセット用
   config.action_mailer.default_url_options = { host: ENV['DOMAIN_NAME'] }
   config.action_mailer.raise_delivery_errors = true
@@ -99,4 +98,6 @@ Rails.application.configure do
     password: ENV['EMAIL_PASSWORD'],
     authentication: :plain,
   }
+
+  Rails.application.config.hosts << "referer-hub.com"
 end
