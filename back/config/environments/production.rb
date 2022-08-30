@@ -98,6 +98,4 @@ Rails.application.configure do
     password: ENV['EMAIL_PASSWORD'],
     authentication: :plain,
   }
-
-  config.hosts << "referer-hub.com"
 end
