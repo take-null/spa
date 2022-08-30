@@ -331,6 +331,7 @@ export default {
         await this.$axios.get(`/api/v1/books/search?keyword=${this.keyword}`)
         .then(
           (res) => {
+            console.log(res)
             this.books = res.data
           }
         )
