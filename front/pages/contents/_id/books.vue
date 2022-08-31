@@ -328,16 +328,21 @@ export default {
     async setBooks () {
       try {
         this.books = []
-        await this.$axios.get(`/api/v1/books/search?keyword=${this.keyword}`)
+        await this.$axios.get(`/api/v1/books/search/?keyword=${this.keyword}`)
         .then(
-          (res) => {
-            console.log(res)
-            this.books = res.data
+          (response) => {
+            console.log('success--------------')
+            console.log(response)
+            console.log('success--------------')
+            this.books = response.data
           }
         )
         } catch (error) {
-          console.log({error})
-          this.error = 'データの取得に失敗しました'
+          console.log('error--------------')
+          console.error(error.response.data);
+          console.log('error--------------')
+          //console.log({error})
+          //this.error = 'データの取得に失敗しました'
           this.formReset()
         }
       },
