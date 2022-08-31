@@ -5,6 +5,10 @@ class ApplicationController < ActionController::API
   before_action :config_permitted_parameters, if: :devise_controller?
   before_action :set_host
 
+  def health_check
+    render json: { status: 200 }
+  end
+
   def set_host
     Rails.application.routes.default_url_options[:host] = request.host_with_port
   end

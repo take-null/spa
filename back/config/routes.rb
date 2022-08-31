@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations'
       }
+
       devise_scope :api_v1_user do
         resources :users, only: [:index, :show, :destroy] do
           collection do
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
       end
       resources :goods, only: [:index, :create, :destroy]
       resources :notifications, only: [:index, :destroy]
+
+      get 'health_check', to: 'health_check#index'
     end
   end
 end
