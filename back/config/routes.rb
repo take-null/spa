@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root :to => 'application#index'
   namespace 'api' do
     namespace 'v1' do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
@@ -41,7 +42,7 @@ Rails.application.routes.draw do
       resources :notifications, only: [:index, :destroy]
 
       get 'health_check', to: 'health_check#index'
-      root :to => 'health_check#index'
+      
     end
   end
 end

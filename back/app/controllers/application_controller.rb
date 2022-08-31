@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   before_action :config_permitted_parameters, if: :devise_controller?
   before_action :set_host
 
-  def health_check
+  def index
     render json: { status: 200 }
   end
 
