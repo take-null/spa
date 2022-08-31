@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       resources :notifications, only: [:index, :destroy]
 
       get 'health_check', to: 'health_check#index'
+      root :to => 'health_check#index'
     end
   end
 end
