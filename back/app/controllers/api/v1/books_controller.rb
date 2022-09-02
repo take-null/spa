@@ -22,7 +22,7 @@ module Api
             i[:authors] = i[:authors].sort.join(',')
           end
         end
-        Rails.logger.debug "url_of_searching_from_keyword ok #{books_array[0]}"
+        Rails.logger.debug "url_of_searching_from_keyword & get_json_from_url ok #{books_array[0]}"
         render json: books_array, status: 200
       end
 
