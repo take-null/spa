@@ -302,3 +302,5 @@ Rails.application.credentials.database.present?
 Rails.application.credentials.rds[:host]
 Rails.application.credentials.rds.present?
 exit
+books
+exit

@@ -36,3 +36,5 @@ yarn-debug.log*
 .yarn-integrity
 #メール用
 /.env
+#puma ssl test用
+/key

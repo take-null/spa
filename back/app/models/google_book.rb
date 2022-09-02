@@ -17,7 +17,7 @@ class GoogleBook
   validates :title, presence: true
   
   class << self
-    #lib以下に作成したモジュールを使用する
+  #lib以下に作成したモジュールを使用する
   include GoogleBooksApi
   
     def new_from_item(item)
