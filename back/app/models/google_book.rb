@@ -42,14 +42,18 @@ class GoogleBook
     def search(keyword)
       url = url_of_searching_from_keyword(keyword)
       Rails.logger.debug(url)
+
       uri = Addressable::URI.encode(url)
       Rails.logger.debug(uri)
-      prs = URI.parse(uri)
-      Rails.logger.debug(prs)
-      obj = Net::HTTP.get(prs)
-      Rails.logger.debug(obj)
-      json = JSON.parse(obj)
+
+      pars = URI.parse(uri)
+      Rails.logger.debug(pars)
+
+      response = Net::HTTP.get(pars)
+
+      json = JSON.parse(response)
       Rails.logger.debug(json)
+
       items = json['items']
       return [] unless items
     

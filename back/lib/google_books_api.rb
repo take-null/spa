@@ -12,8 +12,8 @@ module GoogleBooksApi
   def get_json_from_url(url)
     uri = Addressable::URI.encode(url)
     prs = URI.parse(uri)
-    obj = Net::HTTP.get(prs)
-    JSON.parse(obj)
+    response = Net::HTTP.get(prs)
+    JSON.parse(response)
   end
   #URLから、JSON文字列を取得し、JSONオブジェクトを構築する
 end
