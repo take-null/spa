@@ -49,24 +49,40 @@ class GoogleBook
       pars = URI.parse(uri)
       Rails.logger.debug(pars)
 
-      #require 'open-uri'
+      begin
+        OpenURI.open_uri(pars) { |io|
+          puts "#####結果#####"
+          Rails.logger.debug(io.read)
+          #puts io.read
+          puts "#####結果#####"
+        }
+        rescue => e
+        puts "#####例外#####"
+        Rails.logger.debug(e)
+        #puts e
+        puts "#####例外#####"
+      end
+
       response = OpenURI.open_uri(pars)
+
       #response = Net::HTTP.get(pars)
+
+      #.readでresponseをstringに変換
       str = response.read
-      #puts obj.class
-      puts str.class
-      #puts response.class
+
+      #hashに変換
       json = JSON.parse(str)
-      puts json.class
-      #Rails.logger.debug(json)
-      #items = obj['items']
+
+      #hashからArrayを取り出す
       items = json['items']
-      puts items.class
+
       return [] unless items
     
       items.map do |item|
         GoogleBook.new_from_item(item)
       end
+
+      ##################################一時的に以下をコメントアウト####################################
       #puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Rails.logger.debug(url) development.logに記録される↓"
       #Rails.logger.debug(url)
       #以下はdocker-compose upを使用し、ターミナルにlogを表示する際に使う(使用時はコメントアウト(#)を外す事)
@@ -86,6 +102,7 @@ class GoogleBook
       #items.map do |item|
         #GoogleBook.new_from_item(item)
       #end
+      ##################################一時的に以下をコメントアウト####################################
     end
   
     private
