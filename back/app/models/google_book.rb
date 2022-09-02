@@ -41,21 +41,40 @@ class GoogleBook
   
     def search(keyword)
       url = url_of_searching_from_keyword(keyword)
-      #puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Rails.logger.debug(url) development.logに記録される↓"
       Rails.logger.debug(url)
-      #以下はdocker-compose upを使用し、ターミナルにlogを表示する際に使う(使用時はコメントアウト(#)を外す事)
-      #pp "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx url↓", url
-      json = get_json_from_url(url)
-      #puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Rails.logger.debug(json,development.logに記録される↓"
+      uri = Addressable::URI.encode(url)
+      Rails.logger.debug(uri)
+      prs = URI.parse(uri)
+      Rails.logger.debug(prs)
+      obj = Net::HTTP.get(prs)
+      Rails.logger.debug(obj)
+      json = JSON.parse(obj)
       Rails.logger.debug(json)
-      #以下はdocker-compose upを使用し、ターミナルにlogを表示する際に使う(使用時はコメントアウト(#)を外す事)
-      #pp "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx json↓", json
       items = json['items']
       return [] unless items
-  
+    
       items.map do |item|
         GoogleBook.new_from_item(item)
       end
+      #puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Rails.logger.debug(url) development.logに記録される↓"
+      #Rails.logger.debug(url)
+      #以下はdocker-compose upを使用し、ターミナルにlogを表示する際に使う(使用時はコメントアウト(#)を外す事)
+      #pp "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx url↓", url
+      #if Rails.env.development? || Rails.env.test?
+        #json = get_json_from_url(url)
+      #else Rails.env.production?
+        #json = get_json_from_url_with_ssl(url)
+      #end
+      #puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Rails.logger.debug(json,development.logに記録される↓"
+      #Rails.logger.debug(json)
+      #以下はdocker-compose upを使用し、ターミナルにlogを表示する際に使う(使用時はコメントアウト(#)を外す事)
+      #pp "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx json↓", json
+      #items = json['items']
+      #return [] unless items
+  
+      #items.map do |item|
+        #GoogleBook.new_from_item(item)
+      #end
     end
   
     private
