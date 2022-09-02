@@ -52,7 +52,7 @@ class GoogleBook
       begin
         OpenURI.open_uri(pars) { |io|
           puts "#####結果#####"
-          Rails.logger.debug(io.read)
+          Rails.logger.debug(io.status)
           #puts io.read
           puts "#####結果#####"
         }
