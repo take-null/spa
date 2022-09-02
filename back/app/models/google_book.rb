@@ -49,12 +49,19 @@ class GoogleBook
       pars = URI.parse(uri)
       Rails.logger.debug(pars)
 
-      response = Net::HTTP.get(pars)
-
-      json = JSON.parse(response)
-      Rails.logger.debug(json)
-
+      #require 'open-uri'
+      response = OpenURI.open_uri(pars)
+      #response = Net::HTTP.get(pars)
+      str = response.read
+      #puts obj.class
+      puts str.class
+      #puts response.class
+      json = JSON.parse(str)
+      puts json.class
+      #Rails.logger.debug(json)
+      #items = obj['items']
       items = json['items']
+      puts items.class
       return [] unless items
     
       items.map do |item|
