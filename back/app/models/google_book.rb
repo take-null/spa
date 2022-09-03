@@ -40,35 +40,56 @@ class GoogleBook
     end
   
     def search(keyword)
+      #フロントエンドからのリクエストをuriに変換
       url = url_of_searching_from_keyword(keyword)
+      #ログに書き込み
       Rails.logger.debug(url)
 
-      uri = Addressable::URI.encode(url)
+      #urlをエンコード
+      enc = Addressable::URI.encode(url)
+      #ログに書き込み
+      Rails.logger.debug(enc)
+
+      #uriに変換
+      uri = URI.parse(enc)
+      #ログに書き込み
       Rails.logger.debug(uri)
+      
+      #hostとポート番号をターミナルに出力
+      #puts uri.host => www.googleapis.com
+      #puts uri.port => 443
 
-      pars = URI.parse(uri)
-      Rails.logger.debug(pars)
-
-      #puts pars.host
-      #puts pars.port
       require 'net/https'
-      http = Net::HTTP.new(pars.host, pars.port)
+      http = Net::HTTP.new(uri.host, uri.port)
       Rails.logger.debug(http)
-      http.use_ssl = true
+      #http.use_ssl = true
+      http.use_ssl = uri.scheme == 'https'
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      request = Net::HTTP::Get.new(pars.request_uri)
+
+      request = Net::HTTP::Get.new(uri.request_uri)
+      #getリクエストが為されているかをlogに書き込む
       Rails.logger.debug(request)
+
       response = http.request(request)
-      begin
-        Rails.logger.debug(response.value)
-      rescue => e
-        Rails.logger.debug(e.class) # => Net::HTTPServerException
-        Rails.logger.debug(e.message) # => 404 "Not Found"
-      end
+      
+      ###responseの詳細をlogに書き込む################################
       Rails.logger.debug(response)
       Rails.logger.debug(response.code)
       Rails.logger.debug(response.message)
       Rails.logger.debug(response.body['items'][0])
+      ##############################################################
+
+      ###例外発生時のデバッグ用#######################################
+      begin
+        #responseをlogに書き込む
+        Rails.logger.debug(response.value)
+      rescue => e
+        #エラーログをlogに書き込む
+        Rails.logger.debug(e.class) # => 例:Net::HTTPServerException
+        Rails.logger.debug(e.message) # => 例:404 "Not Found"
+      end
+      ##############################################################
+
       #.bodyでresponseをstringに変換
       str = response.body
 

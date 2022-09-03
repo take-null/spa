@@ -9,11 +9,13 @@ module GoogleBooksApi
   end
   #キーワードから、検索するAPIのURLを取得する
   
-  def get_json_from_url(url)
-    uri = Addressable::URI.encode(url)
-    prs = URI.parse(uri)
-    response = Net::HTTP.get(prs)
-    JSON.parse(response)
-  end
+
+  #500エラー発生につき使用停止
+  #def get_json_from_url(url)
+  #  uri = Addressable::URI.encode(url)
+  #  prs = URI.parse(uri)
+  #  response = Net::HTTP.get(prs)
+  #  JSON.parse(response)
+  #end
   #URLから、JSON文字列を取得し、JSONオブジェクトを構築する
 end
