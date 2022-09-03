@@ -58,6 +58,7 @@ class GoogleBook
       #hostとポート番号をターミナルに出力
       #puts uri.host => www.googleapis.com
       #puts uri.port => 443
+      #puts uri.request_uri => /books/v1/volumes?q=%E6%A4%9C%E7%B4%A2&country=JP
 
       require 'net/https'
       http = Net::HTTP.new(uri.host, uri.port)
@@ -69,7 +70,7 @@ class GoogleBook
       request = Net::HTTP::Get.new(uri.request_uri)
       #getリクエストが為されているかをlogに書き込む
       Rails.logger.debug(request)
-
+      
       response = http.request(request)
       
       ###responseの詳細をlogに書き込む################################
@@ -87,6 +88,21 @@ class GoogleBook
         #エラーログをlogに書き込む
         Rails.logger.debug(e.class) # => 例:Net::HTTPServerException
         Rails.logger.debug(e.message) # => 例:404 "Not Found"
+      end
+      ##############################################################
+
+      ###疎通確認用##################################################
+      require 'net/ping'
+
+      ## Pingの宛て先を指定して下さい
+
+      pinger = Net::Ping::External.new(uri.host)
+
+      ## Pingが通るかどうかテストします
+      if pinger.ping?
+        Rails.logger.debug("#{uri.host}との疎通を確認しました")
+      else
+        Rails.logger.debug("#{uri.host}との疎通を確認できませんでした")
       end
       ##############################################################
 
