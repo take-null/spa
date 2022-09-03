@@ -7,10 +7,10 @@ RSpec.describe "Books", type: :request do
     expect(response.status).to eq(200)
     puts response.body
   end
-  it 'createアクションが有効な事' do
-    post api_v1_books_path params: { google_books_api_id: 'jfApAQAAMAAJ' }
-    JSON.parse(response.body)
-    expect(response.status).to eq(200)
-    puts response.body
-  end
+  #it 'createアクションが有効な事' do
+  #  post api_v1_books_path params: { google_books_api_id: 'jfApAQAAMAAJ' }
+  #  JSON.parse(response.body)
+  #  expect(response.status).to eq(200)
+  #  puts response.body
+  #end
 end

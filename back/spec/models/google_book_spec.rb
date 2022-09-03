@@ -23,13 +23,13 @@ RSpec.describe GoogleBook, type: :model do
     end
   end
   
-  it 'google_books_api_idからインスタンスを生成できること' do
-    google_books_api_id = 'jfApAQAAMAAJ'
-    google_book = GoogleBook.new_from_id(google_books_api_id)
-    expect(google_book.title).to eq 'ハリー・ポッターと賢者の石'
-    expect(google_book.google_books_api_id).to eq google_books_api_id
-    expect(google_book.authors).to eq ["J.K. ローリング"]
-  end
+  #it 'google_books_api_idからインスタンスを生成できること' do
+  #  google_books_api_id = 'jfApAQAAMAAJ'
+  #  google_book = GoogleBook.new_from_id(google_books_api_id)
+  #  expect(google_book.title).to eq 'ハリー・ポッターと賢者の石'
+  #  expect(google_book.google_books_api_id).to eq google_books_api_id
+  #  expect(google_book.authors).to eq ["J.K. ローリング"]
+  #end
   
   it '適切なキーワードから複数の検索結果を返し、そのタイトルにキーワードが含まれていること' do
     keyword = 'Ruby'
