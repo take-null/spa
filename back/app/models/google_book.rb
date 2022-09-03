@@ -49,26 +49,28 @@ class GoogleBook
       pars = URI.parse(uri)
       Rails.logger.debug(pars)
 
+      #puts pars.host
+      #puts pars.port
+      require 'net/https'
+      http = Net::HTTP.new(pars.host, pars.port)
+      Rails.logger.debug(http)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Get.new(pars.request_uri)
+      Rails.logger.debug(request)
+      response = http.request(request)
       begin
-        OpenURI.open_uri(pars) { |io|
-          puts "#####結果#####"
-          Rails.logger.debug(io.status)
-          #puts io.read
-          puts "#####結果#####"
-        }
-        rescue => e
-        puts "#####例外#####"
-        Rails.logger.debug(e)
-        #puts e
-        puts "#####例外#####"
+        Rails.logger.debug(response.value)
+      rescue => e
+        Rails.logger.debug(e.class) # => Net::HTTPServerException
+        Rails.logger.debug(e.message) # => 404 "Not Found"
       end
-
-      response = OpenURI.open_uri(pars)
-
-      #response = Net::HTTP.get(pars)
-
-      #.readでresponseをstringに変換
-      str = response.read
+      Rails.logger.debug(response)
+      Rails.logger.debug(response.code)
+      Rails.logger.debug(response.message)
+      Rails.logger.debug(response.body['items'][0])
+      #.bodyでresponseをstringに変換
+      str = response.body
 
       #hashに変換
       json = JSON.parse(str)
