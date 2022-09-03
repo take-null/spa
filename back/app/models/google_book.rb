@@ -99,11 +99,7 @@ class GoogleBook
       pinger = Net::Ping::External.new(uri.host)
 
       ## Pingが通るかどうかテストします
-      if pinger.ping?
-        Rails.logger.debug("#{uri.host}との疎通を確認しました")
-      else
-        Rails.logger.debug("#{uri.host}との疎通を確認できませんでした")
-      end
+      Rails.logger.debug(pinger.ping?)
       ##############################################################
 
       #.bodyでresponseをstringに変換
