@@ -61,6 +61,7 @@ class GoogleBook
       #puts uri.request_uri => /books/v1/volumes?q=%E6%A4%9C%E7%B4%A2&country=JP
 
       require 'net/https'
+      require 'resolv-replace'
       http = Net::HTTP.new(uri.host, uri.port)
       Rails.logger.debug(http)
       #http.use_ssl = true
@@ -68,7 +69,7 @@ class GoogleBook
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       request = Net::HTTP::Get.new(uri.request_uri)
-      #getリクエストが為されているかをlogに書き込む
+      #getリクエストを行うためのインスタンスが生成されているかをlogに書き込む
       Rails.logger.debug(request)
       
       response = http.request(request)
