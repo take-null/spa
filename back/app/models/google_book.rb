@@ -1,4 +1,6 @@
 require 'google_books_api'
+require 'net/https'
+require 'resolv-replace'
 
 class GoogleBook
   include ActiveModel::Model
@@ -60,8 +62,6 @@ class GoogleBook
       #puts uri.port => 443
       #puts uri.request_uri => /books/v1/volumes?q=%E6%A4%9C%E7%B4%A2&country=JP
 
-      require 'net/https'
-      require 'resolv-replace'
       http = Net::HTTP.new(uri.host, uri.port)
       Rails.logger.debug(http)
       #http.use_ssl = true
@@ -95,7 +95,7 @@ class GoogleBook
       ###疎通確認用##################################################
       require 'net/ping'
 
-      ## Pingの宛て先を指定して下さい
+      ## Pingの宛て先はuri.host(www.googleapis.com)
 
       pinger = Net::Ping::External.new(uri.host)
 
