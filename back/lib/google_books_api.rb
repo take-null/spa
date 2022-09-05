@@ -10,12 +10,46 @@ module GoogleBooksApi
   #キーワードから、検索するAPIのURLを取得する
   
 
-  #500エラー発生につき使用停止
-  #def get_json_from_url(url)
-  #  uri = Addressable::URI.encode(url)
-  #  prs = URI.parse(uri)
-  #  response = Net::HTTP.get(prs)
-  #  JSON.parse(response)
-  #end
+  
+  def get_json_from_url(url)
+    #urlをエンコード
+    enc = Addressable::URI.encode(url)
+    #uriに変換
+    uri = URI.parse(enc)
+    #hostとポート番号をターミナルに出力
+    #puts uri.host => www.googleapis.com
+    #puts uri.port => 443
+    #puts uri.request_uri => /books/v1/volumes?q=%E6%A4%9C%E7%B4%A2&country=JP
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.scheme == 'https'
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    #getリクエストを行うためのインスタンスを生成
+    request = Net::HTTP::Get.new(uri.request_uri)
+    #googleapisにgetリクエスト
+    response = http.request(request)
+    ###例外発生時のデバッグ用#######################################
+    #begin
+      #responseをlogに書き込む(本番用)
+      #Rails.logger.debug(response.value)
+    #rescue => e
+      #エラーログをlogに書き込む(本番用)
+      #Rails.logger.debug(e.class) # => 例:Net::HTTPServerException
+      #Rails.logger.debug(e.message) # => 例:404 "Not Found"
+    #end
+    ##############################################################
+    
+    ###疎通確認用##################################################
+    #require 'net/ping'
+    ## Pingの宛て先はuri.host(www.googleapis.com)
+      #pinger = Net::Ping::External.new(uri.host)
+      ## Pingが通るかどうかテストします
+      #Rails.logger.debug(pinger.ping?)
+    ##############################################################
+    
+    #.bodyでresponseをstringに変換
+    str = response.body
+    #hashに変換
+    JSON.parse(str)
+  end
   #URLから、JSON文字列を取得し、JSONオブジェクトを構築する
 end

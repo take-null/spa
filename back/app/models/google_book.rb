@@ -42,73 +42,10 @@ class GoogleBook
     end
   
     def search(keyword)
-      #フロントエンドからのリクエストをuriに変換
+      #フロントエンドからのリクエストをurlに変換
       url = url_of_searching_from_keyword(keyword)
-      #ログに書き込み
-      Rails.logger.debug(url)
-
-      #urlをエンコード
-      enc = Addressable::URI.encode(url)
-      #ログに書き込み
-      Rails.logger.debug(enc)
-
-      #uriに変換
-      uri = URI.parse(enc)
-      #ログに書き込み
-      Rails.logger.debug(uri)
-      
-      #hostとポート番号をターミナルに出力
-      #puts uri.host => www.googleapis.com
-      #puts uri.port => 443
-      #puts uri.request_uri => /books/v1/volumes?q=%E6%A4%9C%E7%B4%A2&country=JP
-
-      http = Net::HTTP.new(uri.host, uri.port)
-      Rails.logger.debug(http)
-      #http.use_ssl = true
-      http.use_ssl = uri.scheme == 'https'
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-      request = Net::HTTP::Get.new(uri.request_uri)
-      #getリクエストを行うためのインスタンスが生成されているかをlogに書き込む
-      Rails.logger.debug(request)
-      
-      response = http.request(request)
-      
-      ###responseの詳細をlogに書き込む################################
-      Rails.logger.debug(response)
-      Rails.logger.debug(response.code)
-      Rails.logger.debug(response.message)
-      Rails.logger.debug(response.body['items'][0])
-      ##############################################################
-
-      ###例外発生時のデバッグ用#######################################
-      begin
-        #responseをlogに書き込む
-        Rails.logger.debug(response.value)
-      rescue => e
-        #エラーログをlogに書き込む
-        Rails.logger.debug(e.class) # => 例:Net::HTTPServerException
-        Rails.logger.debug(e.message) # => 例:404 "Not Found"
-      end
-      ##############################################################
-
-      ###疎通確認用##################################################
-      require 'net/ping'
-
-      ## Pingの宛て先はuri.host(www.googleapis.com)
-
-      pinger = Net::Ping::External.new(uri.host)
-
-      ## Pingが通るかどうかテストします
-      Rails.logger.debug(pinger.ping?)
-      ##############################################################
-
-      #.bodyでresponseをstringに変換
-      str = response.body
-
-      #hashに変換
-      json = JSON.parse(str)
-
+      #urlから、JSON文字列を取得し、JSONオブジェクト(hash)を構築する
+      json = get_json_from_url(url)
       #hashからArrayを取り出す
       items = json['items']
 
@@ -117,28 +54,6 @@ class GoogleBook
       items.map do |item|
         GoogleBook.new_from_item(item)
       end
-
-      ##################################一時的に以下をコメントアウト####################################
-      #puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Rails.logger.debug(url) development.logに記録される↓"
-      #Rails.logger.debug(url)
-      #以下はdocker-compose upを使用し、ターミナルにlogを表示する際に使う(使用時はコメントアウト(#)を外す事)
-      #pp "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx url↓", url
-      #if Rails.env.development? || Rails.env.test?
-        #json = get_json_from_url(url)
-      #else Rails.env.production?
-        #json = get_json_from_url_with_ssl(url)
-      #end
-      #puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Rails.logger.debug(json,development.logに記録される↓"
-      #Rails.logger.debug(json)
-      #以下はdocker-compose upを使用し、ターミナルにlogを表示する際に使う(使用時はコメントアウト(#)を外す事)
-      #pp "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx json↓", json
-      #items = json['items']
-      #return [] unless items
-  
-      #items.map do |item|
-        #GoogleBook.new_from_item(item)
-      #end
-      ##################################一時的に以下をコメントアウト####################################
     end
   
     private
