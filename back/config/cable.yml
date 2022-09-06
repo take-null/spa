@@ -5,6 +5,7 @@ test:
   adapter: test
 
 production:
-  adapter: redis
+  #本来は、redisかpostgresを利用すべき
+  adapter: async
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
   channel_prefix: app_production

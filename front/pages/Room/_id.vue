@@ -248,7 +248,8 @@ export default defineComponent({
   },
   mounted() {
     this.getMessages()
-    const cable = ActionCable.createConsumer(`ws://localhost:3000/cable`)
+    //const cable = ActionCable.createConsumer(`ws://localhost:3000/cable`)
+    const cable = ActionCable.createConsumer(`ws://referer-hub-api.net/cable`)
       this.messageChannel = cable.subscriptions.create({ channel: "RoomChannel", room: `${this.id}`}, {
       connected: () => {
         this.getMessages()
