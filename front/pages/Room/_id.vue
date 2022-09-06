@@ -249,7 +249,6 @@ export default defineComponent({
   },
   mounted() {
     this.getMessages()
-    //const cable = ActionCable.createConsumer(`ws://localhost:3000/cable`)
     const cable = ActionCable.createConsumer(`${this.websocketEndpoint}`)
       this.messageChannel = cable.subscriptions.create({ channel: "RoomChannel", room: `${this.id}`}, {
       connected: () => {

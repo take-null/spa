@@ -50,16 +50,16 @@ export default {
     return {
       items: [
         {
-          src: require('@/assets/img/タイムライン.gif'), description: 'タイムライン'
+          src: require('@/assets/img/timeline.gif'), description: 'タイムライン'
         },
         {
-          src: require('@/assets/img/投稿機能.gif'), description: '本の検索と投稿'
+          src: require('@/assets/img/post.gif'), description: '本の検索と投稿'
         },
         {
-          src: require('@/assets/img/マイページ.gif'), description: 'ユーザーのマイページ'
+          src: require('@/assets/img/mypage.gif'), description: 'ユーザーのマイページ'
         },
         {
-          src: require('@/assets/img/チャット機能.gif'), description: 'リアルタイムチャット'
+          src: require('@/assets/img/chat.gif'), description: 'リアルタイムチャット'
         },
       ],
     }
