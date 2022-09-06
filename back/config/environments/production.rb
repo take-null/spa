@@ -39,7 +39,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
   #CSRFを無効化
   ActionCable.server.config.disable_request_forgery_protection = true
-  config.action_cable.url = "ws://#{ENV['DOMAIN_NAME']}/cable" 
+  config.action_cable.url = "wss://#{ENV['DOMAIN_NAME']}/cable" 
   config.action_cable.allowed_request_origins = ['https://referer-hub.com']
   #config.action_cable.allowed_request_origins = "*"
 
