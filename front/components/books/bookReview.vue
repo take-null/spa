@@ -98,14 +98,6 @@
       ></v-rating>
     </v-list-item>
     <v-list-item-content>
-      <v-chip
-        v-if="chip"
-        class="chip"
-        label
-        @click="chip = false"
-      >
-        review
-      </v-chip>
       <v-list
         class="list overflow-y-auto text-body-2 text--primary wrap-text mt-n5"
         style="max-height: 150px"
@@ -238,7 +230,6 @@ export default {
   },
   data () {
     return {
-      chip: true,
       dialog: false,
       goodList: this.goodArray
     }

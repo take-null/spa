@@ -41,7 +41,8 @@ export default {
       isValid: false,
       loading: false,
       params: { email: '' }, 
-      error: null
+      error: null,
+      redirect_url: this.$config.redirectUrl 
     }
   },
   methods: {
@@ -50,7 +51,7 @@ export default {
         this.loading = true
         await this.$axios.$post('/api/v1/auth/password/',{
             email: this.params.email,
-            redirect_url: `${this.$config.redirectUrl}`
+            redirect_url: this.$config.redirectUrl
         })
         .then(
           (res) => {

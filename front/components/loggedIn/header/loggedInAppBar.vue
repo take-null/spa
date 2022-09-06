@@ -382,7 +382,9 @@ export default {
     },
     showUser(id) {
       if (`/user/${id}` !== this.$route.fullPath) {
+        if (this.$store.state.current.user.id !== id) {
         this.$router.replace(`/user/${id}`)
+        }
       }
     },
     async deleteNotice(id) {

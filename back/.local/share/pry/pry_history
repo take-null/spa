@@ -310,3 +310,6 @@ res = Net::HTTP.get(https://www.googleapis.com/books/v1/volumes?q=%E9%AD%94%E6%B
 res
 res = Net::HTTP.get(https://www.googleapis.com/books/v1/volumes?q=%E9%AD%94%E6%B3%95&country=JP)
 res = Net::HTTP.get(https://www.googleapis.com/books/v1/volumes?q=魔法&country=JP)
+User.count
+User.all
+exit
