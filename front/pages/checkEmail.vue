@@ -42,7 +42,6 @@ export default {
       loading: false,
       params: { email: '' }, 
       error: null,
-      redirect_url: this.$config.redirectUrl 
     }
   },
   methods: {

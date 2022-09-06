@@ -238,7 +238,7 @@ export default {
   },
   methods: {
     toShow(id) {
-        if (id !== this.$nxauth.user.id) {
+        if (id !== this.$store.state.current.user.id) {
         this.$router.push(`/user/${id}`)
       }
     },

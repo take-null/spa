@@ -39,9 +39,10 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
   #CSRFを無効化
   ActionCable.server.config.disable_request_forgery_protection = true
-  config.action_cable.url = "wss://#{ENV['DOMAIN_NAME']}/cable" 
+  #urlを指定
+  config.action_cable.url = "wss://#{ENV['DOMAIN_NAME']}/cable"
+  #アクセス可能なオリジンを指定(フロントエンド側) 
   config.action_cable.allowed_request_origins = ['https://referer-hub.com']
-  #config.action_cable.allowed_request_origins = "*"
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   

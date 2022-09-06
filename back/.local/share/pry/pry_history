@@ -313,3 +313,35 @@ res = Net::HTTP.get(https://www.googleapis.com/books/v1/volumes?q=魔法&country
 User.count
 User.all
 exit
+ChatMessage.all
+msg = ChatMessage.find(1)
+msg.delete
+msg = ChatMessage.find(2)
+msg.delete
+msg = ChatMessage.find(3)
+msg.delete
+ChatMessage.all
+UserRoom.all
+rm = UserRoom.find(1)
+rm.delete
+rm = UserRoom.find(2)
+rm.delete
+rm = UserRoom.find(3)
+rm.delete
+rm = UserRoom.find(4)
+rm.delete
+rm = UserRoom.find(5)
+rm.delete
+rm = UserRoom.find(6)
+rm.delete
+UserRoom.all
+Room.all
+r = Room.find(1)
+r.delete
+r = Room.find(2)
+r.delete
+r = Room.find(3)
+r.delete
+Room.all
+User.all
+exit

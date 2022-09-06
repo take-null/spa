@@ -123,6 +123,7 @@ export default {
     guestPass: process.env.GUEST_PASS,
     cryptoKey: process.env.CRYPTO_KEY,
     defaultUrl: process.env.DEFAULT_URL,
-    redirectUrl: process.env.REDIRECT_URL
+    redirectUrl: process.env.REDIRECT_URL,
+    websocketEndpoint: process.env.WEBSOCKET_ENDPIONT
   }
 }
