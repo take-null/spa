@@ -40,7 +40,7 @@ export default {
       set (newVal) { return this.$emit('update:password', newVal) }
     },
     form () {
-      const min = '6文字以上'
+      const min = '8文字以上'
       const msg = `${min}。半角英数字、ハイフン、アンダーバーが使えます`
       const required = v => !!v || ''
       const format = v => /^[\w-]{8,72}$/.test(v) || msg
