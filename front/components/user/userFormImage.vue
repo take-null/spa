@@ -22,7 +22,7 @@
           size="100"
         >
           <v-img  
-            :src="`${$config.defaultUrl}${img}`" 
+            :src="`${$config.defaultImageUrl}${img}`" 
           />
         </v-avatar>
         <v-avatar 

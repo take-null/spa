@@ -34,7 +34,7 @@
               v-else
             >
               <v-img
-                :src="`${$config.defaultUrl}${room.current_user.image.thumb.url}`"
+                :src="`${$config.defaultImageUrl}${room.current_user.image.thumb.url}`"
               />
             </template>
           </v-list-item-avatar>
@@ -64,7 +64,7 @@
               v-else
             >
               <v-img
-                :src="`${$config.defaultUrl}${room.other_user.image.thumb.url}`"
+                :src="`${$config.defaultImageUrl}${room.other_user.image.thumb.url}`"
               />
             </template>
           </v-list-item-avatar>
@@ -125,7 +125,7 @@
                           v-else
                         >
                           <v-img
-                            :src="`${$config.defaultUrl}${room.current_user.image.thumb.url}`"
+                            :src="`${$config.defaultImageUrl}${room.current_user.image.thumb.url}`"
                           />
                         </template>
                       </v-list-item-avatar>
@@ -150,7 +150,7 @@
                         </template>
                         <template v-else>
                           <v-img
-                            :src="`${$config.defaultUrl}${room.other_user.image.thumb.url}`"
+                            :src="`${$config.defaultImageUrl}${room.other_user.image.thumb.url}`"
                           />
                         </template>
                       </v-list-item-avatar>
