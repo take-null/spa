@@ -149,7 +149,8 @@
                         </v-btn>
                       </v-col>
                       <v-col
-                        cols="9">
+                        cols="9"
+                      >
                         {{notice.user_name}}があなたをフォローしました
                       </v-col>
                       <v-col
@@ -366,6 +367,7 @@ export default {
   },
   data () {
     return {
+      //ローカルの場合(http://が無いので)ユーザーアイコンは表示されない。
       notification: this.$store.state.current.user.passive_notifications,
       drawer: false,
       accountMenus: [

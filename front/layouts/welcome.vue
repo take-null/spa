@@ -30,7 +30,7 @@
               class="subheading"
               :style="{ letterSpacing: '5px' }"
             >
-              読む。書く。見つける。繋がる。
+              読む。書く。見つける。語る。
             </h6>
           </v-col>
         </v-row>
