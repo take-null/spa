@@ -252,7 +252,6 @@
                   </v-list-item-action>
                 </template>
               </v-combobox>
-              <perfect-scrollbar>
                 <v-textarea
                   ref="comment"
                   :rules="[() => !!comment || 'レビューを入力して下さい']"
@@ -262,8 +261,7 @@
                   label="レビューを書く"
                   required
                 >
-                </v-textarea>
-              </perfect-scrollbar>
+              </v-textarea>
             </v-form>
           </v-row>
           <v-divider></v-divider>
@@ -317,12 +315,9 @@
 
 <script>
 import bookCard from '~/components/books/bookCard.vue'
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
-import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 export default {
   components: { 
-    bookCard,
-    PerfectScrollbar
+    bookCard
   },
   methods: {
     async setBooks () {
