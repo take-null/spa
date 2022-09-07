@@ -109,7 +109,11 @@
                       <v-col
                         cols="9"
                       >
-                        {{notice.user_name}}があなたをフォローしました
+                        <p
+                          class="text-caption"
+                        >
+                          {{notice.user_name}}があなたをフォローしました
+                        </p>
                       </v-col>
                       <v-col
                         cols="1"
@@ -151,7 +155,11 @@
                       <v-col
                         cols="9"
                       >
-                        {{notice.user_name}}があなたをフォローしました
+                        <p
+                          class="text-caption"
+                        >
+                          {{notice.user_name}}があなたをフォローしました
+                        </p>
                       </v-col>
                       <v-col
                         cols="1"
@@ -208,7 +216,11 @@
                       <v-col
                         cols="9"
                       >
-                        {{notice.user_name}}があなたの投稿を評価しました
+                        <p
+                          class="text-caption"
+                        >
+                          {{notice.user_name}}があなたの投稿を評価しました
+                        </p>
                       </v-col>
                       <v-col
                         cols="1"
@@ -252,7 +264,11 @@
                       <v-col
                         cols="9"
                       >
-                        {{notice.user_name}}があなたの投稿を評価しました
+                        <p
+                          class="text-caption"
+                        >
+                          {{notice.user_name}}があなたの投稿を評価しました
+                        </p>
                       </v-col>
                       <v-col
                         cols="1"
