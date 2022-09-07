@@ -124,7 +124,6 @@ export default {
     cryptoKey: process.env.CRYPTO_KEY,
     defaultUrl: process.env.DEFAULT_URL,
     redirectUrl: process.env.REDIRECT_URL,
-    websocketEndpoint: process.env.WEBSOCKET_ENDPIONT,
-    defaultImageUrl: process.env.DEFAULT_IMAGE_URL
+    websocketEndpoint: process.env.WEBSOCKET_ENDPIONT
   }
 }

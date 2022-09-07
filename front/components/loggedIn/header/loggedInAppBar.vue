@@ -142,7 +142,7 @@
                             class="user-image"
                           >
                             <v-img 
-                              :src="`${$config.defaultImageUrl}${notice.user_image}`" 
+                              :src="notice.user_image" 
                               alt="avatar" 
                             />
                           </v-avatar>
@@ -242,7 +242,7 @@
                             class="user-image"
                           >
                             <v-img 
-                              :src="`${$config.defaultImageUrl}${notice.user_image}`" 
+                              :src="notice.user_image" 
                               alt="avatar" 
                             />
                           </v-avatar>

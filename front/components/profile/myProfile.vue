@@ -41,7 +41,7 @@
             v-else
           >
             <v-img
-              :src="`${$config.defaultImageUrl}${image}`"
+              :src="image"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               max-height="100%"

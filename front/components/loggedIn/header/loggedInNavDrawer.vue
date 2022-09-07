@@ -86,7 +86,7 @@
             @click.stop="mini = !mini"
           >
             <v-img 
-              :src="`${$config.defaultImageUrl}${img}`" 
+              :src="img" 
               alt="avatar" 
             />
           </v-btn>

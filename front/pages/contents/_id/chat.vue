@@ -64,7 +64,7 @@
                         v-else
                       >
                         <v-img
-                          :src="`${$config.defaultImageUrl}${item.other_user.image.thumb.url}`"
+                          :src="item.other_user.image.thumb.url"
                         />
                       </template>
                     </v-list-item-avatar>

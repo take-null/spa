@@ -1,4 +1,8 @@
-unless Rails.env.development? || Rails.env.test?
+if Rails.env.development? || Rails.env.test?
+  CarrierWave.configure do |config|
+    config.asset_host = "http://localhost:3000"
+  end
+else
   CarrierWave.configure do |config|
     config.fog_credentials = {
       provider: 'AWS',
