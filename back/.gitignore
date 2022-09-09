@@ -30,6 +30,7 @@
 
 /public/packs
 /public/packs-test
+/public/uploads
 /node_modules
 /yarn-error.log
 yarn-debug.log*
@@ -38,3 +39,11 @@ yarn-debug.log*
 /.env
 #puma ssl test用
 /key
+
+.lesshst
+.gitconfig
+.gitattributes
+.irb_history
+.ash_history
+.browserslistrc
+.local/*

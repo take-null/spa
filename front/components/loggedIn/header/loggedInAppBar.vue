@@ -383,7 +383,6 @@ export default {
   },
   data () {
     return {
-      //ローカルの場合(http://が無いので)ユーザーアイコンは表示されない。
       notification: this.$store.state.current.user.passive_notifications,
       drawer: false,
       accountMenus: [
