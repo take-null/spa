@@ -7,7 +7,7 @@ ARG WORKDIR
 
 # Dockerイメージで使用する環境変数
 # イメージからコンテナへ渡され、コンテナへ渡されると、コンテナ内で起動したアプリケーションで参照可
-ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata postgresql-dev postgresql git imagemagick yarn" \
+ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata postgresql-dev postgresql git imagemagick yarn graphviz msttcorefonts-installer fontconfig font-bitstream-type1 ghostscript-fonts ttf-freefont" \
     DEV_PACKAGES="build-base curl-dev" \
     HOME=/${WORKDIR} \
     LANG=C.UTF-8 \
@@ -28,6 +28,7 @@ RUN apk add --update --no-cache less && \
     #apk update --no-cache less && \
     apk upgrade && \
     apk add --no-cache ${RUNTIME_PACKAGES} && \
+    update-ms-fonts && \
     apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
     bundle install --jobs=4 --retry=3 && \
     apk del build-dependencies
