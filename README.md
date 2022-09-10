@@ -1,6 +1,6 @@
 # Referer-hub
 
-![gif](url)
+![gif](https://github.com/take-null/spa/blob/main/image/main.JPG)
 
 ## テーマ
 
@@ -28,11 +28,11 @@
 
 ## AWS構成図
 
-![gif](url)
+![gif](https://github.com/take-null/spa/blob/main/image/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E6%A7%8B%E6%88%90%E5%9B%B3.png)
 
 ## ER図
 
-![gif](url)
+![gif](https://github.com/take-null/spa/blob/main/image/%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3.JPG)
 
 ## 使用技術
 
