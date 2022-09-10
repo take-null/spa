@@ -32,7 +32,7 @@
 
 ## ER図
 
-![gif](https://github.com/take-null/spa/blob/main/image/%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3.JPG)
+![gif](https://github.com/take-null/spa/blob/main/image/%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3%EF%BC%92.JPG)
 
 ## 使用技術
 
