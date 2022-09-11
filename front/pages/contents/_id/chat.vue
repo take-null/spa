@@ -144,6 +144,8 @@ export default {
     await $axios.$get('/api/v1/rooms/')
     .then((res) => (
       rooms = res
+      //メッセージ一覧でエラーが出たら以下を確認し、rails c で　Room　を確認
+      //console.log(rooms)
     ))
     return { rooms }
   },
