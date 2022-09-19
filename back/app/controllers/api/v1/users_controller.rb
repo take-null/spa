@@ -36,19 +36,13 @@ module Api
                                              {goods: {}}]), status: 200
       end
 
-      #def destroy
-      #  @user = correct_user
-      #  if @user.destroy
-      #    render json: @user, status: 200
-      #  else
-      #    render json: { status: 400 }
-      #  end
-      #end
-
-      private
-
-      def correct_user
+      def destroy
         @user = User.find(params[:id])
+        if @user.destroy
+          render json: @user, status: 200
+        else
+          render json: { status: 400 }
+        end
       end
 
     end

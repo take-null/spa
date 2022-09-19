@@ -18,5 +18,12 @@ RSpec.describe "Users", type: :request do
         expect(response.status).to eq(200)
         puts response.body
     end
+
+    it 'destroyアクションが有効な事' do
+      delete api_v1_user_path(@user.id)
+      JSON.parse(response.body)
+      expect(response.status).to eq(200)
+      puts response.body
+    end
   end
 end
