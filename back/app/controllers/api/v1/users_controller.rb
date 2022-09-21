@@ -1,8 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      #before_action :authenticate_api_v1_user!
-      #before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
+      #before_action :authenticate_api_v1_user!, only: [:destroy] 
       
       def index
        @users = User.all.includes(:following, 
@@ -39,7 +38,7 @@ module Api
       def destroy
         @user = User.find(params[:id])
         if @user.destroy
-          render json: @user, status: 200
+          render json: { status: 200 }
         else
           render json: { status: 400 }
         end
