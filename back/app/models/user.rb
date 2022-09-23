@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :books_shelves, dependent: :destroy
   has_many :books, through: :books_shelves
   has_many :goods, dependent: :destroy
+  has_many :surveys, dependent: :destroy
 
   #validates :uid, presence: true
   validates :name, presence: true, length: { maximum: 30 }

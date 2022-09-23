@@ -64,5 +64,6 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:books_shelves) }
     it { is_expected.to have_many(:books) }
     it { is_expected.to have_many(:goods) }
+    it { is_expected.to have_many(:surveys) }
   end
 end
