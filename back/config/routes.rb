@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       end
       resources :goods, only: [:index, :create, :destroy]
       resources :notifications, only: [:index, :destroy]
+      resources :surveys, only: [:create]
 
       get 'health_check', to: 'health_check#index'
       

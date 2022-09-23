@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_17_070316) do
+ActiveRecord::Schema.define(version: 2022_09_23_103112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,15 @@ ActiveRecord::Schema.define(version: 2022_08_17_070316) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "surveys", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title", null: false
+    t.string "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_surveys_on_user_id"
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -171,6 +180,7 @@ ActiveRecord::Schema.define(version: 2022_08_17_070316) do
   add_foreign_key "chat_messages", "users"
   add_foreign_key "goods", "books_shelves"
   add_foreign_key "goods", "users"
+  add_foreign_key "surveys", "users"
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_rooms", "rooms"
   add_foreign_key "user_rooms", "users"
