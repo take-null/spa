@@ -134,7 +134,8 @@ export default {
         { name: 'contents-id-account', icon: 'mdi-account-circle' },
         { name: 'contents-id-users', icon: 'mdi-account-group'},
         { name: 'contents-id-books', icon: 'mdi-book-open-page-variant-outline'},
-        { name: 'withdrawal', icon: 'mdi-heart-broken'}
+        { name: 'survey', icon: 'mdi-phone-classic' },
+        { name: 'withdrawal', icon: 'mdi-heart-broken'}        
       ],
       mini: true
     }

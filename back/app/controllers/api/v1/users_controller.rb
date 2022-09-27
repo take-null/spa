@@ -17,14 +17,12 @@ module Api
                               :active_notifications, 
                               :passive_notifications,
                               :goods,
-                              :surveys 
                              ).find_by(email: params[:email])
         render json: @user.as_json(include: [{following: {except: [:uid, :email]}}, 
                                              {followers: {except: [:uid, :email]}}, 
                                              {active_notifications: {}}, 
                                              {passive_notifications: {}},
-                                             {goods: {}},
-                                             {surveys: {}}]), status: 200
+                                             {goods: {}}]), status: 200
       end
 
       def show
