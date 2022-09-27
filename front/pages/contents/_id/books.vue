@@ -254,12 +254,14 @@
               </v-combobox>
                 <v-textarea
                   ref="comment"
+                  rows="5"
                   :rules="[() => !!comment || 'レビューを入力して下さい']"
                   v-model="comment"
                   clearable
                   clear-icon="mdi-close-circle"  
                   label="レビューを書く"
                   required
+                  outlined
                 >
               </v-textarea>
             </v-form>
