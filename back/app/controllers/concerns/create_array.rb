@@ -16,7 +16,7 @@ module CreateArray
         comment: booksShelf.comment,
         created_at: booksShelf.created_at,
         tags: booksShelf.tags.select(:id, :name, :taggings_count).map,
-        good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map 
+        good: booksShelf.goods.select(:id, :user_id, :books_shelf_id).map
       }
     end
   end
@@ -39,5 +39,4 @@ module CreateArray
       }
     end
   end
-  
 end

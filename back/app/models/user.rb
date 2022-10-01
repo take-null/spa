@@ -12,51 +12,53 @@ class User < ActiveRecord::Base
   has_many :goods, dependent: :destroy
   has_many :surveys, dependent: :destroy
 
-  #validates :uid, presence: true
+  # validates :uid, presence: true
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: true
   validates :profile, length: { maximum: 140 }
 
-  #通知機能
-  has_many :active_notifications, class_name: 'Notification', 
-                                  foreign_key: 'visitor_id', 
+  # 通知機能
+  has_many :active_notifications, class_name: 'Notification',
+                                  foreign_key: 'visitor_id',
                                   dependent: :destroy
-  has_many :passive_notifications, class_name: 'Notification', 
-                                   foreign_key: 'visited_id', 
+  has_many :passive_notifications, class_name: 'Notification',
+                                   foreign_key: 'visited_id',
                                    dependent: :destroy
-  
-  #フォロー機能
-  has_many :active_relationships, class_name:  "Relationship",
-                                  foreign_key: "follower_id",
-                                  dependent:   :destroy
-  has_many :passive_relationships, class_name:  "Relationship",
-                                  foreign_key: "followed_id",
-                                  dependent:   :destroy
+
+  # フォロー機能
+  has_many :active_relationships, class_name: 'Relationship',
+                                  foreign_key: 'follower_id',
+                                  dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship',
+                                   foreign_key: 'followed_id',
+                                   dependent: :destroy
 
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  
+
   # ユーザーをフォローする
   def follow(other_user)
     following << other_user
   end
-  
+
   # ユーザーをフォロー解除する
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
-  
+
   # 現在のユーザーがフォローしてたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
   end
-  #現在のユーザーがフォローされてたらtrueを返す
+
+  # 現在のユーザーがフォローされてたらtrueを返す
   def followers?(other_user)
     followers.include?(other_user)
   end
-  #フォロー通知
+
+  # フォロー通知
   def create_notification_follow!(current_api_v1_user)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_api_v1_user.id, id, 'follow'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ? ', current_api_v1_user.id, id, 'follow'])
     if temp.blank?
       notification = current_api_v1_user.active_notifications.new(
         user_name: current_api_v1_user.name,
@@ -68,6 +70,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  #ユーザー新規作成時のみパスワードを入力必須にする
+  # ユーザー新規作成時のみパスワードを入力必須にする
   validates :password, presence: true, on: :create
 end

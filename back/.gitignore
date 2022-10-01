@@ -47,3 +47,8 @@ yarn-debug.log*
 .ash_history
 .browserslistrc
 .local/*
+
+#rubocop
+.rubocop.yml
+.rubocop_todo.yml
+.cache/rubocop_cache/*
