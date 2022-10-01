@@ -4,7 +4,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  #storage :file
+  # storage :file
   # storage :fog
   if Rails.env.development?
     storage :file
@@ -34,25 +34,25 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-  
+
   # アップロードするサイズの制限
   process resize_to_fill: [768, 426]
   # Create different versions of your uploaded files:
 
   # サムネイルサイズの設定
   version :thumb do
-     process resize_to_fit: [100, 100]
+    process resize_to_fit: [100, 100]
   end
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-     %w(jpg jpeg gif png)
-   end
+    %w[jpg jpeg gif png]
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    original_filename if original_filename
+    original_filename
   end
 end

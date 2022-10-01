@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe 'バリデーションテスト' do
     context 'ユーザー新規作成' do
       subject(:user) { create(:user) }
+
       it { is_expected.to be_valid }
       it { is_expected.to validate_presence_of(:name) }
       it { is_expected.to validate_length_of(:name) }
@@ -15,35 +15,40 @@ RSpec.describe User, type: :model do
         user = build(:user)
         expect(user).to be_valid
       end
+
       it 'uid, name, emailの値が未設定だと失敗' do
         user = build(:user)
         user.uid = ''
         user.name = ''
         user.email = ''
-        expect(user).to_not be_valid
+        expect(user).not_to be_valid
       end
+
       it 'uid, emailの値がユニークでなければ失敗' do
         user = create(:user)
         user_with_duplicated_uid = build(:user)
         user_with_duplicated_uid.uid = user.uid
         user_with_duplicated_uid.email = user.email
-        expect(user_with_duplicated_uid).to_not be_valid
+        expect(user_with_duplicated_uid).not_to be_valid
       end
     end
 
     context 'Userモデル更新時' do
+      # password更新時
+      subject(:user) { create(:user) }
+
       it 'profileの文字数が140文字以下なら成功' do
         user = create(:user)
-        user.profile = "a" * 140
+        user.profile = 'a' * 140
         expect(user).to be_valid
       end
+
       it 'profileの文字数が140文字を超えたら失敗' do
         user = create(:user)
-        user.profile = "a" * 141
-        expect(user).to_not be_valid
+        user.profile = 'a' * 141
+        expect(user).not_to be_valid
       end
-      #password更新時
-      subject(:user) { create(:user) }
+
       it { is_expected.to validate_presence_of(:password) }
       it { is_expected.to validate_length_of(:password) }
     end
