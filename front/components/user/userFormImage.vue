@@ -1,61 +1,31 @@
 <template>
-  <v-form 
-    ref="form" 
-    lazy-validation 
-    class="ma-16"
-  >
-    <v-icon> 
-      mdi-account-box 
-    </v-icon>
-    <span>
-      ユーザーイメージ
-    </span>
-    <v-row 
-      justify="center" 
-      class="pt-6"
-    >
-      <template 
-        v-if="img !== null"
-      >
-        <v-avatar 
-          v-if="input_image === null" 
-          size="100"
-        >
-          <v-img  
-            :src="img" 
-          />
+  <v-form ref="form" lazy-validation class="ma-16">
+    <v-icon> mdi-account-box </v-icon>
+    <span> ユーザーイメージ </span>
+    <v-row justify="center" class="pt-6">
+      <template v-if="img !== null">
+        <v-avatar v-if="input_image === null" size="100">
+          <v-img :src="img" />
         </v-avatar>
-        <v-avatar 
-          v-else 
-          size="100"
-        >
-          <v-img 
-            :src="input_image" 
-          />
+        <v-avatar v-else size="100">
+          <v-img :src="input_image" />
         </v-avatar>
       </template>
       <template v-else>
-        <v-avatar 
-          size="100"
-        >
-          <v-img 
-            v-if="input_image" 
-            :src="input_image" 
-          />
-      </v-avatar>
-    </template>
-  </v-row>
-  <v-file-input
-    v-model="editImage"
-    accept="image/png, image/jpeg, image/bmp image/gif"
-    prepend-icon="mdi-account-box"
-    label="左のアイコンをクリック"
-    class="pt-14"
-    @change="setImage"
-  />
-    <b-container 
-      class="d-flex justify-content-center"
-    >
+        <v-avatar size="100">
+          <v-img v-if="input_image" :src="input_image" />
+        </v-avatar>
+      </template>
+    </v-row>
+    <v-file-input
+      v-model="editImage"
+      accept="image/png, image/jpeg, image/bmp image/gif"
+      prepend-icon="mdi-account-box"
+      label="左のアイコンをクリック"
+      class="pt-14"
+      @change="setImage"
+    />
+    <b-container class="d-flex justify-content-center">
       <v-btn
         @click.stop="changeUserAvatar"
         dark
@@ -75,7 +45,7 @@ export default {
       img: this.$store.state.current.user.image.url,
       editImage: {},
       input_image: null,
-      loading: false
+      loading: false,
     }
   },
   methods: {
@@ -96,27 +66,28 @@ export default {
     },
     async changeUserAvatar() {
       try {
-      this.loading = true
-      const formData = new FormData()
-      if (this.editImage !== null) {
-        formData.append('image', this.editImage)
-      }
-      await this.$axios
-        .put('api/v1/auth', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then(
-          (res) => {
-          this.$router.go({path: this.$router.currentRoute.path, force: true})
-          this.loading = false
-          }
-        )
-        } catch (error) {
-          console.log({error})
+        this.loading = true
+        const formData = new FormData()
+        if (this.editImage !== null) {
+          formData.append('image', this.editImage)
+        }
+        await this.$axios
+          .put('api/v1/auth', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then((res) => {
+            this.$router.go({
+              path: this.$router.currentRoute.path,
+              force: true,
+            })
+            this.loading = false
+          })
+      } catch (error) {
+        console.log({ error })
       }
     },
-  }
-};
+  },
+}
 </script>

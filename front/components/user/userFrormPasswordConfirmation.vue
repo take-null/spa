@@ -18,43 +18,47 @@
 </template>
 <script>
 export default {
-  props: { 
+  props: {
     password_confirmation: {
       type: String,
-      default: "",
-      required: true
+      default: '',
+      required: true,
     },
     noValidation: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-    data() {
+  data() {
     return {
       show: false,
-    };
+    }
   },
   computed: {
     setPassword_confirmation: {
-      get () { return this.password_confirmation },
-      set (newVal) { return this.$emit('update:password_confirmation', newVal) }
+      get() {
+        return this.password_confirmation
+      },
+      set(newVal) {
+        return this.$emit('update:password_confirmation', newVal)
+      },
     },
-    form () {
+    form() {
       const min = '8文字以上'
       const msg = `${min}。半角英数字、ハイフン、アンダーバーが使えます`
-      const required = v => !!v || ''
-      const format = v => /^[\w-]{8,72}$/.test(v) || msg
+      const required = (v) => !!v || ''
+      const format = (v) => /^[\w-]{8,72}$/.test(v) || msg
 
       const rules = this.noValidation ? [required] : [format]
       const hint = this.noValidation ? undefined : msg
       const placeholder = this.noValidation ? undefined : min
       return { rules, hint, placeholder }
     },
-    toggle () {
+    toggle() {
       const icon = this.show ? 'mdi-eye' : 'mdi-eye-off'
       const type = this.show ? 'text' : 'password'
       return { icon, type }
-    }
-  }
-};
+    },
+  },
+}
 </script>

@@ -6,10 +6,10 @@ describe('errorCard.vue', () => {
     const props = {
       display: true,
       title: 'title',
-      message: 'message'
+      message: 'message',
     }
     const wrapper = mount(errorCard, {
-      propsData: props
+      propsData: props,
     })
     expect(wrapper.props()).toEqual(props)
   })

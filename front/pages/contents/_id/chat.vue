@@ -9,12 +9,8 @@
         max-width="600"
         color="grey lighten-2"
       >
-        <v-card-title>
-          ChatRoomList
-        </v-card-title>
-        <template 
-          v-if="!rooms.length"
-        >
+        <v-card-title> ChatRoomList </v-card-title>
+        <template v-if="!rooms.length">
           <v-card
             elevation="0"
             width="max-width"
@@ -24,48 +20,25 @@
             <p>チャットルームはありません</p>
           </v-card>
         </template>
-        <template 
-          v-else
-        >
+        <template v-else>
           <v-card
             elevation="0"
             width="max-width"
             class="mx-auto"
             color="blue-grey lighten-5"
           >
-            <v-virtual-scroll
-              :items="rooms"
-              height="600"
-              item-height="100"
-            >
-              <template
-                v-slot:default="{ item }"
-              >
-                <v-list
-                  three-line
-                >
-                  <v-list-item 
-                    :key="item.id"
-                  >
-                    <v-list-item-avatar
-                      size="40"
-                    >
-                      <template 
-                        v-if="item.other_user.image.url === null"
-                      >
-                        <v-icon 
-                          color="grey darken-4" 
-                          x-large
-                        >
+            <v-virtual-scroll :items="rooms" height="600" item-height="100">
+              <template v-slot:default="{ item }">
+                <v-list three-line>
+                  <v-list-item :key="item.id">
+                    <v-list-item-avatar size="40">
+                      <template v-if="item.other_user.image.url === null">
+                        <v-icon color="grey darken-4" x-large>
                           mdi-account-circle
                         </v-icon>
                       </template>
-                      <template 
-                        v-else
-                      >
-                        <v-img
-                          :src="item.other_user.image.thumb.url"
-                        />
+                      <template v-else>
+                        <v-img :src="item.other_user.image.thumb.url" />
                       </template>
                     </v-list-item-avatar>
                     <v-list-item-content>
@@ -74,36 +47,32 @@
                           {{ item.other_user.name }}
                         </strong>
                       </v-list-item-title>
-                      <template 
-                        v-if="item.last_message === null"
-                      >
+                      <template v-if="item.last_message === null">
                         <v-list-item-subtitle>
                           <p>メッセージの履歴はありません</p>
                         </v-list-item-subtitle>
                       </template>
-                      <template
-                        v-else
-                      >
+                      <template v-else>
                         <template
-                          v-if="item.last_message.user_id === item.current_user.id"
+                          v-if="
+                            item.last_message.user_id === item.current_user.id
+                          "
                         >
                           <v-list-item-subtitle>
-                              送信者:{{item.current_user.name}}
+                            送信者:{{ item.current_user.name }}
                             <div>
                               <small>
-                                {{item.last_message.message}}
+                                {{ item.last_message.message }}
                               </small>
                             </div>
                           </v-list-item-subtitle>
                         </template>
-                        <template
-                          v-else
-                        >
+                        <template v-else>
                           <v-list-item-subtitle>
-                            送信者:{{item.other_user.name}}
+                            送信者:{{ item.other_user.name }}
                             <div>
                               <small>
-                                {{item.last_message.message}}
+                                {{ item.last_message.message }}
                               </small>
                             </div>
                           </v-list-item-subtitle>
@@ -118,11 +87,7 @@
                         rounded
                         @click="toShowRoom(item.id)"
                       >
-                      <v-icon 
-                        small
-                      >
-                        mdi-open-in-new
-                      </v-icon>
+                        <v-icon small> mdi-open-in-new </v-icon>
                         Enter
                       </v-btn>
                     </v-list-item-action>
@@ -139,20 +104,20 @@
 
 <script>
 export default {
-  async asyncData ({$axios}) {
+  async asyncData({ $axios }) {
     let rooms = []
-    await $axios.$get('/api/v1/rooms/')
-    .then((res) => (
-      rooms = res
-      //メッセージ一覧でエラーが出たら以下を確認し、rails c で　Room　を確認
-      //console.log(rooms)
-    ))
+    await $axios.$get('/api/v1/rooms/').then(
+      (res) =>
+        (rooms = res)
+        //メッセージ一覧でエラーが出たら以下を確認し、rails c で　Room　を確認
+        //console.log(rooms)
+    )
     return { rooms }
   },
   methods: {
     toShowRoom(id) {
       this.$router.push(`/room/${id}`)
-    }
-  }
+    },
+  },
 }
 </script>

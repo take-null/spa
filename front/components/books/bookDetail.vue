@@ -1,15 +1,7 @@
 <template>
-  <v-row 
-    justify="center"
-  >
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      transition="dialog-bottom-transition"
-    >
-      <template 
-        v-slot:activator="{ on, attrs }" 
-      >
+  <v-row justify="center">
+    <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
+      <template v-slot:activator="{ on, attrs }">
         <v-card
           color="blue-grey lighten-5"
           max-width="140"
@@ -17,21 +9,14 @@
           v-on="on"
           elevation="0"
         >
-          <template 
-            v-if="book_image === null"
-          >
+          <template v-if="book_image === null">
             <v-img
               max-height="230"
               :src="require('@/assets/img/20200505_noimage.jpg')"
             />
           </template>
-          <template 
-            v-else
-          >
-            <v-img 
-              :src="book_image"
-              max-heigth="230"
-            />
+          <template v-else>
+            <v-img :src="book_image" max-heigth="230" />
           </template>
         </v-card>
       </template>
@@ -44,50 +29,28 @@
         elevation="1"
         min-height="100vh"
       >
-        <v-toolbar
-          dark
-        >
-          <v-btn
-            icon
-            dark
-            @click="dialog = !dialog"
-          >
-            <v-icon>
-              mdi-close
-            </v-icon>
+        <v-toolbar dark>
+          <v-btn icon dark @click="dialog = !dialog">
+            <v-icon> mdi-close </v-icon>
           </v-btn>
-          <v-toolbar-title>
-            BookDetail
-          </v-toolbar-title>
+          <v-toolbar-title> BookDetail </v-toolbar-title>
           <v-spacer></v-spacer>
-          <template
-            v-if="owner_id === user_id"
-          >
-            <v-btn
-              text
-              rounded
-              outlined
-              small
-              @click="modal = true"
-            >
+          <template v-if="owner_id === user_id">
+            <v-btn text rounded outlined small @click="modal = true">
               delete
             </v-btn>
-              <v-snackbar
-                v-model="modal"
-                max-width="400"
-                absolute
-                outlined
-                text
-                top
-              >
-                <p
-                  class="text-body-2 white--text" 
-                >
-                  この投稿データを削除しますか？
-                </p>
-              <template 
-                v-slot:action="{ attrs }"
-              >
+            <v-snackbar
+              v-model="modal"
+              max-width="400"
+              absolute
+              outlined
+              text
+              top
+            >
+              <p class="text-body-2 white--text">
+                この投稿データを削除しますか？
+              </p>
+              <template v-slot:action="{ attrs }">
                 <v-btn
                   text
                   rounded
@@ -98,48 +61,27 @@
                 >
                   yes
                 </v-btn>
-              </template>  
+              </template>
             </v-snackbar>
           </template>
         </v-toolbar>
-          <v-container
-            fluid
-            :style="{ maxWidth: '1000px' }"
-          >
-            <div
-              class="text-sm-h7 mb-4"
-            >
-              {{day}}前
-            </div>
-            <v-row
-              no-gutters
-            >
-              <v-col>
-                <v-list-item 
-                  class="justify-content-start"
-                >
-                  <template 
-                    v-if="book_image === null"
-                  >
-                    <v-img
-                      max-height="160"
-                      max-width="120"
-                      :src="require('@/assets/img/20200505_noimage.jpg')"
-                    />
-                  </template>
-                  <template 
-                    v-else
-                  >
-                    <v-img
-                      max-heigth="160"
-                      max-width="120"
-                      :src="book_image"
-                    />
-                  </template>
+        <v-container fluid :style="{ maxWidth: '1000px' }">
+          <div class="text-sm-h7 mb-4">{{ day }}前</div>
+          <v-row no-gutters>
+            <v-col>
+              <v-list-item class="justify-content-start">
+                <template v-if="book_image === null">
+                  <v-img
+                    max-height="160"
+                    max-width="120"
+                    :src="require('@/assets/img/20200505_noimage.jpg')"
+                  />
+                </template>
+                <template v-else>
+                  <v-img max-heigth="160" max-width="120" :src="book_image" />
+                </template>
               </v-list-item>
-              <v-list-item 
-                class="justify-content-start"
-              >
+              <v-list-item class="justify-content-start">
                 <v-rating
                   v-model="rating"
                   background-color="orange lighten-3"
@@ -149,70 +91,35 @@
               </v-list-item>
             </v-col>
             <v-col>
-              <v-list-item 
-                three-line
-              >
-                <v-list-item-content 
-                  class="d-flex justify-content-start"
-                >
-                  <div 
-                    class="text-sm-h7 mb-4"
-                  >
-                    {{title}}
+              <v-list-item three-line>
+                <v-list-item-content class="d-flex justify-content-start">
+                  <div class="text-sm-h7 mb-4">
+                    {{ title }}
                   </div>
-                  <v-list-item-subtitle 
-                    v-if="authors === null" 
-                    class="mb-2"
-                  >
-                    作者:{{authors}}
+                  <v-list-item-subtitle v-if="authors === null" class="mb-2">
+                    作者:{{ authors }}
                   </v-list-item-subtitle>
-                  <v-list-item-subtitle 
-                    v-else class="mb-2"
-                  >
-                    作者:{{authors.name}}
+                  <v-list-item-subtitle v-else class="mb-2">
+                    作者:{{ authors.name }}
                   </v-list-item-subtitle>
-                  <v-list-item-subtitle 
-                    class="mb-2"
-                  >
-                    出版社:{{publisher}}
+                  <v-list-item-subtitle class="mb-2">
+                    出版社:{{ publisher }}
                   </v-list-item-subtitle>
-                  <v-list-item-subtitle 
-                    class="mb-2"
-                  >
-                    出版年月日:{{published_at}}
+                  <v-list-item-subtitle class="mb-2">
+                    出版年月日:{{ published_at }}
                   </v-list-item-subtitle>
-                  <template 
-                    v-if="goodArray.length === 0"
-                  >
-                    <v-list-item-avatar
-                      size="60"
-                    >
-                      <v-icon
-                        color="cyan"
-                      >
-                        mdi-thumb-up
-                      </v-icon>
-                      <p
-                        class="text-caption"
-                      >
+                  <template v-if="goodArray.length === 0">
+                    <v-list-item-avatar size="60">
+                      <v-icon color="cyan"> mdi-thumb-up </v-icon>
+                      <p class="text-caption">
                         {{ 0 }}
                       </p>
                     </v-list-item-avatar>
                   </template>
-                  <template 
-                    v-else
-                  >
-                    <v-list-item-avatar
-                      size="60"
-                    >
-                      <v-icon
-                        color="cyan"
-                      >
-                        mdi-thumb-up
-                      </v-icon>
-                      <p
-                        class="text-caption"
-                      >
+                  <template v-else>
+                    <v-list-item-avatar size="60">
+                      <v-icon color="cyan"> mdi-thumb-up </v-icon>
+                      <p class="text-caption">
                         {{ goodArray.length }}
                       </p>
                     </v-list-item-avatar>
@@ -222,53 +129,24 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container
-          :style="{ maxWidth: '1000px' }"
-          fluid
-          mt-n2 pt-0
-        >
-          <v-row
-            no-gutters
-          >
-            <div 
-              class="text-body-2 text--primary"
-            >
-              Tags
-            </div>
-            <template 
-              v-if="tags.length"
-            >
-              <v-col
-                v-for="tag in tags" :key="tag.id"
-                cols="2"
-              >
-                <p
-                  class="text-overline text--cyan"
-                >
-                  #{{tag.name}}
-                </p>
+        <v-container :style="{ maxWidth: '1000px' }" fluid mt-n2 pt-0>
+          <v-row no-gutters>
+            <div class="text-body-2 text--primary">Tags</div>
+            <template v-if="tags.length">
+              <v-col v-for="tag in tags" :key="tag.id" cols="2">
+                <p class="text-overline text--cyan">#{{ tag.name }}</p>
               </v-col>
             </template>
-            <template 
-              v-else
-            >
-              <p
-                class="text-overline text--cyan"
-              >
+            <template v-else>
+              <p class="text-overline text--cyan">
                 登録されているタグはありません
               </p>
             </template>
           </v-row>
         </v-container>
-        <v-container
-          :style="{ maxWidth: '1200px' }"
-          fluid
-          mt-n2 pt-0
-        >
+        <v-container :style="{ maxWidth: '1200px' }" fluid mt-n2 pt-0>
           <v-list-item-content>
-            <v-list-item-title
-              class="text-body-2 text--primary wrap-text" 
-            >
+            <v-list-item-title class="text-body-2 text--primary wrap-text">
               UserReview
             </v-list-item-title>
             <v-list-item-subtitle>
@@ -276,7 +154,7 @@
                 class="list overflow-y-auto text-body-2 text--primary wrap-text mt-n5"
                 style="max-height: 400px"
               >
-                {{comment}}
+                {{ comment }}
               </v-list>
             </v-list-item-subtitle>
           </v-list-item-content>
@@ -293,63 +171,62 @@ export default {
   components: {},
   props: {
     user_id: {
-      tupe: Number
+      tupe: Number,
     },
     book_image: {
-      type: String
+      type: String,
     },
     comment: {
-      type: String
+      type: String,
     },
     created_at: {
-      type: String
+      type: String,
     },
     google_books_api_id: {
-      type: String
+      type: String,
     },
     id: {
-      type: Number
+      type: Number,
     },
     rating: {
-      type: Number
+      type: Number,
     },
     title: {
-      type: String
+      type: String,
     },
     tags: {
-      type:Array
+      type: Array,
     },
     goodArray: {
-      type:Array
+      type: Array,
     },
     authors: {
-      type: Object  
+      type: Object,
     },
     publisher: {
-      type: String
+      type: String,
     },
     published_at: {
-      type: String
+      type: String,
     },
   },
-  data () {
+  data() {
     return {
       owner_id: this.$store.state.current.user.id,
       modal: false,
       dialog: false,
-      day: formatDistanceToNow(new Date(this.created_at), { locale: ja })
+      day: formatDistanceToNow(new Date(this.created_at), { locale: ja }),
     }
   },
   methods: {
     async deleteContent(id) {
-      await this.$axios.$delete(`/api/v1/books_shelves/${id}`)
-      .then(() => {
+      await this.$axios.$delete(`/api/v1/books_shelves/${id}`).then(() => {
         this.modal = false
         this.dialog = false
         this.$emit('checkParent')
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -358,7 +235,7 @@ export default {
   word-break: break-all;
   white-space: pre-line;
 }
-.list::-webkit-scrollbar { 
+.list::-webkit-scrollbar {
   display: none;
 }
 .list {

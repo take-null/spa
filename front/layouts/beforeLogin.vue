@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <before-login-app-bar />
-    <v-main> 
+    <v-main>
       <nuxt />
     </v-main>
     <before-login-footer />
@@ -9,6 +9,5 @@
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>

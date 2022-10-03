@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  beforeCreate () {
-      this.$router.replace('/')
-  }
-};
+  beforeCreate() {
+    this.$router.replace('/')
+  },
+}
 </script>

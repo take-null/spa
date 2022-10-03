@@ -1,11 +1,7 @@
 <template>
   <v-container>
-    <v-row 
-      justify="center"
-    >
-      <b-container 
-        class="d-flex justify-content-center"
-      >
+    <v-row justify="center">
+      <b-container class="d-flex justify-content-center">
         <v-btn
           text
           rounded
@@ -26,7 +22,7 @@ export default {
   methods: {
     loginChild() {
       this.$emit('loginPatrent')
-    }
-  }
+    },
+  },
 }
 </script>

@@ -8,15 +8,15 @@ import { cloneDeep } from 'lodash'
 //let body = {}
 //let mockError = false
 //jest.mock('axios', () => ({
-  //post: (_url, _body) => {
-    //return new Promise((resolve) => {
-      //if (mockError)
-      //throw Error("Mock error")
-      //url = _url
-      //body = _body
-      //resolve(true)
-    //})
-  //}
+//post: (_url, _body) => {
+//return new Promise((resolve) => {
+//if (mockError)
+//throw Error("Mock error")
+//url = _url
+//body = _body
+//resolve(true)
+//})
+//}
 //}))
 
 describe('actions', () => {
@@ -37,27 +37,27 @@ describe('actions', () => {
     expect(store.state.current.user).toBe(null)
     const user = {
       id: 0,
-      provider: "email",
-      uid: "sample@sample.com",
+      provider: 'email',
+      uid: 'sample@sample.com',
       allow_password_change: false,
-      name: "testman",
+      name: 'testman',
       image: {
-        url: "",
+        url: '',
         thumb: {
-          url: ""
-        }
+          url: '',
+        },
       },
-      email: "sample@sample.com",
-      profile: "テストメッセージです",
-      age: "1",
-      locate: "北海道",
-      created_at: "2022-07-04T13:59:51.914Z",
-      updated_at: "2022-08-22T14:42:27.778Z",
+      email: 'sample@sample.com',
+      profile: 'テストメッセージです',
+      age: '1',
+      locate: '北海道',
+      created_at: '2022-07-04T13:59:51.914Z',
+      updated_at: '2022-08-22T14:42:27.778Z',
       following: [],
       followers: [],
       active_notifications: [],
       passive_notifications: [],
-      goods: []
+      goods: [],
     }
     store.dispatch('getCurrentUser', user)
     expect(store.state.current.user).toEqual(user)

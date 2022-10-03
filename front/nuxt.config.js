@@ -21,9 +21,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '~/assets/sass/main.scss'
-  ],
+  css: ['~/assets/sass/main.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -32,7 +30,7 @@ export default {
     '~/plugins/axios.js',
     'plugins/nxClientInit',
     '~plugins/date-filter.js',
-    { src: "~/plugins/vue-infinite-loading", ssr: false },
+    { src: '~/plugins/vue-infinite-loading', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -63,20 +61,24 @@ export default {
   },
   auth: {
     redirect: {
-        login: '/',
-        logout: '/',
-        callback: false,
-        home: '/',
+      login: '/',
+      logout: '/',
+      callback: false,
+      home: '/',
     },
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: 'access_token' },
+          login: {
+            url: '/api/v1/auth/sign_in',
+            method: 'post',
+            propertyName: 'access_token',
+          },
           logout: { url: '/api/v1/auth/sign_out', method: 'delete' },
-          user: false
+          user: false,
         },
-      }
-    }
+      },
+    },
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -95,7 +97,7 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
-          myblue: colors.blue.accent3
+          myblue: colors.blue.accent3,
         },
       },
     },
@@ -111,9 +113,9 @@ export default {
       silentFallbackWarn: true,
       messages: {
         ja: require('./locales/ja.json'),
-        en: require('./locales/en.json')
-      }
-    }
+        en: require('./locales/en.json'),
+      },
+    },
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
@@ -124,6 +126,6 @@ export default {
     cryptoKey: process.env.CRYPTO_KEY,
     defaultUrl: process.env.DEFAULT_URL,
     redirectUrl: process.env.REDIRECT_URL,
-    websocketEndpoint: process.env.WEBSOCKET_ENDPIONT
-  }
+    websocketEndpoint: process.env.WEBSOCKET_ENDPIONT,
+  },
 }

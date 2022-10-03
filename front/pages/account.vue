@@ -7,8 +7,8 @@
 <script>
 export default {
   layout: 'loggedIn',
-  validate ({ route }) {
+  validate({ route }) {
     return route.name !== 'account'
-  }
+  },
 }
 </script>

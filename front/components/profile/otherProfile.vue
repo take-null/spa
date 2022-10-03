@@ -1,15 +1,13 @@
 <template>
   <div>
-    <v-card 
+    <v-card
       color="blue-grey lighten-5"
       class="mx-auto"
       max-width="768"
       elevation="0"
     >
       <template>
-        <div 
-          v-if="image === null"
-        >
+        <div v-if="image === null">
           <v-img
             :src="cards.src"
             class="white--text align-end"
@@ -21,13 +19,12 @@
               {{ name }}
             </v-card-title>
             <v-card-text>
-              Following: {{following.length}}/Followers: {{followers.length}}
+              Following: {{ following.length }}/Followers:
+              {{ followers.length }}
             </v-card-text>
           </v-img>
         </div>
-        <div 
-          v-else
-        >
+        <div v-else>
           <v-img
             :src="image"
             class="white--text align-end"
@@ -39,29 +36,20 @@
               {{ name }}
             </v-card-title>
             <v-card-text>
-              Following: {{following.length}}/Followers: {{followers.length}}
+              Following: {{ following.length }}/Followers:
+              {{ followers.length }}
             </v-card-text>
           </v-img>
         </div>
+        <v-card-text> プロフィール： </v-card-text>
         <v-card-text>
-          プロフィール：
-        </v-card-text>
-        <v-card-text>
-          {{profile}}
+          {{ profile }}
         </v-card-text>
         <v-divider></v-divider>
-        <v-card-text>
-          年齢：{{age}}
-        </v-card-text>
-        <v-card-text>
-          生息地：{{locate}}
-        </v-card-text>
-        <v-card-text>
-          レビュー数：{{review}}
-        </v-card-text>
-        <v-card-text>
-          評価したレビュー数：{{good.length}}
-        </v-card-text>
+        <v-card-text> 年齢：{{ age }} </v-card-text>
+        <v-card-text> 生息地：{{ locate }} </v-card-text>
+        <v-card-text> レビュー数：{{ review }} </v-card-text>
+        <v-card-text> 評価したレビュー数：{{ good.length }} </v-card-text>
       </template>
     </v-card>
   </div>
@@ -71,42 +59,42 @@
 export default {
   props: {
     id: {
-      type: Number
+      type: Number,
     },
     name: {
-      type: String
+      type: String,
     },
     image: {
-      type: String
+      type: String,
     },
     profile: {
-      type: String
+      type: String,
     },
     age: {
-      type: String
+      type: String,
     },
     locate: {
-      type: String
+      type: String,
     },
     following: {
-      type: Array
+      type: Array,
     },
     followers: {
-      type: Array
+      type: Array,
     },
     good: {
-      type:Array
+      type: Array,
     },
     review: {
-      type:Number
-    }
+      type: Number,
+    },
   },
-  data () {
+  data() {
     return {
       isValid: false,
       loading: false,
-      cards: { src: "https://picsum.photos/id/1073/1920/1080", flex: 6 },
+      cards: { src: 'https://picsum.photos/id/1073/1920/1080', flex: 6 },
     }
   },
-};
+}
 </script>
