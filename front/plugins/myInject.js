@@ -1,17 +1,17 @@
 class MyInject {
-  constructor (app) {
+  constructor(app) {
     this.app = app
   }
-  pageTitle (routeName) {
+  pageTitle(routeName) {
     const jsonPath = `pages.${routeName.replace(/-/g, '.')}`
     const title = this.app.i18n.t(jsonPath)
-    return (typeof (title) === 'object') ? title.index : title
+    return typeof title === 'object' ? title.index : title
   }
-  contentsLinkTo (id, name = 'contents-id-dashboard') {
+  contentsLinkTo(id, name = 'contents-id-dashboard') {
     return { name, params: { id } }
   }
 }
 
 export default ({ app }, inject) => {
-    inject('my', new MyInject(app))
+  inject('my', new MyInject(app))
 }

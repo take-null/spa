@@ -1,22 +1,13 @@
 <template>
-  <v-container 
-    fluid
-  >
-    <v-row 
-      align="center"
-    >
-      <v-col 
-        cols="6"
-      >
-        <v-subheader>
-          年齢
-        </v-subheader>
+  <v-container fluid>
+    <v-row align="center">
+      <v-col cols="6">
+        <v-subheader> 年齢 </v-subheader>
       </v-col>
 
       <v-col cols="6">
         <v-select
           v-model="setAge"
-
           :items="items"
           label="選択する"
           single-line
@@ -27,25 +18,29 @@
 </template>
 
 <script>
-const maxAge = 117;
-const ageRange = [...Array(maxAge).keys()].map(String);
+const maxAge = 117
+const ageRange = [...Array(maxAge).keys()].map(String)
 export default {
-  props: { 
+  props: {
     age: {
       type: String,
-      required: false
-    }    
+      required: false,
+    },
   },
-  data () { 
+  data() {
     return {
-        items: ageRange
+      items: ageRange,
     }
   },
   computed: {
     setAge: {
-      get () { return this.age },
-      set (newVal) { return this.$emit('update:age', newVal) }
-    }
+      get() {
+        return this.age
+      },
+      set(newVal) {
+        return this.$emit('update:age', newVal)
+      },
+    },
   },
-};
+}
 </script>

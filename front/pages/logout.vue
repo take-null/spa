@@ -5,12 +5,11 @@
 <script>
 export default {
   layout: 'logout',
-  beforeCreate () {
-    this.$auth.logout()
-    .then(() => {
+  beforeCreate() {
+    this.$auth.logout().then(() => {
       this.$router.replace('/')
       this.$nxauth.deleteData()
     })
   },
-};
+}
 </script>

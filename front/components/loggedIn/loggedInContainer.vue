@@ -1,14 +1,9 @@
 <template>
-  <v-container 
-    fluid
-  >
-    <slot 
-      name="my-content" 
-    />
+  <v-container fluid>
+    <slot name="my-content" />
   </v-container>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>

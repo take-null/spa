@@ -1,4 +1,4 @@
-{   
+{
   "menus": {
     "about": "about",
     "content-one": "functions"
@@ -29,5 +29,5 @@
         "shelf": "私の本棚"
       }
     }
-  } 
+  }
 }

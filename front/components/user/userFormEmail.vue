@@ -1,6 +1,6 @@
 <template>
   <v-text-field
-    v-model="setEmail" 
+    v-model="setEmail"
     :value="email"
     :rules="rules"
     label="メールアドレス"
@@ -12,34 +12,35 @@
 </template>
 <script>
 export default {
-  props: { 
+  props: {
     email: {
       type: String,
-      default: "",
-      required: true
+      default: '',
+      required: true,
     },
     noValidation: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
-      rules: [
-        v => !!v || '',
-        v => /.+@.+\..+/.test(v) || ''
-      ]
+      rules: [(v) => !!v || '', (v) => /.+@.+\..+/.test(v) || ''],
     }
   },
   computed: {
     setEmail: {
-      get () { return this.email },
-      set (newVal) { return this.$emit('update:email', newVal) }
+      get() {
+        return this.email
+      },
+      set(newVal) {
+        return this.$emit('update:email', newVal)
+      },
     },
-    form () {
+    form() {
       const placeholder = this.noValidation ? undefined : 'your@email.com'
       return { placeholder }
-    }
-  }
-};
+    },
+  },
+}
 </script>

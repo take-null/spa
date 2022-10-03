@@ -1,15 +1,15 @@
 <template>
-    <v-toolbar-title>
-        {{ appName }}
-    </v-toolbar-title>
+  <v-toolbar-title>
+    {{ appName }}
+  </v-toolbar-title>
 </template>
 
 <script>
 export default {
-  data({ $config: { appName }}) {
+  data({ $config: { appName } }) {
     return {
-        appName
-    }      
-  }
-};
+      appName,
+    }
+  },
+}
 </script>

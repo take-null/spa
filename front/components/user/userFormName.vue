@@ -3,8 +3,8 @@
     v-model="setName"
     :value="name"
     :rules="rules"
-    :counter="max"  
-    label="名前" 
+    :counter="max"
+    label="名前"
     prepend-icon="mdi-account-circle"
     placeholder="あなたの名前"
     outlined
@@ -14,28 +14,32 @@
 
 <script>
 export default {
-  props: { 
+  props: {
     name: {
       type: String,
-      default: "",
-      required: true
-    }    
+      default: '',
+      required: true,
+    },
   },
-  data () {
+  data() {
     const max = 30
     return {
       max,
       rules: [
-        v => !!v || '',
-        v => (!!v && max >= v.length) || `${max}文字以内で入力してください`
-      ]
+        (v) => !!v || '',
+        (v) => (!!v && max >= v.length) || `${max}文字以内で入力してください`,
+      ],
     }
   },
   computed: {
     setName: {
-      get () { return this.name },
-      set (newVal) { return this.$emit('update:name', newVal) }
-    }
-  }
-};
+      get() {
+        return this.name
+      },
+      set(newVal) {
+        return this.$emit('update:name', newVal)
+      },
+    },
+  },
+}
 </script>

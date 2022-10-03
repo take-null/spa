@@ -1,26 +1,16 @@
 <template>
-  <v-app 
-    id="inspire"
-  >
+  <v-app id="inspire">
     <v-container>
       <v-row>
-        <template 
-          v-if="width > 600"
-        >
-          <v-col
-            cols="3"
-          >
-            <v-card
-              color="blue-grey lighten-5"
-              rounded="lg"
-              max-width="600"
-            >
+        <template v-if="width > 600">
+          <v-col cols="3">
+            <v-card color="blue-grey lighten-5" rounded="lg" max-width="600">
               <myProfile
                 :name.sync="user.name"
                 :image.sync="user.image.url"
-                :email.sync="user.email" 
-                :profile.sync="user.profile" 
-                :age.sync="user.age" 
+                :email.sync="user.email"
+                :profile.sync="user.profile"
+                :age.sync="user.age"
                 :locate.sync="user.locate"
                 :following.sync="user.following"
                 :followers.sync="user.followers"
@@ -29,28 +19,23 @@
               />
             </v-card>
           </v-col>
-          <v-col
-            cols="9"
-          >
+          <v-col cols="9">
             <v-card
-              v-if="width > 600 && width <768"
+              v-if="width > 600 && width < 768"
               color="blue-grey lighten-5"
               max-width="600"
             >
-              <v-card-title>
-                MyBooks
-              </v-card-title>
-              <v-container 
-                fluid
-              >
+              <v-card-title> MyBooks </v-card-title>
+              <v-container fluid>
                 <v-row>
                   <v-col
-                    v-for="book in books" :key="book.id"
+                    v-for="book in books"
+                    :key="book.id"
                     cols="4"
                     class="d-flex align-end"
                   >
-                    <bookDetail 
-                      :user_id.sync="book.user_id" 
+                    <bookDetail
+                      :user_id.sync="book.user_id"
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -67,15 +52,9 @@
                     />
                   </v-col>
                 </v-row>
-                <v-row
-                  justify="center"
-                >
-                  <v-col
-                    cols="8"
-                  >
-                    <v-container
-                      class="max-width"
-                    >
+                <v-row justify="center">
+                  <v-col cols="8">
+                    <v-container class="max-width">
                       <v-pagination
                         v-model="page"
                         :length="total"
@@ -87,25 +66,22 @@
                 </v-row>
               </v-container>
             </v-card>
-            <v-card
-              v-else
-              color="blue-grey lighten-5"
-              max-width="960"
-            >
-              <v-card-title>
-                MyBooks
-              </v-card-title>
-              <v-container 
-                fluid
-              >
+            <v-card v-else color="blue-grey lighten-5" max-width="960">
+              <v-card-title> MyBooks </v-card-title>
+              <v-container fluid>
                 <v-row>
                   <v-col
-                    v-for="book in books" :key="book.id"
-                    cols="12" sm="4" md="3" lg="3" xl="2"
+                    v-for="book in books"
+                    :key="book.id"
+                    cols="12"
+                    sm="4"
+                    md="3"
+                    lg="3"
+                    xl="2"
                     class="d-flex align-end"
                   >
                     <bookDetail
-                      :user_id.sync="book.user_id" 
+                      :user_id.sync="book.user_id"
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -122,15 +98,9 @@
                     />
                   </v-col>
                 </v-row>
-                <v-row
-                  justify="center"
-                >
-                  <v-col
-                    cols="8"
-                  >
-                    <v-container
-                      class="max-width"
-                    >
+                <v-row justify="center">
+                  <v-col cols="8">
+                    <v-container class="max-width">
                       <v-pagination
                         v-model="page"
                         :length="total"
@@ -144,53 +114,40 @@
             </v-card>
           </v-col>
         </template>
-        <template 
-          v-else
-        >
-          <v-col
-            cols="12"
-          >
-          <v-card
-            color="blue-grey lighten-5"
-            rounded="lg"
-            max-width="599"
-          >
-            <myProfile
-              :name.sync="user.name"
-              :image.sync="user.image.url"
-              :email.sync="user.email" 
-              :profile.sync="user.profile" 
-              :age.sync="user.age" 
-              :locate.sync="user.locate"
-              :following.sync="user.following"
-              :followers.sync="user.followers"
-              :good.sync="user.goods"
-              :review.sync="review"
-            />
-          </v-card>
-        </v-col>
-        <v-col
-          cols="12"
-        >
-          <v-card
-            v-if="width > 518"
-            color="blue-grey lighten-5"
-            max-width="517"  
-          >
-            <v-card-title>
-              MyBooks
-            </v-card-title>
-              <v-container 
-                fluid
-              >
+        <template v-else>
+          <v-col cols="12">
+            <v-card color="blue-grey lighten-5" rounded="lg" max-width="599">
+              <myProfile
+                :name.sync="user.name"
+                :image.sync="user.image.url"
+                :email.sync="user.email"
+                :profile.sync="user.profile"
+                :age.sync="user.age"
+                :locate.sync="user.locate"
+                :following.sync="user.following"
+                :followers.sync="user.followers"
+                :good.sync="user.goods"
+                :review.sync="review"
+              />
+            </v-card>
+          </v-col>
+          <v-col cols="12">
+            <v-card
+              v-if="width > 518"
+              color="blue-grey lighten-5"
+              max-width="517"
+            >
+              <v-card-title> MyBooks </v-card-title>
+              <v-container fluid>
                 <v-row>
                   <v-col
-                    v-for="book in books" :key="book.id"
-                      cols="6"
-                      class="d-flex align-end"
+                    v-for="book in books"
+                    :key="book.id"
+                    cols="6"
+                    class="d-flex align-end"
                   >
                     <bookDetail
-                      :user_id.sync="book.user_id" 
+                      :user_id.sync="book.user_id"
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -207,15 +164,9 @@
                     />
                   </v-col>
                 </v-row>
-                <v-row
-                  justify="center"
-                >
-                  <v-col
-                    cols="8"
-                  >
-                    <v-container
-                      class="max-width"
-                    >
+                <v-row justify="center">
+                  <v-col cols="8">
+                    <v-container class="max-width">
                       <v-pagination
                         v-model="page"
                         :length="total"
@@ -230,22 +181,19 @@
             <v-card
               v-else-if="width < 518 && width > 340"
               color="blue-grey lighten-5"
-              max-width="517"  
+              max-width="517"
             >
-              <v-card-title>
-                MyBooks
-              </v-card-title>
-              <v-container 
-                fluid
-              >
+              <v-card-title> MyBooks </v-card-title>
+              <v-container fluid>
                 <v-row>
                   <v-col
-                    v-for="book in books" :key="book.id"
+                    v-for="book in books"
+                    :key="book.id"
                     cols="6"
                     class="d-flex align-end"
                   >
                     <bookDetail
-                      :user_id.sync="book.user_id" 
+                      :user_id.sync="book.user_id"
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -262,15 +210,9 @@
                     />
                   </v-col>
                 </v-row>
-                <v-row
-                  justify="center"
-                >
-                  <v-col
-                    cols="8"
-                  >
-                    <v-container
-                      class="max-width"
-                    >
+                <v-row justify="center">
+                  <v-col cols="8">
+                    <v-container class="max-width">
                       <v-pagination
                         v-model="page"
                         :length="total"
@@ -288,20 +230,17 @@
               max-width="339"
               min-height="70vh"
             >
-              <v-card-title>
-                MyBooks
-              </v-card-title>
-              <v-container 
-                fluid
-              >
+              <v-card-title> MyBooks </v-card-title>
+              <v-container fluid>
                 <v-row>
                   <v-col
-                    v-for="book in books" :key="book.id"
+                    v-for="book in books"
+                    :key="book.id"
                     cols="12"
                     class="d-flex align-end"
                   >
                     <bookDetail
-                      :user_id.sync="book.user_id" 
+                      :user_id.sync="book.user_id"
                       :book_image.sync="book.book_image"
                       :comment.sync="book.comment"
                       :created_at.sync="book.created_at"
@@ -318,15 +257,9 @@
                     />
                   </v-col>
                 </v-row>
-                <v-row
-                  justify="center"
-                >
-                  <v-col
-                    cols="8"
-                  >
-                    <v-container
-                      class="max-width"
-                    >
+                <v-row justify="center">
+                  <v-col cols="8">
+                    <v-container class="max-width">
                       <v-pagination
                         v-model="page"
                         :length="total"
@@ -349,32 +282,34 @@
 import bookDetail from '~/components/books/bookDetail.vue'
 import myProfile from '~/components/profile/myProfile.vue'
 export default {
-  components: { 
+  components: {
     myProfile,
-    bookDetail
+    bookDetail,
   },
-  data () {
+  data() {
     return {
       page: 1,
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     }
   },
-  async asyncData ({ $axios, $nxauth }) {
+  async asyncData({ $axios, $nxauth }) {
     let user = []
-    await $axios.$get(`/api/v1/users/${$nxauth.user.id}`)
-    .then((res) => (
-      user = res
-    ))
+    await $axios
+      .$get(`/api/v1/users/${$nxauth.user.id}`)
+      .then((res) => (user = res))
     let books = []
     let total = null
     let review = null
-    await $axios.$get('/api/v1/books_shelves/')
-    .then(res => (
-      books = res.books,
-      total = res.kaminari.pagenation.pages,
-      review = res.kaminari.pagenation.count
-    ))
+    await $axios
+      .$get('/api/v1/books_shelves/')
+      .then(
+        (res) => (
+          (books = res.books),
+          (total = res.kaminari.pagenation.pages),
+          (review = res.kaminari.pagenation.count)
+        )
+      )
     return { user, books, total, review }
   },
   mounted() {
@@ -384,23 +319,22 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    handleResize: function() {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
+    handleResize: function () {
+      this.width = window.innerWidth
+      this.height = window.innerHeight
     },
     async movePage(number) {
-      await this.$axios.$get('/api/v1/books_shelves/', {
-        params: {
-          page: number, 
-        },
-      })
-      .then((res) => (
-        this.books = res.books
-      ))
+      await this.$axios
+        .$get('/api/v1/books_shelves/', {
+          params: {
+            page: number,
+          },
+        })
+        .then((res) => (this.books = res.books))
     },
     redirectPage() {
-      this.$router.go({path: this.$router.currentRoute.path, force: true})
-    }
+      this.$router.go({ path: this.$router.currentRoute.path, force: true })
+    },
   },
-};
+}
 </script>
